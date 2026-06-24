@@ -1,10 +1,19 @@
 
 
+import CTASection from "@/components/landing/CTASection";
+import FeaturesSection from "@/components/landing/FeaturesSection";
+import HeroSection from "@/components/landing/HeroSection";
+import ServiceGridSection from "@/components/landing/ServiceGridSection";
+import StatsSection from "@/components/landing/StatsSection";
+
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <h1>Rizqifybd.com</h1>
-      <p className="text-5xl font-bold">This is bi</p>
+    <div className="bg-gray-950 text-slate-100">
+      <HeroSection />
+      <ServiceGridSection />
+      <FeaturesSection />
+      <StatsSection />
+      <CTASection />
     </div>
   );
 }

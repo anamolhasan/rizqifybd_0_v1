@@ -33,6 +33,7 @@ export function SigninForm() {
         body: JSON.stringify({
           name: data.name,
           email: data.email,
+          refer: data.refer,
           password: data.password,
         }),
       });
@@ -92,6 +93,20 @@ export function SigninForm() {
             />
             {errors.email && (
               <p className="text-xs text-destructive">{errors.email.message}</p>
+            )}
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="number">Refer Id</Label>
+            <Input
+              id="number"
+              placeholder="refer number => a342m3"
+              type="string"
+              disabled={isLoading}
+              {...register("number")}
+            />
+            {errors.number && (
+              <p className="text-xs text-destructive">{errors.number.message}</p>
             )}
           </div>
 
