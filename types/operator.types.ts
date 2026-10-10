@@ -17,11 +17,20 @@ export interface ICreateOperatorPayload {
   isActive?: boolean;
 }
 
-export interface IUpdateOperatorPayload
-  extends Partial<ICreateOperatorPayload> {}
+export type IUpdateOperatorPayload = Partial<ICreateOperatorPayload>;
 
 export interface IDeleteOperatorResult {
   id: string;
   isDeleted: boolean;
   deletedAt: string;
+}
+
+export interface IOperatorListParams {
+  page?: number;
+  limit?: number;
+  searchTerm?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  isActive?: boolean;
+  isDeleted?: boolean;
 }

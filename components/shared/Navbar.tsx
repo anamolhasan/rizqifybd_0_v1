@@ -1,61 +1,38 @@
-'use client'
-import Link from "next/link";
+"use client";
+
 import { useEffect, useState } from "react";
-import { ModeToggle } from "@/components/theme/ModeToggle";
+
+import { cn } from "@/lib/utils";
+
+import { MainHeader } from "./navbar/MainHeader";
+import { PrimaryNavigation } from "./navbar/PrimaryNavigation";
+import { UtilityBar } from "./navbar/UtilityBar";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(()=>{
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 0)
-    }
-    window.addEventListener('scroll', handleScroll)
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-    return ()=> window.removeEventListener('scroll', handleScroll)
-  },[])
   return (
-    <header  className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-slate-950/20 backdrop-blur-md"
-          : "bg-slate-950 backdrop-blur-sm"
-      }`}>
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-lg font-bold tracking-tight text-white">
-          RizqifyBD
-        </Link>
+    <header className={cn("sticky top-0 z-50 w-full", scrolled && "shadow-sm")}>
+      <div
+        className={cn(
+          "hidden overflow-hidden transition-[max-height,opacity] duration-300 md:block",
+          scrolled ? "max-h-0 opacity-0" : "max-h-12 opacity-100",
+        )}
+      >
+        <UtilityBar />
+      </div>
 
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link href="/" className="text-sm font-medium text-slate-300 transition hover:text-white">
-            হোম
-          </Link>
-          <Link href="#services" className="text-sm font-medium text-slate-300 transition hover:text-white">
-            সেবা
-          </Link>
-          <Link href="#features" className="text-sm font-medium text-slate-300 transition hover:text-white">
-            আমাদের সম্পর্কে
-          </Link>
-          <Link href="#faq" className="text-sm font-medium text-slate-300 transition hover:text-white">
-            প্রশ্ন
-          </Link>
-        </nav>
-
-        <div className="flex items-center gap-3">
-          <span>
-            <ModeToggle />
-          </span>
-          <Link
-            href="/login"
-            className="hidden rounded-full border border-slate-700 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:border-sky-400 hover:text-white md:inline-flex"
-          >
-            লগ ইন
-          </Link>
-          <Link
-            href="/sign-up"
-            className="rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400"
-          >
-            সাইন আপ
-          </Link>
+      <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+        <MainHeader />
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <PrimaryNavigation />
         </div>
       </div>
     </header>

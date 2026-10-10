@@ -22,11 +22,17 @@ const STAFF_NAV_SECTIONS: Array<NavSection & { includedRoles?: Role[] }> = [
   {
     items: [
       { title: "Overview", href: "/admin/dashboard", icon: "dashboard" },
+      { title: "Home", href: "/", icon: "home" },
     ],
   },
   {
     title: "Management",
     items: [
+      {
+        title: "Offers Managements",
+        href: "/admin/dashboard/offers-management",
+        icon: "offers",
+      },
       {
         title: "Orders",
         href: "/admin/dashboard/orders-management",
