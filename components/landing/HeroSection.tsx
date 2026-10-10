@@ -24,7 +24,7 @@ export default function HeroSection() {
               সাইন আপ করুন
             </Link>
             <Link
-              href="/register"
+              href="/login"
               className="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-900/80 px-8 py-3 text-sm font-semibold text-slate-100 transition hover:border-slate-500"
             >
               লগ ইন করুন

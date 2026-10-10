@@ -22,7 +22,7 @@ export default function CTASection() {
               সাইন আপ করুন
             </Link>
             <Link
-              href="/register"
+              href="/login"
               className="inline-flex items-center justify-center rounded-full border border-slate-700 px-8 py-3 text-sm font-semibold text-slate-100 transition hover:border-sky-400"
             >
               লগ ইন করুন
