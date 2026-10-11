@@ -30,6 +30,16 @@ export const registerSchema = z
     confirmPassword: z
       .string()
       .min(1, { message: "Confirm password is required" }),
+    // Mirrors the backend rule (auth.validation.ts registerAppUserZodSchema): a
+    // referral code is optional, alphanumeric, at most 32 chars. It is never
+    // trusted as-is — the backend resolves and validates it on registration.
+    referralCode: z
+      .string()
+      .trim()
+      .max(32, { message: "Referral code must be at most 32 characters" })
+      .regex(/^[A-Za-z0-9]+$/, { message: "Invalid referral code" })
+      .optional()
+      .or(z.literal("")),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",

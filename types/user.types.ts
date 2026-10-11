@@ -11,6 +11,7 @@ export interface IAppUser {
   balance: number;
   totalEarned: number;
   referralIncomeEligible: boolean;
+  referralCode: string;
   referredBy: string | null;
   lastLogin: string | null;
   isDeleted: boolean;

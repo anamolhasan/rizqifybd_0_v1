@@ -53,7 +53,7 @@ function DetailItem({ icon: Icon, label, value, verified }: DetailItemProps) {
             {hasValue ? value : "Not provided"}
           </p>
           {verified && hasValue ? (
-            <BadgeCheck className="size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
+            <BadgeCheck className="size-4 shrink-0 text-success" />
           ) : null}
         </div>
       </div>

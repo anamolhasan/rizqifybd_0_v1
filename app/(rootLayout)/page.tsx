@@ -1,16 +1,16 @@
 import CTASection from "@/components/landing/CTASection";
-import FeaturesSection from "@/components/landing/FeaturesSection";
 import HeroSection from "@/components/landing/HeroSection";
+import ReferralSection from "@/components/landing/ReferralSection";
 import ServiceGridSection from "@/components/landing/ServiceGridSection";
 import StatsSection from "@/components/landing/StatsSection";
 
 export default function Home() {
   return (
-    <div className="bg-gray-950 text-slate-100">
+    <div className="">
       <HeroSection />
       <ServiceGridSection />
-      <FeaturesSection />
       <StatsSection />
+      <ReferralSection />
       <CTASection />
     </div>
   );

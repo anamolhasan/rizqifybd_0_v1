@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 
 import { BrandLogo } from "@/components/auth/BrandLogo";
-import { ModeToggle } from "@/components/theme/ModeToggle";
+import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -80,7 +80,7 @@ export function MobileNavigation() {
           <SheetTitle asChild>
             <BrandLogo href="/" />
           </SheetTitle>
-          <ModeToggle />
+          <ThemeSwitcher />
         </SheetHeader>
 
         <ScrollArea className="min-h-0 flex-1">
@@ -96,7 +96,7 @@ export function MobileNavigation() {
                       className={cn(
                         "flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
                         active
-                          ? "bg-sky-500/10 text-sky-600 dark:text-sky-400"
+                          ? "bg-primary/10 text-primary"
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >
@@ -146,7 +146,7 @@ export function MobileNavigation() {
                   <SheetClose asChild>
                     <Link
                       href={SERVICES_ROUTE}
-                      className="block rounded-lg px-3 py-2 text-sm font-medium text-sky-600 transition-colors hover:bg-muted dark:text-sky-400"
+                      className="block rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-muted"
                     >
                       সব সেবা দেখুন
                     </Link>
@@ -162,14 +162,14 @@ export function MobileNavigation() {
                 href={`tel:${SUPPORT_PHONE.replace(/\s+/g, "")}`}
                 className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:text-foreground"
               >
-                <Phone className="size-3.5 text-sky-500" />
+                <Phone className="size-3.5 text-primary" />
                 {SUPPORT_PHONE}
               </a>
               <a
                 href={`mailto:${SUPPORT_EMAIL}`}
                 className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:text-foreground"
               >
-                <Mail className="size-3.5 text-sky-500" />
+                <Mail className="size-3.5 text-primary" />
                 {SUPPORT_EMAIL}
               </a>
             </div>
@@ -180,7 +180,7 @@ export function MobileNavigation() {
           {user ? (
             <div className="space-y-2">
               <div className="flex items-center gap-3 px-1 py-1">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-sky-500 text-sm font-semibold text-slate-950">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-slate-950">
                   {(user.name ?? user.email ?? "?").charAt(0).toUpperCase()}
                 </span>
                 <div className="min-w-0 flex-1">
@@ -247,7 +247,7 @@ export function MobileNavigation() {
                 </Button>
               </SheetClose>
               <SheetClose asChild>
-                <Button asChild className="bg-sky-500 text-slate-950 hover:bg-sky-400">
+                <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
                   <Link href="/sign-up">সাইন আপ</Link>
                 </Button>
               </SheetClose>
@@ -255,7 +255,7 @@ export function MobileNavigation() {
           )}
 
           <div className="mt-3 flex items-center gap-2 px-1 text-xs text-muted-foreground">
-            <Headphones className="size-3.5 text-sky-500" />
+            <Headphones className="size-3.5 text-primary" />
             গ্রাহক সহায়তা
           </div>
         </div>

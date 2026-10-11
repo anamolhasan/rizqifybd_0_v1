@@ -1,6 +1,6 @@
 import { AuthBrandPanel } from "@/components/auth/AuthBrandPanel";
 import { BrandLogo } from "@/components/auth/BrandLogo";
-import { ModeToggle } from "@/components/theme/ModeToggle";
+import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 
 export default function AuthLayout({
   children,
@@ -14,7 +14,6 @@ export default function AuthLayout({
       <div className="flex w-full flex-col lg:w-1/2 xl:w-[45%]">
         <header className="flex items-center justify-end gap-3 p-6 lg:justify-between">
           <BrandLogo className="lg:hidden" />
-          <ModeToggle />
         </header>
 
         <div className="flex flex-1 items-center justify-center px-6 pb-10 lg:px-10">

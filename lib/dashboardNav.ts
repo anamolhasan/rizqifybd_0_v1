@@ -3,33 +3,16 @@ import {
   DASHBOARD_CUSTOMER_HOME,
   DASHBOARD_STAFF_HOME,
 } from "@/lib/constants";
-import { getCustomerNavItems, getStaffNavItems } from "@/lib/navItems";
+import {
+  getCommonNavItems,
+  getCustomerNavItems,
+  getStaffNavItems,
+} from "@/lib/navItems";
+import { isStaffRole } from "@/types/enums";
 import type { NavSection } from "@/types/dashboard.types";
 import type { Role } from "@/types/enums";
 
-const DEFAULT_STAFF_ROLE: Role = "ADMIN";
-const DEFAULT_CUSTOMER_ROLE: Role = "USER";
-
-export interface DashboardSession {
-  name: string;
-  email: string;
-  role: Role;
-  image: string | null;
-}
-
-const STAFF_SESSION: DashboardSession = {
-  name: "Admin User",
-  email: "admin@rizqifybd.com",
-  role: "ADMIN",
-  image: null,
-};
-
-const CUSTOMER_SESSION: DashboardSession = {
-  name: "RizqifyBD User",
-  email: "user@rizqifybd.com",
-  role: "USER",
-  image: null,
-};
+export type DashboardAudience = "staff" | "customer";
 
 function isStaffDashboard(pathname: string): boolean {
   return getRouteOwner(pathname) === "STAFF";
@@ -41,15 +24,31 @@ export function getDashboardHome(pathname: string): string {
     : DASHBOARD_CUSTOMER_HOME;
 }
 
-export function getDashboardSession(pathname: string): DashboardSession {
-  return isStaffDashboard(pathname) ? STAFF_SESSION : CUSTOMER_SESSION;
+// The authenticated session role is the source of truth. While the session is
+// still loading (role undefined) fall back to the current route's owner. On
+// shared routes (e.g. /my-profile) the audience is unknown until the session
+// resolves, so `null` is returned and only common navigation is shown.
+export function resolveDashboardAudience(
+  role: Role | undefined | null,
+  pathname: string,
+): DashboardAudience | null {
+  if (isStaffRole(role)) return "staff";
+  if (role) return "customer";
+
+  const owner = getRouteOwner(pathname);
+  if (owner === "STAFF") return "staff";
+  if (owner === "CUSTOMER") return "customer";
+  return null;
 }
 
-export function getDashboardNavItems(pathname: string): NavSection[] {
-  if (isStaffDashboard(pathname)) {
-    return getStaffNavItems(DEFAULT_STAFF_ROLE);
-  }
-  return getCustomerNavItems(DEFAULT_CUSTOMER_ROLE);
+export function getDashboardNavItems(
+  role: Role | undefined | null,
+  pathname: string,
+): NavSection[] {
+  const audience = resolveDashboardAudience(role, pathname);
+  if (audience === "staff") return getStaffNavItems(role);
+  if (audience === "customer") return getCustomerNavItems(role);
+  return getCommonNavItems(role);
 }
 
 export function getDashboardPageTitle(

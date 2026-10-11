@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 
 import { BrandLogo } from "@/components/auth/BrandLogo";
-import { ModeToggle } from "@/components/theme/ModeToggle";
+import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export function MainHeader() {
           </Button>
 
           <div className="hidden sm:block">
-            <ModeToggle />
+            <ThemeSwitcher />
           </div>
 
           <AccountMenu />

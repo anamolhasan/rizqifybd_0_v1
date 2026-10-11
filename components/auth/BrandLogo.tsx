@@ -19,7 +19,7 @@ export function BrandLogo({
       href={href}
       className={cn("group inline-flex items-center gap-2.5", className)}
     >
-      <span className="flex size-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-400 to-sky-600 text-slate-950 shadow-lg shadow-sky-500/30 transition-transform duration-300 group-hover:scale-105">
+      <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/30 transition-transform duration-300 group-hover:scale-105">
         <Signal className="size-5" strokeWidth={2.5} />
       </span>
       <span
@@ -29,7 +29,7 @@ export function BrandLogo({
         )}
       >
         Rizqify
-        <span className="text-sky-500">BD</span>
+        <span className="text-primary">BD</span>
       </span>
     </Link>
   );

@@ -20,26 +20,26 @@ const LEVELS = [
   {
     label: "Weak",
     hint: "Add uppercase letters",
-    indicator: "[&>[data-slot=progress-indicator]]:bg-orange-500",
-    text: "text-orange-500",
+    indicator: "[&>[data-slot=progress-indicator]]:bg-warning",
+    text: "text-warning",
   },
   {
     label: "Fair",
     hint: "Add numbers for strength",
-    indicator: "[&>[data-slot=progress-indicator]]:bg-amber-500",
-    text: "text-amber-500",
+    indicator: "[&>[data-slot=progress-indicator]]:bg-warning",
+    text: "text-warning",
   },
   {
     label: "Good",
     hint: "Add a symbol to make it strong",
-    indicator: "[&>[data-slot=progress-indicator]]:bg-sky-500",
-    text: "text-sky-500",
+    indicator: "[&>[data-slot=progress-indicator]]:bg-info",
+    text: "text-info",
   },
   {
     label: "Strong",
     hint: "Great password",
-    indicator: "[&>[data-slot=progress-indicator]]:bg-emerald-500",
-    text: "text-emerald-500",
+    indicator: "[&>[data-slot=progress-indicator]]:bg-success",
+    text: "text-success",
   },
 ] as const;
 

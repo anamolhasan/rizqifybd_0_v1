@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { Key, Loader2, LogOut, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -13,18 +12,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { getDashboardSession } from "@/lib/dashboardNav";
 import { useCurrentUser, useLogout } from "@/hooks/use-auth";
 
 export function DashboardUserMenu() {
-  const pathname = usePathname();
-  const session = getDashboardSession(pathname);
   const { data: currentUser } = useCurrentUser();
   const logout = useLogout();
 
-  const name = currentUser?.name ?? session.name;
-  const email = currentUser?.email ?? session.email;
-  const role = currentUser?.role ?? session.role;
+  const name = currentUser?.name ?? "Account";
+  const email = currentUser?.email;
+  const role = currentUser?.role;
 
   return (
     <DropdownMenu>
@@ -45,10 +41,14 @@ export function DashboardUserMenu() {
         <DropdownMenuLabel>
           <div className="flex flex-col gap-0.5">
             <p className="text-sm font-medium">{name}</p>
-            <p className="text-xs text-muted-foreground">{email}</p>
-            <p className="text-xs text-sky-600 capitalize dark:text-sky-400">
-              {role.toLowerCase().replace("_", " ")}
-            </p>
+            {email ? (
+              <p className="text-xs text-muted-foreground">{email}</p>
+            ) : null}
+            {role ? (
+              <p className="text-xs text-primary capitalize">
+                {role.toLowerCase().replace("_", " ")}
+              </p>
+            ) : null}
           </div>
         </DropdownMenuLabel>
 

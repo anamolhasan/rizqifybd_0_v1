@@ -16,7 +16,7 @@ export default function TestimonialsSection() {
     <section className="bg-slate-950 py-20 text-slate-100">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-sky-400">
+          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">
             গ্রাহকদের মতামত
           </p>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">

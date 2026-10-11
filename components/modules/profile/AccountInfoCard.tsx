@@ -21,7 +21,7 @@ interface AccountInfoCardProps {
 
 function BooleanBadge({ value }: { value?: boolean }) {
   return value ? (
-    <Badge variant="outline" className="text-emerald-600 dark:text-emerald-400">
+    <Badge variant="outline" className="text-success">
       Yes
     </Badge>
   ) : (

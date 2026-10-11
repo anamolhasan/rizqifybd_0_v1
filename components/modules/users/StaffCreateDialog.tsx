@@ -188,7 +188,7 @@ function StaffCreateForm({
         </DialogHeader>
 
         <div className="flex items-start gap-2 rounded-lg border bg-muted/50 px-3 py-2.5 text-sm text-muted-foreground">
-          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-sky-500" />
+          <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" />
           <span>
             Role assignments are enforced server-side. You can grant{" "}
             {creatableRoles.map((role) => STAFF_ROLE_LABELS[role]).join(", ")}.
@@ -289,7 +289,7 @@ function StaffCreateForm({
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="bg-sky-500 text-slate-950 hover:bg-sky-400"
+              className="bg-primary text-primary-foreground hover:bg-primary"
             >
               {isSubmitting ? (
                 <>

@@ -27,6 +27,13 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -39,6 +46,10 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-neon-cy: var(--cy);
+  --color-neon-mg: var(--mg);
+  --color-neon-vi: var(--vi);
+  --color-neon-mi: var(--mi);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,73 +59,95 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+ * RizqifyBD design system — "Emerald Ledger"
+ * A premium telecom/fintech palette built on a rich emerald-teal primary,
+ * soft warm-white surfaces and high-contrast charcoal text.
+ * Light is the only theme in Step 1; an alternative light theme lands in Step 2.
+ */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.993 0.004 106);
+  --foreground: oklch(0.22 0.015 160);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.22 0.015 160);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --popover-foreground: oklch(0.22 0.015 160);
+  --primary: oklch(0.508 0.108 166);
+  --primary-foreground: oklch(0.985 0.012 160);
+  --secondary: oklch(0.958 0.022 162);
+  --secondary-foreground: oklch(0.4 0.07 165);
+  --muted: oklch(0.966 0.008 160);
+  --muted-foreground: oklch(0.502 0.02 160);
+  --accent: oklch(0.945 0.03 172);
+  --accent-foreground: oklch(0.355 0.075 168);
+  --destructive: oklch(0.577 0.212 27.3);
+  --destructive-foreground: oklch(0.985 0.01 20);
+  --success: oklch(0.596 0.128 158);
+  --success-foreground: oklch(0.985 0.012 160);
+  --warning: oklch(0.726 0.16 70);
+  --warning-foreground: oklch(0.32 0.06 70);
+  --info: oklch(0.582 0.11 235);
+  --info-foreground: oklch(0.985 0.01 235);
+  --border: oklch(0.918 0.008 160);
+  --input: oklch(0.918 0.008 160);
+  --ring: oklch(0.508 0.108 166);
+  --chart-1: oklch(0.508 0.108 166);
+  --chart-2: oklch(0.62 0.1 190);
+  --chart-3: oklch(0.68 0.14 145);
+  --chart-4: oklch(0.75 0.15 75);
+  --chart-5: oklch(0.36 0.03 160);
+  /* Landing neon accents — mapped to the RizqifyBD emerald-family palette */
+  --cy: var(--primary);
+  --mg: var(--success);
+  --vi: var(--chart-2);
+  --mi: var(--chart-3);
+  --radius: 0.7rem;
+  --sidebar: oklch(0.985 0.006 160);
+  --sidebar-foreground: oklch(0.22 0.015 160);
+  --sidebar-primary: oklch(0.508 0.108 166);
+  --sidebar-primary-foreground: oklch(0.985 0.012 160);
+  --sidebar-accent: oklch(0.958 0.022 162);
+  --sidebar-accent-foreground: oklch(0.4 0.07 165);
+  --sidebar-border: oklch(0.918 0.008 160);
+  --sidebar-ring: oklch(0.508 0.108 166);
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/*
+ * Alternative light theme — "Mint"
+ * A cooler, fresher teal-forward palette. Status colors intentionally inherit
+ * from :root so destructive / success / warning / info stay consistent.
+ */
+.mint {
+  --background: oklch(0.985 0.012 178);
+  --foreground: oklch(0.24 0.02 185);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.02 185);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.02 185);
+  --primary: oklch(0.52 0.1 192);
+  --primary-foreground: oklch(0.99 0.01 190);
+  --secondary: oklch(0.955 0.03 182);
+  --secondary-foreground: oklch(0.42 0.06 190);
+  --muted: oklch(0.965 0.014 182);
+  --muted-foreground: oklch(0.5 0.022 188);
+  --accent: oklch(0.94 0.045 176);
+  --accent-foreground: oklch(0.35 0.07 188);
+  --border: oklch(0.912 0.014 182);
+  --input: oklch(0.912 0.014 182);
+  --ring: oklch(0.52 0.1 192);
+  --chart-1: oklch(0.52 0.1 192);
+  --chart-2: oklch(0.64 0.1 215);
+  --chart-3: oklch(0.7 0.13 150);
+  --chart-4: oklch(0.75 0.15 75);
+  --chart-5: oklch(0.36 0.035 190);
+  --sidebar: oklch(0.982 0.012 182);
+  --sidebar-foreground: oklch(0.24 0.02 185);
+  --sidebar-primary: oklch(0.52 0.1 192);
+  --sidebar-primary-foreground: oklch(0.99 0.01 190);
+  --sidebar-accent: oklch(0.955 0.03 182);
+  --sidebar-accent-foreground: oklch(0.42 0.06 190);
+  --sidebar-border: oklch(0.912 0.014 182);
+  --sidebar-ring: oklch(0.52 0.1 192);
 }
 
 @layer base {
@@ -132,4 +165,160 @@
 body {
   font-family: var(--font-noto-sans-bengali), var(--font-geist-sans),
     sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+ * Landing neon helpers (Hero Section & Footer)
+ * Ported from the reference design and retargeted to the RizqifyBD palette.
+ * Unlayered on purpose so they win over Tailwind utility layers.
+ * ------------------------------------------------------------------------- */
+.text-neon {
+  background: linear-gradient(90deg, var(--cy), var(--mg));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.glow-cy {
+  box-shadow: 0 0 24px color-mix(in srgb, var(--cy) 55%, transparent);
+}
+.glow-mg {
+  box-shadow:
+    0 0 18px color-mix(in srgb, var(--mg) 35%, transparent),
+    inset 0 0 14px color-mix(in srgb, var(--mg) 14%, transparent);
+}
+.glow-panel {
+  border-color: color-mix(in srgb, var(--cy) 60%, transparent);
+  box-shadow:
+    0 0 44px color-mix(in srgb, var(--cy) 26%, transparent),
+    inset 0 0 30px color-mix(in srgb, var(--cy) 8%, transparent);
+}
+.hero-glow {
+  background:
+    radial-gradient(
+      600px 400px at 85% 20%,
+      color-mix(in srgb, var(--vi) 28%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      500px 380px at 10% 85%,
+      color-mix(in srgb, var(--mg) 16%, transparent),
+      transparent 70%
+    );
+}
+.neon-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 56px 56px;
+  opacity: 0.35;
+  mask-image: radial-gradient(circle at 30% 40%, #000, transparent 75%);
+}
+.neon-floor {
+  background:
+    linear-gradient(color-mix(in srgb, var(--cy) 35%, transparent) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(90deg, color-mix(in srgb, var(--cy) 35%, transparent) 1px, transparent 1px) 0 0 / 60px 60px;
+  transform: perspective(500px) rotateX(68deg);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(transparent, #000 70%);
+  opacity: 0.5;
+}
+
+
+
+/* 3D cube animations — custom keyframes only */
+.cube-rotation {
+  animation: rizqify-cube-rotate 22s linear infinite;
+}
+
+.cube-core {
+  animation: rizqify-core-pulse 3s ease-in-out infinite;
+}
+
+@keyframes rizqify-cube-rotate {
+  0%,
+  100% {
+    transform: rotateX(-18deg) rotateY(0deg);
+  }
+
+  50% {
+    transform: rotateX(-18deg) rotateY(180deg);
+  }
+}
+
+@keyframes rizqify-core-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(1.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cube-rotation,
+  .cube-core {
+    animation: none;
+  }
+
+  .cube-rotation {
+    transform: rotateX(-18deg) rotateY(-25deg);
+  }
+}
+/* ----------------------- */
+
+/* hero panels */
+.panel {
+  border: 1.5px solid var(--c);
+  box-shadow:
+    0 0 26px color-mix(in srgb, var(--c) 40%, transparent),
+    inset 0 0 22px color-mix(in srgb, var(--c) 12%, transparent);
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+.panel-num {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1.5px solid var(--c);
+  color: var(--c);
+  font-family: var(--font-noto-sans-bengali), system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-shadow: 0 0 10px var(--c);
+}
+@media (min-width: 1024px) {
+  .scene {
+    position: relative;
+    height: 540px;
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.25s ease-out;
+  }
+  .panel {
+    transform: translateZ(var(--z));
+  }
+  .panel:hover,
+  .panel:focus-visible {
+    transform: translateZ(calc(var(--z) + 60px)) scale(1.04);
+    box-shadow:
+      0 0 44px var(--c),
+      inset 0 0 24px color-mix(in srgb, var(--c) 25%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cube,
+  .cube-core {
+    animation: none;
+  }
+  .scene,
+  .panel {
+    transition: none;
+  }
 }

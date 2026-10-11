@@ -7,7 +7,12 @@ import type { IProduct } from "@/types/product.types";
 import type { IOperator } from "@/types/operator.types";
 import type { IWithdrawal } from "@/types/withdrawal.types";
 import type { IWalletSummary, IWalletTransaction } from "@/types/wallet.types";
-import type { IReferralApplication, IReferralMe } from "@/types/referral.types";
+import type {
+  IReferralApplication,
+  IReferralMe,
+  IPartnerReferralDashboard,
+  IDefaultReferralCode,
+} from "@/types/referral.types";
 import type { IAgentApplication } from "@/types/agentApplication.types";
 
 export const userService = {
@@ -86,6 +91,16 @@ export const referralService = {
   },
   async getMyReferral() {
     return serverFetch<ApiResponse<IReferralMe>>("/referral/me");
+  },
+  async getDefaultReferralCode() {
+    return serverFetch<ApiResponse<IDefaultReferralCode>>(
+      "/referral/default-code",
+    );
+  },
+  async getPartnerReferral() {
+    return serverFetch<ApiResponse<IPartnerReferralDashboard>>(
+      "/referral/partner",
+    );
   },
 };
 

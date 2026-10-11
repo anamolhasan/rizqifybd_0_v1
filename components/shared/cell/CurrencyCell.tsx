@@ -11,7 +11,7 @@ interface CurrencyCellProps {
 export function CurrencyCell({
   value,
   className,
-  positive = "text-emerald-600 dark:text-emerald-400",
+  positive = "text-success",
   negative = "text-destructive",
 }: CurrencyCellProps) {
   const numeric = Number(value ?? 0);

@@ -23,12 +23,12 @@ export function ProfileHero({ user }: ProfileHeroProps) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="h-24 bg-gradient-to-r from-sky-500/25 via-emerald-500/15 to-indigo-500/25 sm:h-28" />
+      <div className="h-24 bg-gradient-to-r from-primary/25 via-success/15 to-accent/40 sm:h-28" />
       <CardContent className="-mt-12 flex flex-col gap-5 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <Avatar className="size-20 ring-4 ring-card sm:size-24">
             {photo ? <AvatarImage src={photo} alt={user.name} /> : null}
-            <AvatarFallback className="bg-sky-500 text-2xl font-semibold text-slate-950">
+            <AvatarFallback className="bg-primary text-2xl font-semibold text-primary-foreground">
               {initials}
             </AvatarFallback>
           </Avatar>
@@ -52,7 +52,7 @@ export function ProfileHero({ user }: ProfileHeroProps) {
               {user.emailVerified ? (
                 <Badge
                   variant="outline"
-                  className="gap-1 text-emerald-600 dark:text-emerald-400"
+                  className="gap-1 text-success"
                 >
                   <BadgeCheck className="size-3" />
                   Verified

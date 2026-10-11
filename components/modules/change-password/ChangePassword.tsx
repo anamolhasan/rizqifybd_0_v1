@@ -187,7 +187,7 @@ export function ChangePassword() {
               <Button
                 type="submit"
                 disabled={busy}
-                className="bg-sky-500 text-slate-950 hover:bg-sky-400 sm:min-w-40"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 sm:min-w-40"
               >
                 {busy ? (
                   <>

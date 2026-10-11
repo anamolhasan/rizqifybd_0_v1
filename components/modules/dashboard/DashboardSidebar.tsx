@@ -6,20 +6,20 @@ import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/auth/BrandLogo";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import {
-  getDashboardHome,
-  getDashboardNavItems,
-  getDashboardSession,
-} from "@/lib/dashboardNav";
+import { useCurrentUser } from "@/hooks/use-auth";
+import { getDashboardHome, getDashboardNavItems } from "@/lib/dashboardNav";
 import { getIconComponent } from "@/lib/iconMapper";
 import { cn } from "@/lib/utils";
+import type { Role } from "@/types/enums";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
+  const { data: currentUser } = useCurrentUser();
 
-  const sessions = getDashboardSession(pathname);
-  const navSections = getDashboardNavItems(pathname);
+  const role = currentUser?.role as Role | undefined;
+  const navSections = getDashboardNavItems(role, pathname);
   const dashboardHome = getDashboardHome(pathname);
+  const displayName = currentUser?.name ?? "Account";
 
   return (
     <aside className="hidden h-full w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground md:flex">
@@ -49,7 +49,7 @@ export function DashboardSidebar() {
                       className={cn(
                         "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                         isActive
-                          ? "bg-sky-500 text-slate-950"
+                          ? "bg-primary text-primary-foreground"
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >
@@ -70,16 +70,18 @@ export function DashboardSidebar() {
 
       <div className="shrink-0 border-t border-sidebar-border px-3 py-4">
         <div className="flex items-center gap-3">
-          <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-sky-500/10 text-sm font-semibold text-sky-600 dark:text-sky-400">
-            {sessions.name.charAt(0).toUpperCase()}
+          <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+            {displayName.charAt(0).toUpperCase()}
           </div>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium text-sidebar-foreground">
-              {sessions.name}
+              {displayName}
             </p>
-            <p className="truncate text-xs text-muted-foreground capitalize">
-              {sessions.role.toLowerCase().replace("_", " ")}
-            </p>
+            {currentUser?.role ? (
+              <p className="truncate text-xs text-muted-foreground capitalize">
+                {currentUser.role.toLowerCase().replace("_", " ")}
+              </p>
+            ) : null}
           </div>
         </div>
       </div>

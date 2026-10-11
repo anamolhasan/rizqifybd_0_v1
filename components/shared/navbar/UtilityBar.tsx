@@ -25,21 +25,21 @@ export function UtilityBar({ className }: UtilityBarProps) {
             href={`tel:${SUPPORT_PHONE.replace(/\s+/g, "")}`}
             className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
           >
-            <Phone className="size-3.5 text-sky-400" />
+            <Phone className="size-3.5 text-primary" />
             <span>{SUPPORT_PHONE}</span>
           </a>
           <a
             href={`mailto:${SUPPORT_EMAIL}`}
             className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
           >
-            <Headphones className="size-3.5 text-sky-400" />
+            <Headphones className="size-3.5 text-primary" />
             <span>গ্রাহক সহায়তা</span>
           </a>
         </div>
 
         <div className="flex items-center gap-4">
           <span className="hidden items-center gap-1.5 text-slate-400 lg:inline-flex">
-            <MapPin className="size-3.5 text-sky-400" />
+            <MapPin className="size-3.5 text-primary" />
             {SUPPORT_LOCATION}
           </span>
           {faqLink ? (

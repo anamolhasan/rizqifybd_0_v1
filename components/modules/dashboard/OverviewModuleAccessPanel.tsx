@@ -38,7 +38,7 @@ export function OverviewModuleAccessPanel({
               key={module.title}
               className="flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-muted/60"
             >
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <Icon className="size-4" />
               </span>
               <div className="min-w-0 flex-1">

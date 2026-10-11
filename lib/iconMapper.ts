@@ -14,6 +14,7 @@ import {
   Package,
   Plus,
   RefreshCcw,
+  Settings,
   ShieldCheck,
   ShoppingBag,
   Smartphone,
@@ -48,6 +49,7 @@ const iconMap: Record<string, LucideIcon> = {
   bank: Landmark,
   shield: ShieldCheck,
   refresh: RefreshCcw,
+  settings: Settings,
 };
 
 export type IconName =
@@ -72,7 +74,8 @@ export type IconName =
   | "credit"
   | "bank"
   | "shield"
-  | "refresh";
+  | "refresh"
+  | "settings";
 
 export function getIconComponent(
   name: string,

@@ -20,7 +20,12 @@ const STAFF_PROTECTED_PATTERNS: RegExp[] = [/^\/admin\/dashboard/];
 
 const CUSTOMER_PROTECTED_PATTERNS: RegExp[] = [/^\/dashboard/];
 
-const COMMON_PROTECTED_ROUTES = new Set(["/my-profile", "/change-password"]);
+const COMMON_PROTECTED_ROUTES = new Set([
+  "/my-profile",
+  "/change-password",
+  "/dashboard/my-referrals",
+  "/referral",
+]);
 
 export function isAuthRoute(pathname: string): boolean {
   return IS_AUTH_ROUTES.has(pathname);

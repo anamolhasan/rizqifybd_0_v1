@@ -56,7 +56,7 @@ export function AccountMenu() {
         </Button>
         <Button
           asChild
-          className="hidden bg-sky-500 text-slate-950 hover:bg-sky-400 md:inline-flex"
+          className="hidden bg-primary text-primary-foreground hover:bg-primary/90 md:inline-flex"
         >
           <Link href="/sign-up">সাইন আপ</Link>
         </Button>
@@ -77,7 +77,7 @@ export function AccountMenu() {
           className="h-9 gap-1.5 rounded-full px-1.5 md:px-2"
           aria-label="অ্যাকাউন্ট মেনু"
         >
-          <span className="flex size-6 items-center justify-center rounded-full bg-sky-500 text-xs font-semibold text-slate-950">
+          <span className="flex size-6 items-center justify-center rounded-full bg-primary text-xs font-semibold text-slate-950">
             {initial}
           </span>
           <span className="hidden max-w-28 truncate text-sm font-medium md:block">
@@ -94,7 +94,7 @@ export function AccountMenu() {
               {user.name ?? "RizqifyBD ব্যবহারকারী"}
             </p>
             <p className="truncate text-xs text-muted-foreground">{user.email}</p>
-            <p className="text-xs text-sky-600 capitalize dark:text-sky-400">
+            <p className="text-xs text-primary capitalize">
               {role.toLowerCase().replace(/_/g, " ")}
             </p>
           </div>

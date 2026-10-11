@@ -81,7 +81,7 @@ export function UserManagement() {
         {canCreate ? (
           <Button
             type="button"
-            className="bg-sky-500 text-slate-950 hover:bg-sky-400"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
             onClick={() => setCreateOpen(true)}
           >
             <Plus />
@@ -145,7 +145,7 @@ export function UserManagement() {
               className="flex flex-col gap-1.5 rounded-lg border bg-muted/40 px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex items-center gap-2 text-sm font-medium">
-                <ShieldCheck className="size-4 shrink-0 text-sky-500" />
+                <ShieldCheck className="size-4 shrink-0 text-primary" />
                 {rule.actor}
               </div>
               <div className="flex flex-wrap items-center gap-1.5 text-xs">
@@ -155,7 +155,7 @@ export function UserManagement() {
                 {rule.canCreate.map((role) => (
                   <span
                     key={role}
-                    className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 font-medium text-emerald-600 dark:text-emerald-400"
+                    className="rounded-md border border-success/30 bg-success/10 px-2 py-0.5 font-medium text-success"
                   >
                     {role}
                   </span>

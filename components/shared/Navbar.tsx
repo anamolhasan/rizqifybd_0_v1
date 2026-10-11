@@ -29,7 +29,7 @@ export default function Navbar() {
         <UtilityBar />
       </div>
 
-      <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="border-b border-border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
         <MainHeader />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <PrimaryNavigation />

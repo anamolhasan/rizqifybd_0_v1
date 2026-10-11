@@ -49,7 +49,7 @@ export function SearchBar({ className, autoFocus, onSubmitted }: SearchBarProps)
       <Button
         type="submit"
         size="sm"
-        className="absolute top-1/2 right-1 -translate-y-1/2 bg-sky-500 text-slate-950 hover:bg-sky-400"
+        className="absolute top-1/2 right-1 -translate-y-1/2 bg-primary text-primary-foreground hover:bg-primary/90"
       >
         খুঁজুন
       </Button>

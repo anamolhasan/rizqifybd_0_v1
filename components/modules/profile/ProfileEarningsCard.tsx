@@ -48,7 +48,7 @@ export function ProfileEarningsCard({ user, className }: ProfileEarningsCardProp
           {appUser.referralIncomeEligible ? (
             <Badge
               variant="outline"
-              className="gap-1 text-emerald-600 dark:text-emerald-400"
+              className="gap-1 text-success"
             >
               <Gift className="size-3" />
               Referral income eligible

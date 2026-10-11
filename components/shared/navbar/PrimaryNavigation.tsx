@@ -32,7 +32,7 @@ export function PrimaryNavigation() {
           className={cn(
             LINK_CLASS,
             isActive(home.href, home.match) &&
-              "border-sky-500 font-semibold text-foreground",
+              "border-primary font-semibold text-foreground",
           )}
         >
           {home.label}
@@ -50,7 +50,7 @@ export function PrimaryNavigation() {
             aria-current={active ? "page" : undefined}
             className={cn(
               LINK_CLASS,
-              active && "border-sky-500 font-semibold text-foreground",
+              active && "border-primary font-semibold text-foreground",
             )}
           >
             {link.label}

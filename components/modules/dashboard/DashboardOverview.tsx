@@ -4,6 +4,8 @@ import { ArrowRight, Plus, type LucideIcon } from "lucide-react";
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatsCard } from "@/components/shared/StatsCard";
 import { Button } from "@/components/ui/button";
+import { ReferralPartnerBadge } from "@/components/modules/referral/ReferralPartnerBadge";
+import { ReferralLinkCard } from "@/components/modules/referral/ReferralLinkCard";
 import { OverviewActivityPanel } from "./OverviewActivityPanel";
 import {
   OverviewModuleAccessPanel,
@@ -139,13 +141,16 @@ export function DashboardOverview({ variant }: DashboardOverviewProps) {
   return (
     <div className="space-y-6">
       <PageHeader title={config.heading} description={config.description}>
-        <Button asChild className="bg-sky-500 text-slate-950 hover:bg-sky-400">
+        {variant === "customer" ? <ReferralPartnerBadge /> : null}
+        <Button asChild className="bg-primary text-primary-foreground hover:bg-primary">
           <Link href={config.action.href}>
             <ActionIcon />
             {config.action.label}
           </Link>
         </Button>
       </PageHeader>
+
+      <ReferralLinkCard />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {config.stats.map((stat) => (

@@ -95,7 +95,7 @@ export function OfferManagement() {
       >
         <Button
           type="button"
-          className="bg-sky-500 text-slate-950 hover:bg-sky-400"
+          className="bg-primary text-primary-foreground hover:bg-primary/90"
           onClick={openCreateDialog}
         >
           <Plus />

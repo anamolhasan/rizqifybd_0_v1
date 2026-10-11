@@ -91,11 +91,11 @@ export function CategoryMegaMenu() {
                     onClick={() => setOpen(false)}
                     className="group flex items-start gap-3 rounded-lg p-2.5 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
                   >
-                    <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+                    <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Tag className="size-4" />
                     </span>
                     <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium group-hover:text-sky-600 dark:group-hover:text-sky-400">
+                      <span className="block truncate text-sm font-medium group-hover:text-primary">
                         {category.title}
                       </span>
                       {category.description ? (
@@ -121,7 +121,7 @@ export function CategoryMegaMenu() {
             <Link
               href={SERVICES_ROUTE}
               onClick={() => setOpen(false)}
-              className="inline-flex items-center gap-1 text-sm font-medium text-sky-600 hover:text-sky-500 dark:text-sky-400"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary"
             >
               সব সেবা দেখুন
               <ArrowRight className="size-3.5" />
