@@ -1,9 +1,12 @@
-import React from 'react'
+import type { Metadata } from "next";
 
-const OperatorsManagementPage = () => {
-  return (
-    <div>OperatorsManagementPage</div>
-  )
+import { OperatorManagement } from "@/components/modules/operators/OperatorManagement";
+
+export const metadata: Metadata = {
+  title: "Operators Management",
+  description: "Manage RizqifyBD mobile operators.",
+};
+
+export default function OperatorsManagementPage() {
+  return <OperatorManagement />;
 }
-
-export default OperatorsManagementPage

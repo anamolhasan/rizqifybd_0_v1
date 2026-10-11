@@ -1,9 +1,12 @@
-import React from 'react'
+import type { Metadata } from "next";
 
-const Change_password = () => {
-  return (
-    <div>Change_password</div>
-  )
+import { ChangePassword } from "@/components/modules/change-password/ChangePassword";
+
+export const metadata: Metadata = {
+  title: "Change Password",
+  description: "Update your RizqifyBD account password.",
+};
+
+export default function ChangePasswordPage() {
+  return <ChangePassword />;
 }
-
-export default Change_password

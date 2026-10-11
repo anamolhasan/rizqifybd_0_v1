@@ -6,14 +6,18 @@ import { toast } from "sonner";
 
 import { ApiError } from "@/lib/api";
 import {
+  changePassword,
   getMe,
   loginUser,
   logoutUser,
   registerUser,
+  updateMyProfile,
   type AuthResult,
   type AuthUser,
+  type ChangePasswordPayload,
   type LoginPayload,
   type RegisterPayload,
+  type UpdateMyProfilePayload,
 } from "@/lib/auth-api";
 import { getDefaultDashboardRoute } from "@/lib/authUtils";
 import { LOGIN_ROUTE } from "@/lib/constants";
@@ -96,6 +100,47 @@ export function useCurrentUser() {
     queryFn: getMe,
     retry: false,
     staleTime: 60 * 1000,
+  });
+}
+
+export function useUpdateMyProfile() {
+  const queryClient = useQueryClient();
+
+  return useMutation<AuthUser, ApiError, UpdateMyProfilePayload>({
+    mutationFn: updateMyProfile,
+    onSuccess: (user) => {
+      toast.success("Profile updated", {
+        description: "Your profile has been updated successfully.",
+      });
+      // Reflect the change immediately, then refetch to stay in sync.
+      queryClient.setQueryData<AuthUser>(["auth/me"], user);
+      queryClient.invalidateQueries({ queryKey: ["auth/me"] });
+    },
+    onError: (error) => {
+      toast.error("Failed to update profile", {
+        description: describeError(error),
+      });
+    },
+  });
+}
+
+export function useChangePassword() {
+  const queryClient = useQueryClient();
+
+  return useMutation<null, ApiError, ChangePasswordPayload>({
+    mutationFn: changePassword,
+    onSuccess: () => {
+      toast.success("Password changed", {
+        description:
+          "Your password has been updated. Use it the next time you sign in.",
+      });
+      queryClient.invalidateQueries({ queryKey: ["auth/me"] });
+    },
+    onError: (error) => {
+      toast.error("Failed to change password", {
+        description: describeError(error),
+      });
+    },
   });
 }
 

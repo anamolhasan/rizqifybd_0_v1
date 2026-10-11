@@ -1,0 +1,210 @@
+"use client";
+
+import { useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
+import { KeyRound, Loader2, Lock, TriangleAlert } from "lucide-react";
+
+import { PasswordInput } from "@/components/auth/PasswordInput";
+import { PasswordStrength } from "@/components/auth/PasswordStrength";
+import { PageHeader } from "@/components/shared/PageHeader";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { useChangePassword } from "@/hooks/use-auth";
+import { ApiError } from "@/lib/api";
+import {
+  changePasswordSchema,
+  type ChangePasswordFormInputs,
+} from "@/lib/validations";
+
+const DEFAULT_VALUES: ChangePasswordFormInputs = {
+  currentPassword: "",
+  newPassword: "",
+  confirmNewPassword: "",
+};
+
+const SERVER_FIELDS = new Set<keyof ChangePasswordFormInputs>([
+  "currentPassword",
+  "newPassword",
+]);
+
+export function ChangePassword() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<ChangePasswordFormInputs>({
+    resolver: standardSchemaResolver(changePasswordSchema),
+    defaultValues: DEFAULT_VALUES,
+  });
+
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const { mutateAsync, isPending } = useChangePassword();
+  const busy = isSubmitting || isPending;
+
+  const newPassword = useWatch({ control, name: "newPassword" }) ?? "";
+
+  const submit = async (values: ChangePasswordFormInputs) => {
+    setFormError(null);
+
+    try {
+      await mutateAsync({
+        currentPassword: values.currentPassword,
+        newPassword: values.newPassword,
+      });
+      reset(DEFAULT_VALUES);
+    } catch (error) {
+      let mappedToField = false;
+
+      if (error instanceof ApiError && error.errorSources?.length) {
+        for (const source of error.errorSources) {
+          const field = source.path as keyof ChangePasswordFormInputs;
+          if (SERVER_FIELDS.has(field)) {
+            setError(field, { type: "server", message: source.message });
+            mappedToField = true;
+          }
+        }
+      }
+
+      if (!mappedToField) {
+        setFormError(
+          error instanceof Error
+            ? error.message
+            : "Failed to change password. Please try again.",
+        );
+      }
+    }
+  };
+
+  return (
+    <div className="mx-auto w-full max-w-2xl space-y-6">
+      <PageHeader
+        title="Change Password"
+        description="Update the password you use to sign in to your RizqifyBD account."
+      />
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Account password</CardTitle>
+          <CardDescription>
+            Enter your current password, then choose a new one. For your security
+            you&apos;ll stay signed in on this device.
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <form onSubmit={handleSubmit(submit)} className="space-y-6" noValidate>
+            {formError ? (
+              <Alert variant="destructive" role="alert">
+                <TriangleAlert />
+                <AlertDescription>{formError}</AlertDescription>
+              </Alert>
+            ) : null}
+
+            <FieldGroup>
+              <Field data-invalid={Boolean(errors.currentPassword)}>
+                <FieldLabel htmlFor="currentPassword">
+                  <Lock className="size-4 text-muted-foreground" />
+                  Current Password
+                </FieldLabel>
+                <PasswordInput
+                  id="currentPassword"
+                  autoComplete="current-password"
+                  placeholder="••••••••"
+                  className="h-11"
+                  aria-invalid={Boolean(errors.currentPassword)}
+                  disabled={busy}
+                  {...register("currentPassword")}
+                />
+                <FieldError errors={[errors.currentPassword]} />
+              </Field>
+
+              <Field data-invalid={Boolean(errors.newPassword)}>
+                <FieldLabel htmlFor="newPassword">
+                  <KeyRound className="size-4 text-muted-foreground" />
+                  New Password
+                </FieldLabel>
+                <PasswordInput
+                  id="newPassword"
+                  autoComplete="new-password"
+                  placeholder="At least 6 characters"
+                  className="h-11"
+                  aria-invalid={Boolean(errors.newPassword)}
+                  disabled={busy}
+                  {...register("newPassword")}
+                />
+                <PasswordStrength password={newPassword} />
+                <FieldError errors={[errors.newPassword]} />
+              </Field>
+
+              <Field data-invalid={Boolean(errors.confirmNewPassword)}>
+                <FieldLabel htmlFor="confirmNewPassword">
+                  <Lock className="size-4 text-muted-foreground" />
+                  Confirm New Password
+                </FieldLabel>
+                <PasswordInput
+                  id="confirmNewPassword"
+                  autoComplete="new-password"
+                  placeholder="••••••••"
+                  className="h-11"
+                  aria-invalid={Boolean(errors.confirmNewPassword)}
+                  disabled={busy}
+                  {...register("confirmNewPassword")}
+                />
+                <FieldError errors={[errors.confirmNewPassword]} />
+              </Field>
+            </FieldGroup>
+
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
+              <Button
+                type="button"
+                variant="outline"
+                disabled={busy}
+                onClick={() => {
+                  setFormError(null);
+                  reset(DEFAULT_VALUES);
+                }}
+              >
+                Reset
+              </Button>
+              <Button
+                type="submit"
+                disabled={busy}
+                className="bg-sky-500 text-slate-950 hover:bg-sky-400 sm:min-w-40"
+              >
+                {busy ? (
+                  <>
+                    <Loader2 className="animate-spin" />
+                    Updating...
+                  </>
+                ) : (
+                  <>
+                    <KeyRound />
+                    Update Password
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

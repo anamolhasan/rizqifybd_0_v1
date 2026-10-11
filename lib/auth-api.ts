@@ -1,4 +1,5 @@
 import { apiRequest } from "./api";
+import type { IAppUser } from "@/types/user.types";
 
 export interface LoginPayload {
   email: string;
@@ -21,6 +22,12 @@ export interface AuthUser {
   phone?: string | null;
   image?: string | null;
   createdAt?: string;
+  phoneVerified?: boolean;
+  needPasswordChange?: boolean;
+  isDeleted?: boolean;
+  deletedAt?: string | null;
+  updatedAt?: string;
+  appUser?: IAppUser | null;
 }
 
 export interface AuthResult {
@@ -55,9 +62,42 @@ export async function getMe() {
   return data;
 }
 
+export interface UpdateMyProfilePayload {
+  name?: string;
+  phone?: string;
+  image?: string;
+  profilePhoto?: string;
+  contactNumber?: string;
+  address?: string;
+  country?: string;
+}
+
+export async function updateMyProfile(
+  payload: UpdateMyProfilePayload,
+): Promise<AuthUser> {
+  const { data } = await apiRequest<AuthUser>("/auth/me", {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+  return data;
+}
+
 export async function logoutUser() {
   const { data } = await apiRequest<null>("/auth/logout", {
     method: "POST",
+  });
+  return data;
+}
+
+export interface ChangePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export async function changePassword(payload: ChangePasswordPayload) {
+  const { data } = await apiRequest<null>("/auth/change-password", {
+    method: "POST",
+    body: JSON.stringify(payload),
   });
   return data;
 }

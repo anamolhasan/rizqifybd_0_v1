@@ -29,6 +29,11 @@ const STAFF_NAV_SECTIONS: Array<NavSection & { includedRoles?: Role[] }> = [
     title: "Management",
     items: [
       {
+        title: "Category Managements",
+        href: "/admin/dashboard/categories-management",
+        icon: "offers",
+      },
+      {
         title: "Offers Managements",
         href: "/admin/dashboard/offers-management",
         icon: "offers",

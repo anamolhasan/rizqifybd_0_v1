@@ -1,0 +1,80 @@
+import { BadgeCheck, CalendarDays, Clock, Mail } from "lucide-react";
+
+import { StatusBadgeCell } from "@/components/shared/cell/StatusBadgeCell";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { formatDate, formatRelativeTime } from "@/lib/format";
+import type { AuthUser } from "@/lib/auth-api";
+import {
+  getProfileInitials,
+  getProfileRoleLabel,
+  getProfileStatusLabel,
+} from "./profile.constants";
+
+interface ProfileHeroProps {
+  user: AuthUser;
+}
+
+export function ProfileHero({ user }: ProfileHeroProps) {
+  const photo = user.appUser?.profilePhoto ?? user.image ?? null;
+  const initials = getProfileInitials(user.name, user.email);
+  const lastLogin = user.appUser?.lastLogin;
+
+  return (
+    <Card className="overflow-hidden">
+      <div className="h-24 bg-gradient-to-r from-sky-500/25 via-emerald-500/15 to-indigo-500/25 sm:h-28" />
+      <CardContent className="-mt-12 flex flex-col gap-5 sm:-mt-14 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
+          <Avatar className="size-20 ring-4 ring-card sm:size-24">
+            {photo ? <AvatarImage src={photo} alt={user.name} /> : null}
+            <AvatarFallback className="bg-sky-500 text-2xl font-semibold text-slate-950">
+              {initials}
+            </AvatarFallback>
+          </Avatar>
+
+          <div className="space-y-1.5">
+            <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
+              {user.name}
+            </h2>
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <Mail className="size-3.5 shrink-0" />
+              <span className="truncate">{user.email}</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <Badge variant="secondary">
+                {getProfileRoleLabel(user.role)}
+              </Badge>
+              <StatusBadgeCell
+                status={user.status ?? ""}
+                label={getProfileStatusLabel(user.status)}
+              />
+              {user.emailVerified ? (
+                <Badge
+                  variant="outline"
+                  className="gap-1 text-emerald-600 dark:text-emerald-400"
+                >
+                  <BadgeCheck className="size-3" />
+                  Verified
+                </Badge>
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground sm:justify-end">
+          <div className="flex items-center gap-1.5">
+            <CalendarDays className="size-3.5" />
+            <span>Joined {formatDate(user.createdAt)}</span>
+          </div>
+          {lastLogin ? (
+            <div className="flex items-center gap-1.5">
+              <Clock className="size-3.5" />
+              <span>Last login {formatRelativeTime(lastLogin)}</span>
+            </div>
+          ) : null}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

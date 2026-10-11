@@ -128,3 +128,8 @@
     @apply font-sans;
   }
 }
+
+body {
+  font-family: var(--font-noto-sans-bengali), var(--font-geist-sans),
+    sans-serif;
+}
