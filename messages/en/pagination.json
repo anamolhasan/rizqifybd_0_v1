@@ -1,0 +1,6 @@
+{
+  "showing": "Showing <b>{from}</b>–<b>{to}</b> of <b>{total}</b> results",
+  "rows": "Rows",
+  "previous": "Previous",
+  "next": "Next"
+}

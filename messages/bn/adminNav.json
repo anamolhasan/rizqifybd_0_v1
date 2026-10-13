@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "dashboard": "ড্যাশবোর্ড",
+    "management": "ব্যবস্থাপনা",
+    "telecom": "টেলিকম",
+    "administration": "প্রশাসন"
+  },
+  "overview": "ওভারভিউ",
+  "categoriesManagement": "ক্যাটাগরি ব্যবস্থাপনা",
+  "ordersManagement": "অর্ডার ব্যবস্থাপনা",
+  "withdrawalsManagement": "উইথড্রয়াল ব্যবস্থাপনা",
+  "operators": "অপারেটর",
+  "telecomOffers": "টেলিকম অফার",
+  "userManagement": "ব্যবহারকারী ব্যবস্থাপনা",
+  "productManagement": "প্রোডাক্ট ব্যবস্থাপনা",
+  "walletsManagement": "ওয়ালেট ব্যবস্থাপনা",
+  "referralApplications": "রেফারেল আবেদন",
+  "agentApplications": "এজেন্ট আবেদন",
+  "settings": "সেটিংস"
+}

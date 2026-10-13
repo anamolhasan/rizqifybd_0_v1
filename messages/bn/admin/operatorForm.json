@@ -1,0 +1,20 @@
+{
+  "addTitle": "অপারেটর যোগ করুন",
+  "editTitle": "অপারেটর সম্পাদনা করুন",
+  "addDescription": "আপনার ক্যাটালগের জন্য একটি নতুন টেলিকম অপারেটর তৈরি করুন।",
+  "editDescription": "নিচের বিবরণ আপডেট করুন।",
+  "operatorName": "অপারেটরের নাম",
+  "namePlaceholder": "যেমন: Grameenphone",
+  "code": "কোড",
+  "codePlaceholder": "যেমন: GP",
+  "active": "সক্রিয়",
+  "cancel": "বাতিল",
+  "saving": "সংরক্ষণ হচ্ছে...",
+  "creating": "তৈরি হচ্ছে...",
+  "saveChanges": "পরিবর্তন সংরক্ষণ করুন",
+  "createOperator": "অপারেটর তৈরি করুন",
+  "deleteTitle": "অপারেটর মুছবেন?",
+  "deleteConfirmDescription": "\"{title}\" ক্যাটালগ থেকে সরিয়ে ফেলা হবে। এই ক্রিয়াটি পূর্ণভাবে পূর্ণ হবে না।",
+  "deleteConfirm": "অপারেটর মুছুন",
+  "deleting": "মুছে ফেলা হচ্ছে..."
+}

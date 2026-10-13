@@ -1,0 +1,22 @@
+{
+  "title": "Offers Management",
+  "description": "Manage telecom offers for your catalogue.",
+  "addOffer": "Add Offer",
+  "searchPlaceholder": "Search offers by name or operator...",
+  "errorTitle": "Failed to load offers",
+  "empty": "No offers found.",
+  "columns": {
+    "offer": "Offer",
+    "operator": "Operator",
+    "type": "Type",
+    "price": "Price",
+    "commission": "Commission",
+    "referral": "Referral",
+    "status": "Status",
+    "actions": "Actions"
+  },
+  "rowActions": {
+    "edit": "Edit offer",
+    "delete": "Delete offer"
+  }
+}

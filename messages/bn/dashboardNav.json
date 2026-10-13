@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "account": "অ্যাকাউন্ট"
+  },
+  "joinAgent": "এজেন্ট হোন",
+  "joinReferral": "রেফারেল হোন",
+  "myReferrals": "আমার রেফারেল",
+  "myOrders": "আমার অর্ডার",
+  "newOrder": "নতুন অর্ডার",
+  "myWallet": "আমার ওয়ালেট",
+  "myWithdrawals": "আমার উইথড্রয়াল"
+}

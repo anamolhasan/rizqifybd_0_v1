@@ -1,0 +1,22 @@
+{
+  "home": "Home",
+  "services": "Services",
+  "about": "About Us",
+  "faq": "FAQ",
+  "categories": "Categories",
+  "help": "Help & FAQ",
+  "dashboard": "Dashboard",
+  "adminDashboard": "Admin Dashboard",
+  "primaryNavigation": "Primary navigation",
+  "mobileNavigation": "Mobile navigation",
+  "openMenu": "Open navigation menu",
+  "searchPlaceholder": "Search products or services...",
+  "searchAriaLabel": "Search products or services",
+  "searchButton": "Search",
+  "allServices": "View all services",
+  "categoriesUnavailable": "Categories are currently unavailable.",
+  "telecomAllInOne": "All telecom services in one place",
+  "customerSupport": "Customer support",
+  "helpAndFaq": "Help & FAQ",
+  "location": "Brahmanbaria, Bangladesh"
+}

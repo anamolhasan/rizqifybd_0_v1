@@ -1,0 +1,12 @@
+{
+  "sellingPrice": "বিক্রয় মূল্য",
+  "companyCost": "কোম্পানির খরচ",
+  "estProfit": "আনুমানিক লাভ",
+  "directSale": "সরাসরি বিক্রয়",
+  "resellerSale": "রিসেলার বিক্রয়",
+  "resellerCommission": "রিসেলার কমিশন",
+  "agentSale": "এজেন্ট বিক্রয়",
+  "agentCommission": "এজেন্ট কমিশন",
+  "negativeProfitTitle": "নেগেটিভ লাভ",
+  "negativeProfitDescription": "এক বা একাধিক সিনারিও কোম্পানির খরচের নিচে বিক্রয় হবে। প্রকাশের আগে মূল্য এবং কমিশন পুনরীক্ষণ করুন।"
+}

@@ -1,0 +1,62 @@
+{
+  "title": "Referral Applications Management",
+  "description": "Review and manage user referral income applications.",
+  "searchPlaceholder": "Search by applicant name or email",
+  "errorTitle": "Failed to load referral applications",
+  "empty": "No referral applications found.",
+  "stats": {
+    "total": "Total",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "filters": {
+    "status": "Status",
+    "statusPlaceholder": "Status",
+    "allStatuses": "All statuses",
+    "clear": "Clear filters"
+  },
+  "columns": {
+    "applicant": "Applicant",
+    "email": "Email",
+    "phone": "Phone",
+    "method": "Promotion Method",
+    "amount": "Amount Earned",
+    "status": "Status",
+    "createdAt": "Created",
+    "reviewedBy": "Reviewed by",
+    "actions": "Actions"
+  },
+  "rowActions": {
+    "view": "View details",
+    "approve": "Approve",
+    "reject": "Reject"
+  },
+  "details": {
+    "title": "Referral application",
+    "description": "Submitted details and review history.",
+    "applicant": "Applicant",
+    "email": "Email",
+    "status": "Status",
+    "promotionMethod": "Promotion method",
+    "promotionUrl": "Promotion URL",
+    "reason": "Reason",
+    "termsAccepted": "Terms accepted",
+    "appliedAt": "Applied at",
+    "reviewedBy": "Reviewed by",
+    "reviewedAt": "Reviewed at",
+    "rejectionReason": "Rejection reason"
+  },
+  "review": {
+    "approveTitle": "Approve application",
+    "approveDescription": "Approving makes the applicant eligible to earn referral income.",
+    "rejectTitle": "Reject application",
+    "rejectDescription": "Provide a reason for rejecting this referral application.",
+    "reason": "Rejection reason",
+    "reasonPlaceholder": "Explain why this application is being rejected...",
+    "reasonRequired": "Rejection reason is required",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  }
+}

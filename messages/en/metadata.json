@@ -1,0 +1,109 @@
+{
+  "title": "RizqifyBD",
+  "titleTemplate": "%s | RizqifyBD",
+  "description": "RizqifyBD — MB, minutes, SMS, utility bills, and tickets — all in one place.",
+  "login": {
+    "title": "Log in",
+    "description": "Log in to your RizqifyBD account."
+  },
+  "signUp": {
+    "title": "Create account",
+    "description": "Create a new RizqifyBD account."
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "description": "Update your RizqifyBD account password."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "description": "Reset your RizqifyBD account password."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "description": "Your RizqifyBD account overview."
+  },
+  "myProfile": {
+    "title": "My Profile",
+    "description": "View and manage your RizqifyBD account profile."
+  },
+  "myOrders": {
+    "title": "My Orders",
+    "description": "Track your RizqifyBD order history."
+  },
+  "newOrders": {
+    "title": "New Order",
+    "description": "Place a new RizqifyBD order."
+  },
+  "myWallet": {
+    "title": "My Wallet",
+    "description": "View your RizqifyBD wallet balance and transactions."
+  },
+  "myWithdrawals": {
+    "title": "My Withdrawals",
+    "description": "Request and track your RizqifyBD payouts."
+  },
+  "agentApplication": {
+    "title": "Agent Application",
+    "description": "Join the RizqifyBD agent programme and earn commission."
+  },
+  "myReferrals": {
+    "title": "My Referral",
+    "description": "Share your referral link and track your referrals."
+  },
+  "referral": {
+    "title": "Referral Programme",
+    "description": "Join the RizqifyBD referral programme. Invite your contacts and earn from every successful referral."
+  },
+  "adminDashboard": {
+    "title": "Admin Dashboard",
+    "description": "RizqifyBD admin overview."
+  },
+  "adminUsers": {
+    "title": "Users Management",
+    "description": "Create and manage staff accounts for the RizqifyBD admin panel."
+  },
+  "adminOffers": {
+    "title": "Offers Management",
+    "description": "Manage RizqifyBD telecom offers."
+  },
+  "adminAddOffer": {
+    "title": "Add Offer",
+    "description": "Create a new telecom offer for your catalogue."
+  },
+  "adminCategories": {
+    "title": "Categories Management",
+    "description": "Manage RizqifyBD product categories."
+  },
+  "adminOperators": {
+    "title": "Operators Management",
+    "description": "Manage RizqifyBD mobile operators."
+  },
+  "adminReferralApplications": {
+    "title": "Referral Applications Management",
+    "description": "Review and manage user referral income applications."
+  },
+  "adminSettings": {
+    "title": "Settings",
+    "description": "Manage system-wide settings for the RizqifyBD admin panel."
+  },
+  "adminOrders": {
+    "title": "Orders Management",
+    "description": "Review and manage customer orders."
+  },
+  "adminProducts": {
+    "title": "Products Management",
+    "description": "Manage RizqifyBD products and bundles."
+  },
+  "adminWallet": {
+    "title": "Wallets Management",
+    "description": "Manage user wallets and transactions."
+  },
+  "adminWithdrawals": {
+    "title": "Withdrawals Management",
+    "description": "Review and process withdrawal requests."
+  },
+  "adminAgentApplications": {
+    "title": "Agent Applications",
+    "description": "Review and manage agent programme applications."
+  }
+}

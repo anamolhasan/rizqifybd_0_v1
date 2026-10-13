@@ -1,0 +1,63 @@
+{
+  "overview": {
+    "customer": {
+      "heading": "Dashboard",
+      "description": "Your RizqifyBD account overview.",
+      "action": "New Order",
+      "stats": {
+        "wallet": {
+          "title": "Wallet Balance",
+          "description": "Your available wallet balance."
+        },
+        "earned": {
+          "title": "Total Earned",
+          "description": "Income earned so far."
+        },
+        "orders": {
+          "title": "Total Orders",
+          "description": "Recharge and bill orders placed."
+        },
+        "referrals": {
+          "title": "My Referrals",
+          "description": "People referred by you."
+        }
+      },
+      "modules": {
+        "newOrder": {
+          "title": "New Order",
+          "description": "Recharge or pay a bill"
+        },
+        "orders": {
+          "title": "My Orders",
+          "description": "Track your order history"
+        },
+        "wallet": {
+          "title": "My Wallet",
+          "description": "Balance and transactions"
+        },
+        "withdrawals": {
+          "title": "My Withdrawals",
+          "description": "Request and track payouts"
+        },
+        "referrals": {
+          "title": "My Referral",
+          "description": "Referral link and income"
+        }
+      }
+    },
+    "activity": {
+      "title": "Recent Activity",
+      "description": "Live activity will appear here once data is connected."
+    },
+    "modulesPanel": {
+      "title": "Modules",
+      "description": "Shortcuts to the workspace features that arrive next."
+    }
+  },
+  "placeholders": {
+    "myOrders": "My orders will appear here soon.",
+    "newOrders": "Placing new orders will be available here soon.",
+    "myWallet": "Your wallet balance and transactions will appear here soon.",
+    "myWithdrawals": "Your withdrawals will appear here soon."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "title": "Operators Management",
+  "description": "Manage the mobile operators that power your telecom catalogue.",
+  "addOperator": "Add Operator",
+  "searchPlaceholder": "Search operators by name or code...",
+  "errorTitle": "Failed to load operators",
+  "empty": "No operators found.",
+  "statsTitle": "Total Operators",
+  "statsDescription": "Mobile operators in the catalogue.",
+  "columns": {
+    "name": "Name",
+    "code": "Code",
+    "status": "Status",
+    "createdAt": "Created",
+    "actions": "Actions"
+  },
+  "rowActions": {
+    "edit": "Edit operator",
+    "delete": "Delete operator"
+  }
+}

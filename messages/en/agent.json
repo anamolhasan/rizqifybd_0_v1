@@ -1,0 +1,95 @@
+{
+  "badge": {
+    "become": "Become an Agent",
+    "pending": "Agent Pending",
+    "approved": "Agent",
+    "rejected": "Agent Rejected",
+    "applyAria": "Apply to become an agent",
+    "viewAria": "View agent application status",
+    "approvedAria": "You are an approved agent"
+  },
+  "program": {
+    "eyebrow": "Agent Programme",
+    "heading": "Earn as an agent with <brand>RizqifyBD</brand>",
+    "description": "Join as an agent (reseller) and earn attractive commission on every successful sale. Read the rules below and apply today.",
+    "loadFailedTitle": "Couldn't load information",
+    "loadFailedBody": "There was a problem fetching information from the server."
+  },
+  "info": {
+    "whyTitle": "Why become an agent?",
+    "whyDescription": "Start your reseller journey with a single application.",
+    "highlights": {
+      "reseller": "Reseller benefits",
+      "secure": "Safe & transparent",
+      "commission": "Earn commission"
+    },
+    "sections": {
+      "rules": {
+        "title": "Programme rules",
+        "description": "Know the rules before you apply."
+      },
+      "eligibility": {
+        "title": "Eligibility",
+        "description": "What you need in order to apply."
+      },
+      "benefits": {
+        "title": "Benefits & commission",
+        "description": "What you get as an agent."
+      }
+    },
+    "rulesItems": [
+      "Only one agent application can be submitted per account.",
+      "Fake, multiple or self-referral sales are not accepted.",
+      "An approved application is required for agent benefits to activate.",
+      "Even after approval your account stays a customer account — only the agent badge and reseller benefits are added.",
+      "Benefits may be removed if a breach of the rules is proven."
+    ],
+    "eligibilityItems": [
+      "You must have an active and verified RizqifyBD customer account.",
+      "The account must not be suspended or deleted.",
+      "You must agree to the programme's terms and conditions.",
+      "Sales and promotion must be conducted honestly and transparently.",
+      "Benefits continue as long as you keep actively selling."
+    ],
+    "benefitsItems": [
+      "Attractive commission on every successful sale.",
+      "Commission goes straight to your wallet — easy to withdraw.",
+      "An agent (reseller) badge on your profile and dashboard.",
+      "Full tracking and reports from your dashboard.",
+      "Fast approval and fair evaluation."
+    ]
+  },
+  "form": {
+    "title": "Apply to become an agent",
+    "description": "Fill in the information below and submit your application. Your agent (reseller) benefits and commission only activate after approval.",
+    "applicantInfo": "Applicant information (from your profile)",
+    "fieldName": "Name",
+    "fieldEmail": "Email",
+    "fieldMobile": "Mobile",
+    "reasonLabel": "Reason for application",
+    "reasonPlaceholder": "Briefly explain why you want to become an agent (reseller) and how you will manage sales/promotion.",
+    "submit": "Submit application",
+    "submitting": "Submitting...",
+    "errorGeneric": "Couldn't submit the application. Please try again."
+  },
+  "status": {
+    "title": "Your application status",
+    "appliedOn": "Applied on",
+    "lastUpdated": "Last updated",
+    "rejectionReason": "Reason for rejection",
+    "canEarn": "Your agent benefits and commission are active — commission from new sales will be credited to your wallet.",
+    "notEarning": "Your agent benefits are being processed — they'll be active soon.",
+    "singleApplication": "Only one application is accepted per account, so you can't apply again until a decision is final.",
+    "pendingNote": "Your account stays a normal customer until approval — the agent badge and reseller benefits are added afterwards.",
+    "labels": {
+      "pending": "Under review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "descriptions": {
+      "pending": "Your agent application was submitted successfully. Our team will review it and let you know soon.",
+      "approved": "Congratulations! Your agent application has been approved. Your agent (reseller) benefits are now active.",
+      "rejected": "Sorry, your application was not approved. See the reason below."
+    }
+  }
+}

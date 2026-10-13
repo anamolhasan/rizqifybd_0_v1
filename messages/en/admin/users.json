@@ -1,0 +1,205 @@
+{
+  "title": "Users Management",
+  "description": "Manage customers, agents and staff accounts across RizqifyBD.",
+  "createStaff": "Create Staff Account",
+  "noPermission": "Your account does not have permission to create staff accounts. Only Super Admin and Admin can do this. The server enforces this rule.",
+  "stats": {
+    "totalUsers": "Total users",
+    "totalUsersDesc": "All non-deleted accounts",
+    "active": "Active",
+    "activeDesc": "Can sign in normally",
+    "pending": "Pending",
+    "pendingDesc": "Awaiting first sign-in",
+    "suspended": "Suspended",
+    "suspendedDesc": "Temporarily restricted",
+    "blocked": "Blocked",
+    "blockedDesc": "Access denied",
+    "deleted": "Deleted",
+    "deletedDesc": "Soft-deleted, restorable"
+  },
+  "tabs": {
+    "all": "All users"
+  },
+  "searchPlaceholder": "Search users by name or email...",
+  "filters": {
+    "statusPlaceholder": "Status",
+    "allStatuses": "All statuses",
+    "active": "Active accounts",
+    "deleted": "Deleted accounts"
+  },
+  "errorTitle": "Failed to load users",
+  "empty": "No users found.",
+  "emptyDeleted": "No deleted users found.",
+  "permissions": {
+    "title": "Staff creation permissions",
+    "description": "Who can create which staff roles, per the existing role model.",
+    "canCreate": "Can create:",
+    "blocked": "Blocked:",
+    "allStaffRoles": "All staff roles",
+    "footer": "The backend also permits EMPLOYEE accounts for Super Admin and Admin actors; this interface intentionally exposes only the four roles above. AGENT is not a role — approved agents keep the Customer (USER) role with the reseller feature flag enabled.",
+    "rules": {
+      "superAdmin": {
+        "actor": "Super Admin"
+      },
+      "admin": {
+        "actor": "Admin"
+      },
+      "moderator": {
+        "actor": "Moderator"
+      },
+      "supporter": {
+        "actor": "Supporter"
+      },
+      "publicSignup": {
+        "actor": "Public signup",
+        "note": "Role can never be self-assigned — registrations always create a Customer (USER) account."
+      }
+    }
+  },
+  "columns": {
+    "user": "User",
+    "userId": "User ID",
+    "role": "Role",
+    "status": "Status",
+    "verification": "Verification",
+    "referral": "Referral",
+    "wallet": "Wallet",
+    "actions": "Actions",
+    "via": "via {name}",
+    "direct": "Direct",
+    "earned": "earned {amount}",
+    "registered": "Registered"
+  },
+  "rowActions": {
+    "actionsFor": "Actions for {name}",
+    "view": "View details",
+    "edit": "Edit user",
+    "changeRole": "Change role",
+    "manageStatus": "Manage status",
+    "restore": "Restore user",
+    "dangerZone": "Danger zone",
+    "delete": "Delete user"
+  },
+  "verification": {
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "changeRole": {
+    "title": "Change role",
+    "descriptionNamed": "Assign a new role to {name}.",
+    "description": "Assign a new role.",
+    "currentRole": "Current role",
+    "newRole": "New role",
+    "selectPlaceholder": "Select a role",
+    "sensitive": "This changes administrator-level privileges. Make sure this is intended — the action is recorded by the backend.",
+    "updating": "Updating...",
+    "submit": "Change role",
+    "notAuthorized": "You are not authorized to assign any role to this user."
+  },
+  "statusDialog": {
+    "titleFallback": "Change status",
+    "descriptionFallback": "Change the account status.",
+    "notify": "{name} will be notified by the next sign-in attempt.",
+    "destructive": "This restricts access. The backend records who performed the change and when.",
+    "applying": "Applying...",
+    "apply": "Apply",
+    "titles": {
+      "activate": "Activate account?",
+      "deactivate": "Deactivate account?",
+      "suspend": "Suspend account?",
+      "unsuspend": "Unsuspend account?",
+      "block": "Block account?",
+      "unblock": "Unblock account?"
+    },
+    "descriptions": {
+      "activate": "The user will regain access to their account.",
+      "deactivate": "The account will be set to inactive.",
+      "suspend": "The account will be temporarily suspended.",
+      "unsuspend": "The suspension will be lifted and access restored.",
+      "block": "The user will be blocked from signing in until unblocked.",
+      "unblock": "The block will be lifted and access restored."
+    }
+  },
+  "delete": {
+    "title": "Delete user?",
+    "descriptionNamed": "{name} ({email}) will be soft-deleted: their sessions are revoked and they can no longer sign in. The account can be restored later from the Deleted filter.",
+    "description": "This account will be soft-deleted.",
+    "note": "Soft delete is reversible — data is retained, not destroyed.",
+    "deleting": "Deleting...",
+    "confirm": "Delete user"
+  },
+  "restore": {
+    "title": "Restore user?",
+    "descriptionNamed": "{name} ({email}) will be reactivated with an Active status and will be able to sign in again.",
+    "description": "This account will be restored.",
+    "restoring": "Restoring...",
+    "confirm": "Restore user"
+  },
+  "edit": {
+    "title": "Edit user",
+    "descriptionNamed": "Update profile details for {name}. Only filled fields are sent.",
+    "description": "Update user profile details.",
+    "name": "Full name",
+    "phone": "Phone",
+    "contactNumber": "Contact number",
+    "image": "Avatar image URL",
+    "profilePhoto": "Profile photo URL",
+    "country": "Country",
+    "address": "Address",
+    "save": "Save changes",
+    "saving": "Saving..."
+  },
+  "create": {
+    "title": "Create Staff Account",
+    "description": "Grant a new member access to the RizqifyBD admin panel.",
+    "roleInfo": "Role assignments are enforced server-side. You can grant {roles}.",
+    "name": "Full Name",
+    "namePlaceholder": "e.g. John Doe",
+    "email": "Email",
+    "emailPlaceholder": "staff@rizqifybd.com",
+    "password": "Temporary Password",
+    "passwordPlaceholder": "At least 6 characters",
+    "role": "Role",
+    "rolePlaceholder": "Select a role",
+    "submit": "Create Staff Account",
+    "creating": "Creating..."
+  },
+  "details": {
+    "personalInfo": "Personal information",
+    "email": "Email",
+    "phone": "Phone",
+    "contactNumber": "Contact number",
+    "address": "Address",
+    "country": "Country",
+    "userId": "User ID",
+    "accountVerification": "Account & verification",
+    "accountStatus": "Account status",
+    "phoneVerified": "Phone verified",
+    "passwordChangeRequired": "Password change required",
+    "deleted": "Deleted",
+    "deletedAt": "Deleted at",
+    "referralSection": "Referral information",
+    "referralCode": "Referral code",
+    "referredBy": "Referred by",
+    "totalReferrals": "Total referrals",
+    "referralIncomeEligible": "Referral income eligible",
+    "eligible": "Eligible",
+    "notEligible": "Not eligible",
+    "walletEarnings": "Wallet & earnings",
+    "balance": "Balance",
+    "totalEarned": "Total earned",
+    "agentFeature": "Agent / reseller feature",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "accountActivity": "Account activity",
+    "registered": "Registered",
+    "lastUpdated": "Last updated",
+    "lastLogin": "Last login",
+    "memberSince": "Member since",
+    "never": "Never",
+    "transactionHistory": "Transaction history",
+    "transactionNote": "The backend does not yet expose an admin endpoint for another user's wallet transactions, so this section is intentionally omitted rather than faked.",
+    "rolePermissions": "Role & permissions",
+    "directSignup": "Direct signup"
+  }
+}

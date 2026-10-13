@@ -1,0 +1,20 @@
+{
+  "addTitle": "Add Operator",
+  "editTitle": "Edit Operator",
+  "addDescription": "Create a new telecom operator for your catalogue.",
+  "editDescription": "Update the operator details below.",
+  "operatorName": "Operator Name",
+  "namePlaceholder": "e.g. Grameenphone",
+  "code": "Code",
+  "codePlaceholder": "e.g. GP",
+  "active": "Active",
+  "cancel": "Cancel",
+  "saving": "Saving...",
+  "creating": "Creating...",
+  "saveChanges": "Save Changes",
+  "createOperator": "Create Operator",
+  "deleteTitle": "Delete operator?",
+  "deleteConfirmDescription": "\"{title}\" will be removed from the catalogue. This action cannot be undone.",
+  "deleteConfirm": "Delete",
+  "deleting": "Deleting..."
+}

@@ -1,0 +1,138 @@
+{
+  "badge": {
+    "become": "Become a Referral Partner",
+    "pending": "Referral Pending",
+    "approved": "Referral Partner",
+    "rejected": "Referral Rejected",
+    "joinAria": "Join the referral programme",
+    "viewAria": "View referral application status",
+    "openAria": "Open the referral partner dashboard"
+  },
+  "program": {
+    "eyebrow": "Referral Programme",
+    "heading": "Earn by referring with <brand>RizqifyBD</brand>",
+    "description": "Invite your contacts to RizqifyBD and earn attractive income for every successful referral. Read the rules below and apply today.",
+    "loadFailedTitle": "Couldn't load information",
+    "loadFailedBody": "There was a problem fetching information from the server."
+  },
+  "info": {
+    "whyTitle": "Why join the referral programme?",
+    "whyDescription": "Begin your referral journey with a single application.",
+    "highlights": {
+      "wallet": "Income straight to your wallet",
+      "secure": "Safe & transparent",
+      "community": "Active community"
+    },
+    "sections": {
+      "rules": {
+        "title": "Programme rules",
+        "description": "Know the rules before joining the programme."
+      },
+      "eligibility": {
+        "title": "Eligibility",
+        "description": "What you need to apply."
+      },
+      "benefits": {
+        "title": "Benefits & income",
+        "description": "What you get from the referral programme."
+      }
+    },
+    "rulesItems": [
+      "Only one referral application can be submitted per account.",
+      "Fake, duplicate or self-referrals are not accepted.",
+      "Referral income only activates once your application is approved.",
+      "When the conditions are met, referral income is added straight to your wallet.",
+      "Breaking the rules may result in removal from the programme."
+    ],
+    "eligibilityItems": [
+      "You must have an active and verified RizqifyBD customer account.",
+      "Your account must not be banned or deleted.",
+      "You must accept the programme's terms and conditions.",
+      "You must promote the platform honestly and transparently.",
+      "Eligibility is maintained with regular active referrals."
+    ],
+    "benefitsItems": [
+      "Attractive income for every successful referral.",
+      "Income straight to your wallet — easy to withdraw.",
+      "Full tracking and reports from your dashboard.",
+      "A fully secure, transparent and verified process.",
+      "Fast approval and fair evaluation."
+    ]
+  },
+  "form": {
+    "title": "Apply to the referral programme",
+    "description": "Fill in the information below and submit your application. Your referral activity only activates after approval.",
+    "applicantInfo": "Applicant information (from your profile)",
+    "fieldName": "Name",
+    "fieldEmail": "Email",
+    "fieldMobile": "Mobile",
+    "promotionMethod": "Promotion method",
+    "promotionMethodPlaceholder": "Choose a method",
+    "promotionUrl": "Promotion link",
+    "reasonLabel": "Reason for application",
+    "reasonPlaceholder": "Briefly explain why you want to join the referral programme and how you will promote it.",
+    "termsLabel": "I have read and agree to the <terms>terms and conditions</terms>.",
+    "submit": "Submit application",
+    "submitting": "Submitting...",
+    "errorGeneric": "Couldn't submit the application. Please try again."
+  },
+  "status": {
+    "title": "Your application status",
+    "appliedOn": "Applied on",
+    "lastUpdated": "Last updated",
+    "rejectionReason": "Reason for rejection",
+    "performance": "Referral performance",
+    "activeReferrals": "Active referrals",
+    "eligibleIncome": "Eligible referral income",
+    "active": "Active",
+    "inactive": "Inactive",
+    "totalReferrals": "Total referrals",
+    "referralsList": "Your referrals list",
+    "activeNote": "Your referral income is active — income from referrals is credited to your wallet.",
+    "inactiveNote": "Referral income activates once you meet the eligibility conditions.",
+    "singleApplication": "Only one application is accepted per account, so you can't apply again until a decision is final.",
+    "labels": {
+      "pending": "Under review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "descriptions": {
+      "pending": "Your application was submitted successfully. Our team will review it and let you know soon.",
+      "approved": "Congratulations! Your referral application has been approved. You can start referring now.",
+      "rejected": "Sorry, your application was not approved. See the reason below."
+    }
+  },
+  "link": {
+    "title": "Your referral link",
+    "description": "Share this link — people who sign up with it are tracked as your referrals. Referral income stays gated until your application is approved.",
+    "linkAria": "Referral link",
+    "copied": "Copied!",
+    "copy": "Copy link",
+    "share": "Share",
+    "codeLabel": "Referral code:",
+    "shareTitle": "Join RizqifyBD",
+    "shareText": "Sign up with RizqifyBD using my referral link",
+    "toastCopied": "Referral link copied",
+    "toastCopyFailed": "Could not copy the referral link",
+    "toastShareFailed": "Could not share the referral link"
+  },
+  "dashboard": {
+    "linkDescription": "Share this link with your network. Anyone who signs up with your code is attributed to you as a referral.",
+    "totalReferred": "Total referred accounts",
+    "totalReferredDescription": "Accounts that signed up with your code.",
+    "activeReferred": "Active referred accounts",
+    "activeReferredDescription": "At least one paid offer purchase in 6 months.",
+    "progressTitle": "Progress to referral income",
+    "progressNeeded": "{count, plural, one {# more active referral needed} other {# more active referrals needed}} (target {target}).",
+    "progressMet": "You have met the active referral requirement.",
+    "progressCount": "{current} / {target} active referred accounts",
+    "referredAccounts": "Referred accounts",
+    "referredAccountsDescription": "An account becomes active after at least one qualifying paid offer purchase within the previous 6 months. Phone verification is not required at this stage.",
+    "emptyTitle": "No referrals yet",
+    "emptyBody": "Share your referral link to get started. New sign-ups will appear here as soon as they join.",
+    "accountActive": "Active",
+    "accountPending": "Pending"
+  },
+  "pageTitle": "My Referral",
+  "pageDescription": "Your referral partner dashboard — share your link and track your referrals."
+}

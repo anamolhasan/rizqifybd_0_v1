@@ -1,0 +1,107 @@
+{
+  "unknown": "Unknown",
+  "role": {
+    "superAdmin": "Super Admin",
+    "admin": "Admin",
+    "moderator": "Moderator",
+    "supporter": "Supporter",
+    "employee": "Employee",
+    "customer": "Customer"
+  },
+  "userStatus": {
+    "active": "Active",
+    "sleeping": "Sleeping",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "suspended": "Suspended",
+    "blocked": "Blocked",
+    "verified": "Verified",
+    "deleted": "Deleted"
+  },
+  "applicationStatus": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "promotionMethod": {
+    "socialMedia": "Social media (Facebook, Instagram, TikTok)",
+    "messagingApps": "Messaging apps (WhatsApp, Telegram)",
+    "friendsFamily": "Friends & family",
+    "communityGroup": "Community group / forum",
+    "other": "Other"
+  },
+  "roleDescription": {
+    "superAdmin": "Full, unrestricted access including role and staff management.",
+    "admin": "Manages staff, catalogues and day-to-day administration.",
+    "moderator": "Reviews and moderates submissions; cannot manage staff roles.",
+    "supporter": "Handles customer support and withdrawal assistance.",
+    "employee": "Internal staff operator with limited administrative scope.",
+    "customer": "Customer account. Agents keep this role with the reseller flag."
+  },
+  "userStatusAction": {
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "suspend": "Suspend",
+    "unsuspend": "Unsuspend",
+    "block": "Block",
+    "unblock": "Unblock"
+  },
+  "offerType": {
+    "MB": "Mobile Internet (MB)",
+    "MINUTE": "Talktime (Minute)",
+    "SMS": "SMS Pack",
+    "BUNDLE": "Bundle",
+    "COMBO": "Combo",
+    "RECHARGE": "Recharge",
+    "INTERNET": "Internet",
+    "OTHER": "Other"
+  },
+  "offerStatus": {
+    "DRAFT": "Draft",
+    "SCHEDULED": "Scheduled",
+    "ACTIVE": "Active",
+    "PAUSED": "Paused",
+    "EXPIRED": "Expired",
+    "OUT_OF_STOCK": "Out of stock"
+  },
+  "offerBadge": {
+    "group": "Offer badges",
+    "NEW": "New",
+    "POPULAR": "Popular",
+    "BEST_VALUE": "Best Value",
+    "LIMITED_TIME": "Limited Time"
+  },
+  "amountUnit": {
+    "MB": "MB",
+    "GB": "GB",
+    "MINUTE": "Minutes",
+    "HOUR": "Hours",
+    "SMS": "SMS",
+    "PCS": "Pieces"
+  },
+  "validityUnit": {
+    "HOURS": "Hours",
+    "DAYS": "Days",
+    "WEEKS": "Weeks",
+    "MONTHS": "Months"
+  },
+  "discountType": {
+    "FIXED": "Fixed amount (৳)",
+    "PERCENTAGE": "Percentage (%)"
+  },
+  "operatorStatus": {
+    "ALL": "All statuses",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive"
+  },
+  "referralStatus": {
+    "ALL": "All statuses",
+    "PENDING": "Pending",
+    "APPROVED": "Approved",
+    "REJECTED": "Rejected"
+  },
+  "yesNo": {
+    "yes": "Yes",
+    "no": "No"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "title": "RizqifyBD",
+  "titleTemplate": "%s | RizqifyBD",
+  "description": "RizqifyBD — MB, মিনিট, SMS, utility bill ও ticket সেবা এক জায়গায়।",
+  "login": {
+    "title": "লগ ইন",
+    "description": "আপনার RizqifyBD অ্যাকাউন্টে লগ ইন করুন।"
+  },
+  "signUp": {
+    "title": "অ্যাকাউন্ট তৈরি করুন",
+    "description": "নতুন RizqifyBD অ্যাকাউন্ট তৈরি করুন।"
+  },
+  "changePassword": {
+    "title": "পাসওয়ার্ড পরিবর্তন",
+    "description": "আপনার RizqifyBD অ্যাকাউন্টের পাসওয়ার্ড পরিবর্তন করুন।"
+  },
+  "forgotPassword": {
+    "title": "পাসওয়ার্ড ভুলে গেছেন",
+    "description": "আপনার RizqifyBD অ্যাকাউন্টের পাসওয়ার্ড রিসেট করুন।"
+  },
+  "dashboard": {
+    "title": "ড্যাশবোর্ড",
+    "description": "আপনার RizqifyBD অ্যাকাউন্টের সংক্ষিপ্ত বিবরণ।"
+  },
+  "myProfile": {
+    "title": "আমার প্রোফাইল",
+    "description": "আপনার RizqifyBD অ্যাকাউন্ট প্রোফাইল দেখুন ও পরিচালনা করুন।"
+  },
+  "myOrders": {
+    "title": "আমার অর্ডার",
+    "description": "আপনার RizqifyBD অর্ডার ইতিহাস দেখুন।"
+  },
+  "newOrders": {
+    "title": "নতুন অর্ডার",
+    "description": "নতুন RizqifyBD অর্ডার তৈরি করুন।"
+  },
+  "myWallet": {
+    "title": "আমার ওয়ালেট",
+    "description": "আপনার RizqifyBD ওয়ালেটের ব্যালেন্স ও লেনদেন দেখুন।"
+  },
+  "myWithdrawals": {
+    "title": "আমার উইথড্রয়াল",
+    "description": "আপনার RizqifyBD উইথড্রয়াল দেখুন ও ট্র্যাক করুন।"
+  },
+  "agentApplication": {
+    "title": "এজেন্ট আবেদন",
+    "description": "RizqifyBD এজেন্ট প্রোগ্রামে যোগ দিন এবং কমিশন আয় করুন।"
+  },
+  "myReferrals": {
+    "title": "আমার রেফারেল",
+    "description": "আপনার রেফারেল লিংক শেয়ার করুন এবং রেফারেল ট্র্যাক করুন।"
+  },
+  "referral": {
+    "title": "রেফারেল প্রোগ্রাম",
+    "description": "RizqifyBD রেফারেল প্রোগ্রামে যোগ দিন। আপনার পরিচিতদের যুক্ত করুন এবং প্রতিটি সফল রেফারেলে আয় করুন।"
+  },
+  "adminDashboard": {
+    "title": "অ্যাডমিন ড্যাশবোর্ড",
+    "description": "RizqifyBD অ্যাডমিন ওভারভিউ।"
+  },
+  "adminUsers": {
+    "title": "ব্যবহারকারী ম্যানেজমেন্ট",
+    "description": "RizqifyBD অ্যাডমিন প্যানেলের জন্য স্টাফ অ্যাকাউন্ট তৈরি ও পরিচালনা করুন।"
+  },
+  "adminOffers": {
+    "title": "অফার ম্যানেজমেন্ট",
+    "description": "RizqifyBD টেলিকম অফার পরিচালনা করুন।"
+  },
+  "adminAddOffer": {
+    "title": "অফার যোগ করুন",
+    "description": "আপনার ক্যাটালগের জন্য নতুন টেলিকম অফার তৈরি করুন।"
+  },
+  "adminCategories": {
+    "title": "ক্যাটাগরি ম্যানেজমেন্ট",
+    "description": "RizqifyBD পণ্য ক্যাটাগরি পরিচালনা করুন।"
+  },
+  "adminOperators": {
+    "title": "অপারেটর ম্যানেজমেন্ট",
+    "description": "RizqifyBD মোবাইল অপারেটর পরিচালনা করুন।"
+  },
+  "adminReferralApplications": {
+    "title": "রেফারেল আবেদন ম্যানেজমেন্ট",
+    "description": "ব্যবহারকারীর রেফারেল আয়ের আবেদন পর্যালোচনা ও পরিচালনা করুন।"
+  },
+  "adminSettings": {
+    "title": "সেটিংস",
+    "description": "RizqifyBD অ্যাডমিন প্যানেলের সিস্টেম-ওয়াইড সেটিংস পরিচালনা করুন।"
+  },
+  "adminOrders": {
+    "title": "অর্ডার ম্যানেজমেন্ট",
+    "description": "গ্রাহকের অর্ডার পর্যালোচনা ও পরিচালনা করুন।"
+  },
+  "adminProducts": {
+    "title": "পণ্য ম্যানেজমেন্ট",
+    "description": "RizqifyBD পণ্য ও বান্ডেল পরিচালনা করুন।"
+  },
+  "adminWallet": {
+    "title": "ওয়ালেট ম্যানেজমেন্ট",
+    "description": "ব্যবহারকারীর ওয়ালেট ও লেনদেন পরিচালনা করুন।"
+  },
+  "adminWithdrawals": {
+    "title": "উইথড্রয়াল ম্যানেজমেন্ট",
+    "description": "উইথড্রয়াল অনুরোধ পর্যালোচনা ও প্রক্রিয়া করুন।"
+  },
+  "adminAgentApplications": {
+    "title": "এজেন্ট আবেদন",
+    "description": "এজেন্ট প্রোগ্রামের আবেদন পর্যালোচনা ও পরিচালনা করুন।"
+  }
+}

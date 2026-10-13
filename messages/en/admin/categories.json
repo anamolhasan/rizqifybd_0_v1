@@ -1,0 +1,17 @@
+{
+  "title": "Categories Management",
+  "description": "Organise your products into categories for easier management.",
+  "addCategory": "Add Category",
+  "errorTitle": "Failed to load categories",
+  "empty": "No categories yet. Add your first category to get started.",
+  "columns": {
+    "title": "Title",
+    "description": "Description",
+    "created": "Created",
+    "actions": "Actions"
+  },
+  "rowActions": {
+    "edit": "Edit category",
+    "delete": "Delete category"
+  }
+}

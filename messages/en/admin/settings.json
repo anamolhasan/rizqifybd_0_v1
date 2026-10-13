@@ -1,0 +1,27 @@
+{
+  "title": "Settings",
+  "description": "Manage system-wide settings for the RizqifyBD admin panel.",
+  "referralSettings": {
+    "title": "Settings",
+    "description": "Manage the system-wide default referral code used when a new user registers without a referral link.",
+    "notAuthorizedTitle": "Not authorized",
+    "notAuthorizedDescription": "Only Super Admins can manage system settings.",
+    "currentDefaultReferrer": "Current default referrer",
+    "currentDefaultDescription": "New registrations without a referral link are attributed to this user's referral code. Changing it never rewrites existing referral relationships.",
+    "noDefaultConfigured": "No default referral code is configured. Registrations without a referral link will not be attributed to anyone.",
+    "setDefaultValue": "Set default referral code",
+    "setDefaultDescription": "Search for any user, then save their referral code as the global default.",
+    "searchPlaceholder": "Search users by name or email",
+    "searchingNoResults": "Searching...",
+    "searchError": "Could not search users. Please try again.",
+    "noCandidates": "No users with a referral code match.",
+    "currentDefault": "Current default",
+    "noDefaultYet": "No default configured yet.",
+    "saveDefault": "Save default",
+    "saving": "Saving...",
+    "couldNotLoad": "Could not load the current setting",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "cancel": "Cancel"
+  }
+}

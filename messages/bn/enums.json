@@ -1,0 +1,107 @@
+{
+  "unknown": "অজানা",
+  "role": {
+    "superAdmin": "সুপার অ্যাডমিন",
+    "admin": "অ্যাডমিন",
+    "moderator": "মডারেটর",
+    "supporter": "সাপোর্টার",
+    "employee": "কর্মী",
+    "customer": "গ্রাহক"
+  },
+  "userStatus": {
+    "active": "সক্রিয়",
+    "sleeping": "স্লিপিং",
+    "inactive": "নিষ্ক্রিয়",
+    "pending": "মুলতুবি",
+    "suspended": "স্থগিত",
+    "blocked": "ব্লক করা",
+    "verified": "যাচাইকৃত",
+    "deleted": "মুছে ফেলা"
+  },
+  "applicationStatus": {
+    "pending": "মুলতুবি",
+    "approved": "অনুমোদিত",
+    "rejected": "বাতিল"
+  },
+  "promotionMethod": {
+    "socialMedia": "সোশ্যাল মিডিয়া (ফেসবুক, ইনস্টাগ্রাম, টিকটক)",
+    "messagingApps": "মেসেজিং অ্যাপ (হোয়াটসঅ্যাপ, টেলিগ্রাম)",
+    "friendsFamily": "বন্ধু ও পরিবার",
+    "communityGroup": "কমিউনিটি গ্রুপ / ফোরাম",
+    "other": "অন্যান্য"
+  },
+  "roleDescription": {
+    "superAdmin": "রোল ও স্টাফ ব্যবস্থাপনাসহ পূর্ণ, সীমাহীন প্রবেশাধিকার।",
+    "admin": "স্টাফ, ক্যাটালগ ও দৈনন্দিন প্রশাসন পরিচালনা করে।",
+    "moderator": "জমা পর্যালোচনা ও মডারেশন করে; স্টাফ রোল পরিচালনা করতে পারে না।",
+    "supporter": "গ্রাহক সহায়তা ও উইথড্রয়াল সহায়তা পরিচালনা করে।",
+    "employee": "সীমিত প্রশাসনিক পরিসরের অভ্যন্তরীণ স্টাফ অপারেটর।",
+    "customer": "গ্রাহক অ্যাকাউন্ট। এজেন্টরা রিসেলার ফ্ল্যাগসহ এই রোল রাখে।"
+  },
+  "userStatusAction": {
+    "activate": "সক্রিয় করুন",
+    "deactivate": "নিষ্ক্রিয় করুন",
+    "suspend": "সাসপেন্ড করুন",
+    "unsuspend": "সাসপেনশন তুলুন",
+    "block": "ব্লক করুন",
+    "unblock": "আনব্লক করুন"
+  },
+  "offerType": {
+    "MB": "মোবাইল ইন্টারনেট (MB)",
+    "MINUTE": "কল টাইম (মিনিট)",
+    "SMS": "SMS প্যাক",
+    "BUNDLE": "বান্ডেল",
+    "COMBO": "কম্বো",
+    "RECHARGE": "রিচার্জ",
+    "INTERNET": "ইন্টারনেট",
+    "OTHER": "অন্যান্য"
+  },
+  "offerStatus": {
+    "DRAFT": "খসড়া",
+    "SCHEDULED": "সিডিউলকৃত",
+    "ACTIVE": "সক্রিয়",
+    "PAUSED": "পজ করা",
+    "EXPIRED": "মেয়াদ শেষ",
+    "OUT_OF_STOCK": "স্টক শেষ"
+  },
+  "offerBadge": {
+    "group": "অফার ব্যাজ",
+    "NEW": "নতুন",
+    "POPULAR": "জনপ্রিয়",
+    "BEST_VALUE": "সর্বোত্তম মূল্য",
+    "LIMITED_TIME": "সীমিত সময়"
+  },
+  "amountUnit": {
+    "MB": "MB",
+    "GB": "GB",
+    "MINUTE": "মিনিট",
+    "HOUR": "ঘন্টা",
+    "SMS": "SMS",
+    "PCS": "পিস"
+  },
+  "validityUnit": {
+    "HOURS": "ঘন্টা",
+    "DAYS": "দিন",
+    "WEEKS": "সপ্তাহ",
+    "MONTHS": "মাস"
+  },
+  "discountType": {
+    "FIXED": "স্থির পরিমাণ (৳)",
+    "PERCENTAGE": "শতকরা (%)"
+  },
+  "operatorStatus": {
+    "ALL": "সকল অবস্থা",
+    "ACTIVE": "সক্রিয়",
+    "INACTIVE": "নিষ্ক্রিয়"
+  },
+  "referralStatus": {
+    "ALL": "সকল অবস্থা",
+    "PENDING": "মুলতুবি",
+    "APPROVED": "অনুমোদিত",
+    "REJECTED": "বাতিল"
+  },
+  "yesNo": {
+    "yes": "হ্যাঁ",
+    "no": "না"
+  }
+}

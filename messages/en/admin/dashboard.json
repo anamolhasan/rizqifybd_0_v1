@@ -1,0 +1,57 @@
+{
+  "heading": "Admin Overview",
+  "description": "A snapshot of the RizqifyBD platform. Live metrics arrive with the data layer.",
+  "action": "Manage Orders",
+  "stats": {
+    "users": {
+      "title": "Total Users",
+      "description": "Registered users across all roles."
+    },
+    "orders": {
+      "title": "Total Orders",
+      "description": "Recharge and bill orders placed."
+    },
+    "products": {
+      "title": "Total Products",
+      "description": "Active products and bundles."
+    },
+    "withdrawals": {
+      "title": "Total Withdrawals",
+      "description": "Withdrawal requests submitted."
+    }
+  },
+  "modules": {
+    "users": {
+      "title": "Users",
+      "description": "Roles, status and access"
+    },
+    "orders": {
+      "title": "Orders",
+      "description": "Recharges and bill payments"
+    },
+    "products": {
+      "title": "Products",
+      "description": "Recharge and bundle catalogue"
+    },
+    "operators": {
+      "title": "Operators",
+      "description": "Mobile operator setup"
+    },
+    "withdrawals": {
+      "title": "Withdrawals",
+      "description": "Review and payout requests"
+    },
+    "referrals": {
+      "title": "Referrals",
+      "description": "Referral applications and income"
+    }
+  },
+  "activity": {
+    "title": "Recent Activity",
+    "description": "Live activity will appear here once data is connected."
+  },
+  "modulesPanel": {
+    "title": "Modules",
+    "description": "Shortcuts to the workspace features that arrive next."
+  }
+}

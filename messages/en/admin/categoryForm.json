@@ -1,0 +1,19 @@
+{
+  "addTitle": "Add Category",
+  "editTitle": "Edit Category",
+  "addDescription": "Create a new category for your product catalogue.",
+  "editDescription": "Update the category details below.",
+  "title": "Title",
+  "titlePlaceholder": "e.g. Mobile Recharge",
+  "description": "Description",
+  "descriptionPlaceholder": "Optional short description",
+  "cancel": "Cancel",
+  "saving": "Saving...",
+  "creating": "Creating...",
+  "saveChanges": "Save Changes",
+  "createCategory": "Create Category",
+  "deleteTitle": "Delete category?",
+  "deleteConfirmDescription": "\"{title}\" will be removed from the catalogue. This action cannot be undone.",
+  "deleteConfirm": "Delete",
+  "deleting": "Deleting..."
+}

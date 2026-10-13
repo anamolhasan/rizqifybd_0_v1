@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "account": "Account"
+  },
+  "joinAgent": "Join Agent",
+  "joinReferral": "Join Referral",
+  "myReferrals": "My Referrals",
+  "myOrders": "My Orders",
+  "newOrder": "New Order",
+  "myWallet": "My Wallet",
+  "myWithdrawals": "My Withdrawals"
+}
