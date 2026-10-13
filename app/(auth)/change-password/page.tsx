@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { ChangePassword } from "@/components/modules/change-password/ChangePassword";
 
-export const metadata: Metadata = {
-  title: "Change Password",
-  description: "Update your RizqifyBD account password.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata.changePassword");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 export default function ChangePasswordPage() {
   return <ChangePassword />;

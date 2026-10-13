@@ -52,7 +52,10 @@ export function formatDateTime(
   }).format(date);
 }
 
-export function formatRelativeTime(value: string | Date | null | undefined): string {
+export function formatRelativeTime(
+  value: string | Date | null | undefined,
+  locale = "en",
+): string {
   if (!value) return "N/A";
   const date = value instanceof Date ? value : new Date(value);
   if (Number.isNaN(date.getTime())) return "N/A";
@@ -68,11 +71,14 @@ export function formatRelativeTime(value: string | Date | null | undefined): str
   for (const [unit, secondsInUnit] of units) {
     const amount = Math.floor(seconds / secondsInUnit);
     if (amount >= 1) {
-      return new Intl.RelativeTimeFormat("en", { numeric: "auto" }).format(
+      return new Intl.RelativeTimeFormat(locale, { numeric: "auto" }).format(
         -amount,
         unit,
       );
     }
   }
-  return "just now";
+  return new Intl.RelativeTimeFormat(locale, { numeric: "auto" }).format(
+    0,
+    "second",
+  );
 }

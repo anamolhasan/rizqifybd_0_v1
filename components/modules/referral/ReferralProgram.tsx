@@ -1,19 +1,22 @@
 "use client";
 
 import { Loader2, RefreshCcw, Sparkles, TriangleAlert } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCurrentUser } from "@/hooks/use-auth";
 import { useMyReferral } from "@/hooks/use-referral";
+import { useCurrentUser } from "@/hooks/use-auth";
 import { ReferralApplicationForm } from "./ReferralApplicationForm";
 import { ReferralLinkCard } from "./ReferralLinkCard";
 import { ReferralProgramInfo } from "./ReferralProgramInfo";
 import { ReferralStatusCard } from "./ReferralStatusCard";
 
 export function ReferralProgram() {
+  const t = useTranslations("referral.program");
+  const tc = useTranslations("common");
   const { data: user } = useCurrentUser();
   const { data: me, isLoading, isError, error, refetch, isFetching } =
     useMyReferral();
@@ -32,18 +35,19 @@ export function ReferralProgram() {
         <header className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/6 px-4 py-1.5 text-xs font-semibold text-primary sm:text-sm">
             <Sparkles className="size-4" />
-            রেফারেল প্রোগ্রাম
+            {t("eyebrow")}
           </span>
           <h1 className="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-            রেফার করে আয় করুন{" "}
-            <span className="bg-linear-to-r from-primary via-emerald-600 to-teal-500 bg-clip-text text-transparent">
-              RizqifyBD
-            </span>
-            {" "}এর সাথে
+            {t.rich("heading", {
+              brand: (chunks) => (
+                <span className="bg-linear-to-r from-primary via-emerald-600 to-teal-500 bg-clip-text text-transparent">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h1>
           <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base">
-            আপনার পরিচিতদের RizqifyBD-তে যুক্ত করুন এবং প্রতিটি সফল রেফারেলে
-            আকর্ষণীয় আয় করুন। নিচের নিয়মাবলী পড়ে আজই আবেদন করুন।
+            {t("description")}
           </p>
         </header>
 
@@ -56,12 +60,10 @@ export function ReferralProgram() {
             ) : isError ? (
               <Alert variant="destructive" role="alert">
                 <TriangleAlert />
-                <AlertTitle>তথ্য লোড করা যায়নি</AlertTitle>
+                <AlertTitle>{t("loadFailedTitle")}</AlertTitle>
                 <AlertDescription>
                   <p>
-                    {error instanceof Error
-                      ? error.message
-                      : "সার্ভার থেকে তথ্য আনতে সমস্যা হয়েছে।"}
+                    {error instanceof Error ? error.message : t("loadFailedBody")}
                   </p>
                   <Button
                     type="button"
@@ -76,7 +78,7 @@ export function ReferralProgram() {
                     ) : (
                       <RefreshCcw />
                     )}
-                    আবার চেষ্টা করুন
+                    {tc("retry")}
                   </Button>
                 </AlertDescription>
               </Alert>

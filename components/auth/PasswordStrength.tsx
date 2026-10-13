@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
@@ -12,32 +13,32 @@ interface PasswordStrengthProps {
 
 const LEVELS = [
   {
-    label: "Too short",
-    hint: "Use at least 6 characters",
+    labelKey: "strength.tooShort",
+    hintKey: "strength.hintTooShort",
     indicator: "[&>[data-slot=progress-indicator]]:bg-destructive",
     text: "text-destructive",
   },
   {
-    label: "Weak",
-    hint: "Add uppercase letters",
+    labelKey: "strength.weak",
+    hintKey: "strength.hintWeak",
     indicator: "[&>[data-slot=progress-indicator]]:bg-warning",
     text: "text-warning",
   },
   {
-    label: "Fair",
-    hint: "Add numbers for strength",
+    labelKey: "strength.fair",
+    hintKey: "strength.hintFair",
     indicator: "[&>[data-slot=progress-indicator]]:bg-warning",
     text: "text-warning",
   },
   {
-    label: "Good",
-    hint: "Add a symbol to make it strong",
+    labelKey: "strength.good",
+    hintKey: "strength.hintGood",
     indicator: "[&>[data-slot=progress-indicator]]:bg-info",
     text: "text-info",
   },
   {
-    label: "Strong",
-    hint: "Great password",
+    labelKey: "strength.strong",
+    hintKey: "strength.hintStrong",
     indicator: "[&>[data-slot=progress-indicator]]:bg-success",
     text: "text-success",
   },
@@ -60,6 +61,7 @@ export function PasswordStrength({
   password,
   className,
 }: PasswordStrengthProps) {
+  const t = useTranslations("auth");
   const score = useMemo(() => scorePassword(password), [password]);
 
   if (!password) {
@@ -72,8 +74,8 @@ export function PasswordStrength({
     <div className={cn("space-y-1.5", className)}>
       <Progress value={(score / (LEVELS.length - 1)) * 100} className={cn("h-1.5", level.indicator)} />
       <p className="flex items-center justify-between text-xs">
-        <span className={cn("font-medium", level.text)}>{level.label}</span>
-        <span className="text-muted-foreground">{level.hint}</span>
+        <span className={cn("font-medium", level.text)}>{t(level.labelKey)}</span>
+        <span className="text-muted-foreground">{t(level.hintKey)}</span>
       </p>
     </div>
   );

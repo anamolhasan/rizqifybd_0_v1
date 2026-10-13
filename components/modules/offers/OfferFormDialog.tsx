@@ -47,6 +47,7 @@ const FIELD_NAMES = [
   "type",
   "price",
   "commissionRate",
+  "referralCommissionRate",
   "description",
 ] as const;
 type OfferFieldName = (typeof FIELD_NAMES)[number];
@@ -71,6 +72,10 @@ const offerSchema = z.object({
     .number({ message: "Commission is required" })
     .min(0, { message: "Commission must be zero or greater" })
     .max(100, { message: "Commission must be at most 100" }),
+  referralCommissionRate: z.coerce
+    .number({ message: "Referral commission is required" })
+    .min(0, { message: "Referral commission must be zero or greater" })
+    .max(100, { message: "Referral commission must be at most 100" }),
   isActive: z.boolean(),
   description: z.string().optional(),
 });
@@ -83,6 +88,7 @@ const DEFAULT_VALUES: OfferFormValues = {
   type: "RECHARGE",
   price: 0,
   commissionRate: 0,
+  referralCommissionRate: 0,
   isActive: true,
   description: "",
 };
@@ -167,6 +173,7 @@ export function OfferFormDialog({
             type: offer.type,
             price: offer.price,
             commissionRate: offer.commissionRate,
+            referralCommissionRate: offer.referralCommissionRate,
             isActive: offer.isActive,
             description: offer.description ?? "",
           }
@@ -205,6 +212,7 @@ export function OfferFormDialog({
       type: values.type,
       price: values.price,
       commissionRate: values.commissionRate,
+      referralCommissionRate: values.referralCommissionRate,
       isActive: values.isActive,
     };
 
@@ -373,6 +381,24 @@ export function OfferFormDialog({
                   {...register("commissionRate", { valueAsNumber: true })}
                 />
                 <FieldError errors={[errors.commissionRate]} />
+              </Field>
+
+              <Field data-invalid={Boolean(errors.referralCommissionRate)}>
+                <FieldLabel htmlFor="offer-referral-commission">
+                  Referral Commission (%)
+                </FieldLabel>
+                <Input
+                  id="offer-referral-commission"
+                  type="number"
+                  inputMode="decimal"
+                  min={0}
+                  max={100}
+                  step="0.01"
+                  aria-invalid={Boolean(errors.referralCommissionRate)}
+                  disabled={isSubmitting}
+                  {...register("referralCommissionRate", { valueAsNumber: true })}
+                />
+                <FieldError errors={[errors.referralCommissionRate]} />
               </Field>
             </div>
 

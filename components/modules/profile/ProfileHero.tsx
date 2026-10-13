@@ -1,6 +1,8 @@
 import { BadgeCheck, CalendarDays, Clock, Mail } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 
 import { StatusBadgeCell } from "@/components/shared/cell/StatusBadgeCell";
+import { AgentBadge } from "@/components/modules/agent/AgentBadge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,6 +19,9 @@ interface ProfileHeroProps {
 }
 
 export function ProfileHero({ user }: ProfileHeroProps) {
+  const t = useTranslations("profile");
+  const te = useTranslations("enums");
+  const locale = useLocale();
   const photo = user.appUser?.profilePhoto ?? user.image ?? null;
   const initials = getProfileInitials(user.name, user.email);
   const lastLogin = user.appUser?.lastLogin;
@@ -43,11 +48,11 @@ export function ProfileHero({ user }: ProfileHeroProps) {
             </div>
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <Badge variant="secondary">
-                {getProfileRoleLabel(user.role)}
+                {getProfileRoleLabel(user.role, te)}
               </Badge>
               <StatusBadgeCell
                 status={user.status ?? ""}
-                label={getProfileStatusLabel(user.status)}
+                label={getProfileStatusLabel(user.status, te)}
               />
               {user.emailVerified ? (
                 <Badge
@@ -55,9 +60,10 @@ export function ProfileHero({ user }: ProfileHeroProps) {
                   className="gap-1 text-success"
                 >
                   <BadgeCheck className="size-3" />
-                  Verified
+                  {t("verified")}
                 </Badge>
               ) : null}
+              {user.role === "USER" ? <AgentBadge /> : null}
             </div>
           </div>
         </div>
@@ -65,12 +71,16 @@ export function ProfileHero({ user }: ProfileHeroProps) {
         <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-muted-foreground sm:justify-end">
           <div className="flex items-center gap-1.5">
             <CalendarDays className="size-3.5" />
-            <span>Joined {formatDate(user.createdAt)}</span>
+            <span>{t("joined", { date: formatDate(user.createdAt) })}</span>
           </div>
           {lastLogin ? (
             <div className="flex items-center gap-1.5">
               <Clock className="size-3.5" />
-              <span>Last login {formatRelativeTime(lastLogin)}</span>
+              <span>
+                {t("lastLogin", {
+                  time: formatRelativeTime(lastLogin, locale),
+                })}
+              </span>
             </div>
           ) : null}
         </div>

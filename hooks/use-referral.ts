@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { ApiError } from "@/lib/api";
@@ -31,6 +32,7 @@ export function useMyReferral() {
 
 export function useApplyForReferral() {
   const queryClient = useQueryClient();
+  const t = useTranslations("toast");
 
   return useMutation<
     IReferralApplication,
@@ -39,14 +41,13 @@ export function useApplyForReferral() {
   >({
     mutationFn: applyForReferralIncome,
     onSuccess: () => {
-      toast.success("আবেদন সফলভাবে জমা হয়েছে", {
-        description:
-          "আমাদের টিম আপনার আবেদন যাচাই করে শীঘ্রই ফলাফল জানাবে।",
+      toast.success(t("referralApplied"), {
+        description: t("applicationReceived"),
       });
       queryClient.invalidateQueries({ queryKey: REFERRAL_QUERY_KEY });
     },
     onError: (error) => {
-      toast.error("আবেদন জমা দিতে ব্যর্থ হয়েছে", {
+      toast.error(t("referralApplyFailed"), {
         description: describeError(error),
       });
     },

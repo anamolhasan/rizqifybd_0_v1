@@ -4,7 +4,6 @@ export type Role =
   | "MODERATOR"
   | "SUPPORTER"
   | "EMPLOYEE"
-  | "AGENT"
   | "USER";
 
 export type UserStatus =
@@ -23,7 +22,6 @@ export const ALL_ROLES: Role[] = [
   "MODERATOR",
   "SUPPORTER",
   "EMPLOYEE",
-  "AGENT",
   "USER",
 ];
 
@@ -35,7 +33,9 @@ export const STAFF_ROLES: Role[] = [
   "EMPLOYEE",
 ];
 
-export const CUSTOMER_ROLES: Role[] = ["USER", "AGENT"];
+// Agent is not a role: an approved agent keeps Role.USER and is granted the
+// reseller feature set through AgentApplication status + IAppUser.canEarn.
+export const CUSTOMER_ROLES: Role[] = ["USER"];
 
 export const ORDER_STAFF_ROLES: Role[] = STAFF_ROLES;
 
@@ -60,17 +60,15 @@ export const CREATABLE_ROLES_BY_ROLE: Record<Role, Role[]> = {
   MODERATOR: [],
   SUPPORTER: [],
   EMPLOYEE: [],
-  AGENT: [],
   USER: [],
 };
 
 export const MANAGEABLE_ROLES_BY_ROLE: Record<Role, Role[]> = {
   SUPER_ADMIN: ALL_ROLES,
-  ADMIN: ["MODERATOR", "SUPPORTER", "EMPLOYEE", "AGENT", "USER"],
+  ADMIN: ["MODERATOR", "SUPPORTER", "EMPLOYEE", "USER"],
   MODERATOR: [],
   SUPPORTER: [],
   EMPLOYEE: [],
-  AGENT: [],
   USER: [],
 };
 

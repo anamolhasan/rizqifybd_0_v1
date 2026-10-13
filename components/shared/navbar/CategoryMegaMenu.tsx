@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronDown, LayoutGrid, Tag } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { useCategories } from "@/hooks/use-categories";
 import { cn } from "@/lib/utils";
@@ -15,6 +16,7 @@ const TRIGGER_CLASS =
 export function CategoryMegaMenu() {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const t = useTranslations("nav");
   const { data, isLoading, isError } = useCategories();
 
   const categories = data?.data ?? [];
@@ -59,7 +61,7 @@ export function CategoryMegaMenu() {
         onClick={() => setOpen((value) => !value)}
       >
         <LayoutGrid className="size-4" />
-        ক্যাটাগরি
+        {t("categories")}
         <ChevronDown
           className={cn("size-3.5 transition-transform", open && "rotate-180")}
         />
@@ -69,7 +71,7 @@ export function CategoryMegaMenu() {
         <div
           id="category-mega-menu"
           role="region"
-          aria-label="ক্যাটাগরি"
+          aria-label={t("categories")}
           className="absolute top-full left-0 z-50 mt-1 w-[46rem] max-w-[calc(100vw-7rem)] overflow-hidden rounded-xl border border-border bg-popover text-popover-foreground shadow-lg"
         >
           <div className="p-4">
@@ -109,21 +111,21 @@ export function CategoryMegaMenu() {
               </div>
             ) : (
               <p className="px-1 py-2 text-sm text-muted-foreground">
-                ক্যাটাগরি তালিকা বর্তমানে উপলব্ধ নয়।
+                {t("categoriesUnavailable")}
               </p>
             )}
           </div>
 
           <div className="flex items-center justify-between border-t border-border bg-muted/40 px-4 py-2.5">
             <span className="text-xs text-muted-foreground">
-              সমস্ত টেলিকম সেবা এক জায়গায়
+              {t("telecomAllInOne")}
             </span>
             <Link
               href={SERVICES_ROUTE}
               onClick={() => setOpen(false)}
               className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary"
             >
-              সব সেবা দেখুন
+              {t("allServices")}
               <ArrowRight className="size-3.5" />
             </Link>
           </div>

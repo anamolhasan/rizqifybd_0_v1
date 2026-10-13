@@ -1,20 +1,19 @@
 import { Check, ShieldCheck, Sparkles, Star, TrendingUp } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { BrandLogo } from "@/components/auth/BrandLogo";
 
-const FEATURES = [
-  "তাৎক্ষণিক MB, মিনিট ও SMS রিচার্জ",
-  "এক ড্যাশবোর্ডে সব সেবা ও ব্যালান্স",
-  "নিরাপদ ও এনক্রিপ্টেড লেনদেন",
-];
+export async function AuthBrandPanel() {
+  const t = await getTranslations("auth");
 
-const STATS = [
-  { value: "24/7", label: "সাপোর্ট" },
-  { value: "99.9%", label: "আপটাইম" },
-  { value: "10K+", label: "ব্যবহারকারী" },
-];
+  const features = [t("feature1"), t("feature2"), t("feature3")];
 
-export function AuthBrandPanel() {
+  const stats = [
+    { value: "24/7", label: t("statSupport") },
+    { value: "99.9%", label: t("statUptime") },
+    { value: "10K+", label: t("statUsers") },
+  ];
+
   return (
     <aside className="relative hidden min-h-screen overflow-hidden bg-slate-950 text-white lg:flex lg:w-1/2 lg:flex-col xl:w-[55%]">
       {/* Background grid */}
@@ -49,24 +48,26 @@ export function AuthBrandPanel() {
           <div className="animate-in fade-in slide-in-from-left-6 space-y-5 duration-700">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-primary uppercase">
               <Sparkles className="size-3.5 shrink-0" />
-              সততায় ব্যবসার মূলধন
+              {t("brandBadge")}
             </span>
 
             <h2 className="text-3xl leading-tight font-bold tracking-tight text-white xl:text-4xl 2xl:text-5xl">
-              আপনার ডিজিটাল
-              <br />
-              ব্যবসা <span className="text-primary">শুরু করুন</span>
+              {t.rich("brandHeading", {
+                highlight: (chunks) => (
+                  <span className="text-primary">{chunks}</span>
+                ),
+                br: () => <br />,
+              })}
             </h2>
 
             <p className="max-w-md text-sm leading-7 text-slate-400 xl:text-base">
-              RizqifyBD-তে যোগ দিয়ে MB, মিনিট, SMS, ইউটিলিটি বিল ও টিকিট
-              সেবা — সব এক জায়গায় পরিচালনা করুন।
+              {t("brandDescription")}
             </p>
           </div>
 
           {/* Features */}
           <ul className="animate-in fade-in slide-in-from-left-6 space-y-3 duration-700 [animation-delay:120ms] fill-mode-[both]">
-            {FEATURES.map((feature) => (
+            {features.map((feature) => (
               <li
                 key={feature}
                 className="flex items-start gap-3 text-sm leading-6 text-slate-300"
@@ -81,7 +82,7 @@ export function AuthBrandPanel() {
 
           {/* Statistics */}
           <div className="animate-in fade-in slide-in-from-left-6 grid grid-cols-3 gap-3 duration-700 [animation-delay:220ms] fill-mode-[both] sm:gap-4">
-            {STATS.map((stat) => (
+            {stats.map((stat) => (
               <div
                 key={stat.label}
                 className="min-w-0 rounded-xl border border-white/10 bg-white/5 px-3 py-3 backdrop-blur-sm xl:rounded-2xl xl:px-4"
@@ -104,8 +105,7 @@ export function AuthBrandPanel() {
           </div>
 
           <blockquote className="mt-3 text-sm leading-6 text-slate-300">
-            “একটি প্ল্যাটফর্মে সব রিচার্জ ও বিল সেবা — কাজ সহজ হয়েছে,
-            ব্যবসাও বেড়েছে।”
+            {t("testimonialQuote")}
           </blockquote>
 
           <figcaption className="mt-3 flex items-center gap-3">
@@ -114,11 +114,9 @@ export function AuthBrandPanel() {
             </span>
             <span className="text-xs">
               <span className="block font-semibold text-white">
-                আব্দুর রহিম
+                {t("testimonialAuthor")}
               </span>
-              <span className="text-slate-400">
-                রিটেইলার, ব্রাহ্মণবাড়িয়া
-              </span>
+              <span className="text-slate-400">{t("testimonialRole")}</span>
             </span>
           </figcaption>
         </figure>
@@ -130,7 +128,7 @@ export function AuthBrandPanel() {
         className="pointer-events-none absolute right-5 bottom-3 flex items-center gap-2 text-xs text-slate-500 xl:right-8 xl:bottom-5"
       >
         <ShieldCheck className="size-4 text-success/70" />
-        সুরক্ষিত সংযোগ
+        {t("secureConnection")}
       </div>
 
       <TrendingUp

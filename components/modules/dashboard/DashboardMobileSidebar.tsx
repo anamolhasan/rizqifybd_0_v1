@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { BrandLogo } from "@/components/auth/BrandLogo";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -15,12 +16,13 @@ import type { Role } from "@/types/enums";
 
 export function DashboardMobileSidebar() {
   const pathname = usePathname();
+  const t = useTranslations();
   const { data: currentUser } = useCurrentUser();
 
   const role = currentUser?.role as Role | undefined;
   const navSections = getDashboardNavItems(role, pathname);
   const dashboardHome = getDashboardHome(pathname);
-  const displayName = currentUser?.name ?? "Account";
+  const displayName = currentUser?.name ?? t("common.account");
 
   return (
     <div className="flex h-full flex-col overflow-y-auto bg-sidebar text-sidebar-foreground">
@@ -28,15 +30,15 @@ export function DashboardMobileSidebar() {
         <BrandLogo href={dashboardHome} />
       </div>
 
-      <SheetTitle className="sr-only">Navigation menu</SheetTitle>
+      <SheetTitle className="sr-only">{t("nav.mobileNavigation")}</SheetTitle>
 
       <ScrollArea className="min-h-0 flex-1 px-3 py-4">
         <nav className="space-y-6">
           {navSections.map((section, sectionIndex) => (
             <div key={sectionIndex}>
-              {section.title ? (
+              {section.titleKey ? (
                 <h4 className="mb-2 px-3 text-xs font-semibold tracking-wide uppercase text-muted-foreground">
-                  {section.title}
+                  {t(section.titleKey)}
                 </h4>
               ) : null}
 
@@ -57,7 +59,7 @@ export function DashboardMobileSidebar() {
                       )}
                     >
                       <Icon className="size-4 shrink-0" />
-                      <span className="truncate">{item.title}</span>
+                      <span className="truncate">{t(item.titleKey)}</span>
                     </Link>
                   );
                 })}

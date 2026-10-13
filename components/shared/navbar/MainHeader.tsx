@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 
 import { BrandLogo } from "@/components/auth/BrandLogo";
-import { ThemeSwitcher } from "@/components/theme/ThemeSwitcher";
+import { LanguageSwitcher } from "@/components/language/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -38,10 +38,7 @@ export function MainHeader() {
             <Search />
           </Button>
 
-          <div className="hidden sm:block">
-            <ThemeSwitcher />
-          </div>
-
+          <LanguageSwitcher />
           <AccountMenu />
         </div>
       </div>

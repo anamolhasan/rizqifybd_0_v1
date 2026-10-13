@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,7 @@ interface SearchBarProps {
 
 export function SearchBar({ className, autoFocus, onSubmitted }: SearchBarProps) {
   const router = useRouter();
+  const t = useTranslations("nav");
   const [value, setValue] = useState("");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -42,8 +44,8 @@ export function SearchBar({ className, autoFocus, onSubmitted }: SearchBarProps)
         value={value}
         onChange={(event) => setValue(event.target.value)}
         autoFocus={autoFocus}
-        placeholder="পণ্য বা সেবা খুঁজুন..."
-        aria-label="পণ্য বা সেবা খুঁজুন"
+        placeholder={t("searchPlaceholder")}
+        aria-label={t("searchAriaLabel")}
         className="h-10 rounded-lg pr-20 pl-9"
       />
       <Button
@@ -51,7 +53,7 @@ export function SearchBar({ className, autoFocus, onSubmitted }: SearchBarProps)
         size="sm"
         className="absolute top-1/2 right-1 -translate-y-1/2 bg-primary text-primary-foreground hover:bg-primary/90"
       >
-        খুঁজুন
+        {t("searchButton")}
       </Button>
     </form>
   );

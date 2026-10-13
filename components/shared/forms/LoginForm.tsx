@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AlertCircle, ArrowRight, Loader2, Lock, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/auth/PasswordInput";
 import { useLogin } from "@/hooks/use-auth";
-import { loginSchema, type LoginFormInputs } from "@/lib/validations";
+import { createLoginSchema, type LoginFormInputs } from "@/lib/validations";
 
 interface LoginFormProps {
   redirectPath?: string;
@@ -35,13 +36,16 @@ interface LoginFormProps {
 export function LoginForm({ redirectPath }: LoginFormProps) {
   const login = useLogin(redirectPath);
   const [remember, setRemember] = useState(true);
+  const t = useTranslations("auth");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>({
-    resolver: standardSchemaResolver(loginSchema),
+    resolver: standardSchemaResolver(createLoginSchema(tv)),
     defaultValues: { email: "", password: "" },
   });
 
@@ -54,10 +58,10 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <CardHeader className="px-8">
           <CardTitle className="font-heading text-3xl font-extrabold">
-            স্বাগতম!
+            {t("loginTitle")}
           </CardTitle>
           <CardDescription className="text-[.95rem]">
-            আপনার অ্যাকাউন্টে লগ ইন করে সেবা ব্যবহার করুন।
+            {t("loginDescription")}
           </CardDescription>
         </CardHeader>
 
@@ -75,13 +79,13 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
             <Field data-invalid={Boolean(errors.email)}>
               <FieldLabel htmlFor="email" className="text-sm font-semibold">
                 <Mail className="size-4 text-muted-foreground" />
-                Email
+                {t("fieldEmail")}
               </FieldLabel>
               <Input
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
+                placeholder={t("placeholderEmail")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.email)}
                 disabled={login.isPending}
@@ -93,12 +97,12 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
             <Field data-invalid={Boolean(errors.password)}>
               <FieldLabel htmlFor="password" className="text-sm font-semibold">
                 <Lock className="size-4 text-muted-foreground" />
-                Password
+                {t("fieldPassword")}
               </FieldLabel>
               <PasswordInput
                 id="password"
                 autoComplete="current-password"
-                placeholder="••••••••"
+                placeholder={t("placeholderPassword")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.password)}
                 disabled={login.isPending}
@@ -118,13 +122,13 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
                 checked={remember}
                 onCheckedChange={(value) => setRemember(value === true)}
               />
-              মনে রাখুন
+              {t("rememberMe")}
             </label>
             <Link
               href="/forgot-password"
               className="font-semibold text-primary hover:underline"
             >
-              পাসওয়ার্ড ভুলে গেছেন?
+              {t("forgotPassword")}
             </Link>
           </div>
         </CardContent>
@@ -138,22 +142,22 @@ export function LoginForm({ redirectPath }: LoginFormProps) {
             {login.isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                সাইন ইন হচ্ছে...
+                {t("signingIn")}
               </>
             ) : (
               <>
-                সাইন ইন
+                {tc("signIn")}
                 <ArrowRight />
               </>
             )}
           </Button>
           <p className="text-sm text-muted-foreground">
-            অ্যাকাউন্ট নেই?{" "}
+            {t("noAccount")}{" "}
             <Link
               href="/sign-up"
               className="font-semibold text-primary hover:underline"
             >
-              নতুন অ্যাকাউন্ট খুলুন
+              {t("createAccountLink")}
             </Link>
           </p>
         </CardFooter>

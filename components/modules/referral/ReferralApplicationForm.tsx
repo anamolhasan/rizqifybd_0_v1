@@ -12,7 +12,7 @@ import {
   Share2,
   TriangleAlert,
 } from "lucide-react";
-import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -42,33 +42,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { useApplyForReferral } from "@/hooks/use-referral";
 import { ApiError } from "@/lib/api";
 import type { AuthUser } from "@/lib/auth-api";
+import {
+  createReferralApplicationSchema,
+  type ReferralApplicationFormValues,
+} from "@/lib/validations";
 import type { ReferralPromotionMethod } from "@/types/referral.types";
 import {
-  REFERRAL_PROMOTION_METHOD_LABELS,
+  REFERRAL_PROMOTION_METHOD_LABEL_KEYS,
   REFERRAL_PROMOTION_METHOD_VALUES,
 } from "./referral.constants";
-
-const referralApplicationSchema = z.object({
-  promotionMethod: z
-    .string()
-    .min(1, { message: "প্রচারের মাধ্যম নির্বাচন করুন" }),
-  promotionUrl: z
-    .string()
-    .trim()
-    .refine((value) => value === "" || z.string().url().safeParse(value).success, {
-      message: "সঠিক URL দিন (যেমন https://example.com)",
-    }),
-  reason: z
-    .string()
-    .trim()
-    .min(10, { message: "কমপক্ষে ১০ অক্ষরের কারণ লিখুন" })
-    .max(1000, { message: "সর্বোচ্চ ১০০০ অক্ষর পর্যন্ত লেখা যাবে" }),
-  acceptedTerms: z.boolean().refine((value) => value === true, {
-    message: "অগ্রসর হতে শর্তাবলীতে সম্মতি দিন",
-  }),
-});
-
-type ReferralApplicationFormValues = z.infer<typeof referralApplicationSchema>;
 
 const DEFAULT_VALUES: ReferralApplicationFormValues = {
   promotionMethod: "",
@@ -88,6 +70,10 @@ interface ReferralApplicationFormProps {
 }
 
 export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) {
+  const t = useTranslations("referral.form");
+  const te = useTranslations("enums");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const [formError, setFormError] = useState<string | null>(null);
   const { mutateAsync, isPending } = useApplyForReferral();
 
@@ -100,7 +86,7 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
     clearErrors,
     formState: { errors, isSubmitting },
   } = useForm<ReferralApplicationFormValues>({
-    resolver: standardSchemaResolver(referralApplicationSchema),
+    resolver: standardSchemaResolver(createReferralApplicationSchema(tv)),
     defaultValues: DEFAULT_VALUES,
   });
 
@@ -132,11 +118,7 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
       }
 
       if (!mappedToField) {
-        setFormError(
-          error instanceof Error
-            ? error.message
-            : "আবেদন জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
-        );
+        setFormError(error instanceof Error ? error.message : t("errorGeneric"));
       }
     }
   };
@@ -150,25 +132,22 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
 
       <CardHeader className="gap-2">
         <CardTitle className="text-lg font-bold tracking-tight">
-          রেফারেল প্রোগ্রামে আবেদন করুন
+          {t("title")}
         </CardTitle>
-        <CardDescription>
-          নিচের তথ্যগুলো পূরণ করে আবেদন জমা দিন। অনুমোদনের পরেই আপনার রেফারেল
-          কার্যক্রম সক্রিয় হবে।
-        </CardDescription>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
 
       <CardContent>
         <div className="mb-6 rounded-2xl border border-primary/10 bg-white/50 p-4">
           <p className="flex items-center gap-2 text-xs font-semibold text-muted-foreground">
             <BadgeCheck className="size-4 text-primary" />
-            আবেদনকারীর তথ্য (আপনার প্রোফাইল থেকে)
+            {t("applicantInfo")}
           </p>
           <dl className="mt-3 grid gap-3 sm:grid-cols-3">
-            <ApplicantField label="নাম" value={user?.name ?? "—"} />
-            <ApplicantField label="ইমেইল" value={user?.email ?? "—"} />
+            <ApplicantField label={t("fieldName")} value={user?.name ?? "—"} />
+            <ApplicantField label={t("fieldEmail")} value={user?.email ?? "—"} />
             <ApplicantField
-              label="মোবাইল"
+              label={t("fieldMobile")}
               value={user?.appUser?.contactNumber ?? user?.phone ?? "—"}
             />
           </dl>
@@ -186,7 +165,7 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
             <Field data-invalid={Boolean(errors.promotionMethod)}>
               <FieldLabel htmlFor="promotion-method">
                 <Share2 className="size-4 text-muted-foreground" />
-                প্রচারের মাধ্যম
+                {t("promotionMethod")}
               </FieldLabel>
               <Controller
                 control={control}
@@ -202,12 +181,12 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
                       className="h-11 w-full"
                       aria-invalid={Boolean(errors.promotionMethod)}
                     >
-                      <SelectValue placeholder="মাধ্যম বেছে নিন" />
+                      <SelectValue placeholder={t("promotionMethodPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                       {REFERRAL_PROMOTION_METHOD_VALUES.map((method) => (
                         <SelectItem key={method} value={method}>
-                          {REFERRAL_PROMOTION_METHOD_LABELS[method]}
+                          {te(REFERRAL_PROMOTION_METHOD_LABEL_KEYS[method])}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -220,9 +199,9 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
             <Field data-invalid={Boolean(errors.promotionUrl)}>
               <FieldLabel htmlFor="promotion-url">
                 <Link2 className="size-4 text-muted-foreground" />
-                প্রমোশন লিংক{" "}
+                {t("promotionUrl")}{" "}
                 <span className="font-normal text-muted-foreground">
-                  (ঐচ্ছিক)
+                  ({tc("optional")})
                 </span>
               </FieldLabel>
               <Input
@@ -241,12 +220,12 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
             <Field data-invalid={Boolean(errors.reason)}>
               <FieldLabel htmlFor="application-reason">
                 <MessageSquareText className="size-4 text-muted-foreground" />
-                আবেদনের কারণ
+                {t("reasonLabel")}
               </FieldLabel>
               <Textarea
                 id="application-reason"
                 rows={4}
-                placeholder="কেন আপনি রেফারেল প্রোগ্রামে যোগ দিতে চান এবং কীভাবে প্রমোশন করবেন তা সংক্ষেপে লিখুন।"
+                placeholder={t("reasonPlaceholder")}
                 aria-invalid={Boolean(errors.reason)}
                 disabled={busy}
                 {...register("reason")}
@@ -276,11 +255,13 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
                   htmlFor="accepted-terms"
                   className="cursor-pointer text-sm leading-6 text-muted-foreground"
                 >
-                  আমি উপরের{" "}
-                  <span className="font-semibold text-foreground">
-                    শর্তাবলী ও নিয়মাবলী
-                  </span>{" "}
-                  পড়েছি এবং এতে সম্মত আছি।
+                  {t.rich("termsLabel", {
+                    terms: (chunks) => (
+                      <span className="font-semibold text-foreground">
+                        {chunks}
+                      </span>
+                    ),
+                  })}
                 </label>
               </div>
               <FieldError errors={[errors.acceptedTerms]} />
@@ -295,12 +276,12 @@ export function ReferralApplicationForm({ user }: ReferralApplicationFormProps) 
             {busy ? (
               <>
                 <Loader2 className="animate-spin" />
-                জমা হচ্ছে...
+                {t("submitting")}
               </>
             ) : (
               <>
                 <Send />
-                আবেদন জমা দিন
+                {t("submit")}
               </>
             )}
           </Button>

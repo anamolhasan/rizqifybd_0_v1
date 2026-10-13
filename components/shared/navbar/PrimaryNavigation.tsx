@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
@@ -13,6 +14,7 @@ const LINK_CLASS =
 
 export function PrimaryNavigation() {
   const pathname = usePathname();
+  const t = useTranslations();
   const [home, ...restLinks] = PUBLIC_NAV_LINKS;
 
   function isActive(href: string, match: "exact" | "prefix") {
@@ -22,7 +24,7 @@ export function PrimaryNavigation() {
 
   return (
     <nav
-      aria-label="প্রধান নেভিগেশন"
+      aria-label={t("nav.primaryNavigation")}
       className="hidden h-11 items-center gap-0.5 border-t border-border/60 md:flex"
     >
       {home ? (
@@ -35,7 +37,7 @@ export function PrimaryNavigation() {
               "border-primary font-semibold text-foreground",
           )}
         >
-          {home.label}
+          {t(home.labelKey)}
         </Link>
       ) : null}
 
@@ -53,7 +55,7 @@ export function PrimaryNavigation() {
               active && "border-primary font-semibold text-foreground",
             )}
           >
-            {link.label}
+            {t(link.labelKey)}
           </Link>
         );
       })}

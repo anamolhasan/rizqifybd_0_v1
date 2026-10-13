@@ -1,21 +1,10 @@
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 import { BrandLogo } from "@/components/auth/BrandLogo";
 import { BackToTop } from "@/components/shared/BackToTop";
 import { Separator } from "@/components/ui/separator";
-
-const services = [
-  { label: "MB রিচার্জ", href: "#services" },
-  { label: "utility bill", href: "#features" },
-  { label: "টিকিট সাপোর্ট", href: "#faq" },
-];
-
-const company = [
-  { label: "হোম", href: "/" },
-  { label: "লগ ইন", href: "/login" },
-  { label: "সাইন আপ", href: "/sign-up" },
-];
 
 const linkCls =
   "inline-flex items-center gap-2.5 py-1.5 text-slate-400 transition hover:translate-x-1 hover:text-white";
@@ -41,7 +30,23 @@ function Heading({
   );
 }
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations("footer");
+  const nav = await getTranslations("nav");
+  const common = await getTranslations("common");
+
+  const services = [
+    { label: t("linkMbRecharge"), href: "#services" },
+    { label: t("linkUtilityBill"), href: "#features" },
+    { label: t("linkTicketSupport"), href: "#faq" },
+  ];
+
+  const company = [
+    { label: nav("home"), href: "/" },
+    { label: common("signIn"), href: "/login" },
+    { label: common("signUp"), href: "/sign-up" },
+  ];
+
   return (
     <footer className="relative isolate overflow-hidden bg-slate-950 text-slate-300">
       <div
@@ -58,13 +63,12 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <BrandLogo tone="inverted" className="mb-3.5" />
             <p className="max-w-[22em] leading-[1.8] text-slate-400">
-              MB, মিনিট, SMS, utility bill ও ticket সেবা সরাসরি আপনার ব্যবসার
-              জন্য।
+              {t("description")}
             </p>
           </div>
 
-          <nav aria-label="সেবা">
-            <Heading color="var(--cy)">সেবা</Heading>
+          <nav aria-label={t("servicesAria")}>
+            <Heading color="var(--cy)">{t("servicesHeading")}</Heading>
             <ul>
               {services.map((link) => (
                 <li key={link.href}>
@@ -76,8 +80,8 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label="কোম্পানি">
-            <Heading color="var(--mg)">কোম্পানি</Heading>
+          <nav aria-label={t("companyAria")}>
+            <Heading color="var(--mg)">{t("companyHeading")}</Heading>
             <ul>
               {company.map((link) => (
                 <li key={link.href}>
@@ -90,7 +94,7 @@ export default function Footer() {
           </nav>
 
           <div>
-            <Heading color="var(--mi)">যোগাযোগ</Heading>
+            <Heading color="var(--mi)">{t("contactHeading")}</Heading>
             <ul>
               <li>
                 <a href="mailto:info@rizqifybd.com" className={linkCls}>
@@ -106,7 +110,7 @@ export default function Footer() {
               </li>
               <li className="inline-flex items-center gap-2.5 py-1.5 text-slate-400">
                 <MapPin className="size-4 text-neon-mi" />
-                ব্রাহ্মণবাড়িয়া, বাংলাদেশ
+                {nav("location")}
               </li>
             </ul>
           </div>
@@ -114,10 +118,7 @@ export default function Footer() {
 
         <Separator className="mt-11 bg-slate-800" />
         <div className="flex flex-wrap items-center justify-between gap-4 py-5 text-sm text-slate-500">
-          <span>
-            © {new Date().getFullYear()} RizqifyBD. সর্বস্বত্ব সংরক্ষিত।
-            আলেমদের দ্বারা পরিচালিত একটি কমিউনিটি।
-          </span>
+          <span>{t("copyright", { year: new Date().getFullYear() })}</span>
           <BackToTop />
         </div>
       </div>

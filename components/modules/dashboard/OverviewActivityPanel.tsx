@@ -9,20 +9,22 @@ import { cn } from "@/lib/utils";
 
 interface OverviewActivityPanelProps {
   className?: string;
+  title?: string;
+  description?: string;
 }
 
 const PLACEHOLDER_ROWS = 4;
 
 export function OverviewActivityPanel({
   className,
+  title = "Recent Activity",
+  description = "Live activity will appear here once data is connected.",
 }: OverviewActivityPanelProps) {
   return (
     <Card className={cn(className)}>
       <CardHeader>
-        <CardTitle>Recent Activity</CardTitle>
-        <CardDescription>
-          Live activity will appear here once data is connected.
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {Array.from({ length: PLACEHOLDER_ROWS }).map((_, index) => (

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Key, Loader2, LogOut, User } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,8 +18,9 @@ import { useCurrentUser, useLogout } from "@/hooks/use-auth";
 export function DashboardUserMenu() {
   const { data: currentUser } = useCurrentUser();
   const logout = useLogout();
+  const t = useTranslations();
 
-  const name = currentUser?.name ?? "Account";
+  const name = currentUser?.name ?? t("common.account");
   const email = currentUser?.email;
   const role = currentUser?.role;
 
@@ -29,7 +31,7 @@ export function DashboardUserMenu() {
           variant="outline"
           size="icon"
           className="rounded-full"
-          aria-label="Account menu"
+          aria-label={t("common.accountMenu")}
         >
           <span className="text-sm font-semibold">
             {name.charAt(0).toUpperCase()}
@@ -57,14 +59,14 @@ export function DashboardUserMenu() {
         <DropdownMenuItem>
           <Link href="/my-profile" className="flex w-full items-center gap-2">
             <User />
-            My Profile
+            {t("common.profile")}
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem>
           <Link href="/change-password" className="flex w-full items-center gap-2">
             <Key />
-            Change Password
+            {t("common.changePassword")}
           </Link>
         </DropdownMenuItem>
 
@@ -80,7 +82,7 @@ export function DashboardUserMenu() {
           ) : (
             <LogOut />
           )}
-          {logout.isPending ? "Signing out..." : "Logout"}
+          {logout.isPending ? t("common.signingOut") : t("common.signOut")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

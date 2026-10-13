@@ -47,17 +47,19 @@ export function getDashboardNavItems(
 ): NavSection[] {
   const audience = resolveDashboardAudience(role, pathname);
   if (audience === "staff") return getStaffNavItems(role);
-  if (audience === "customer") return getCustomerNavItems(role);
-  return getCommonNavItems(role);
+  if (audience === "customer") return getCustomerNavItems();
+  return getCommonNavItems();
 }
 
+// Returns the next-intl message key for the current page, resolved by the
+// consuming component (e.g. "nav.dashboard" or "adminNav.overview").
 export function getDashboardPageTitle(
   pathname: string,
   sections: NavSection[],
 ): string {
   for (const section of sections) {
     const item = section.items.find((entry) => entry.href === pathname);
-    if (item) return item.title;
+    if (item) return item.titleKey;
   }
-  return "Dashboard";
+  return "nav.dashboard";
 }

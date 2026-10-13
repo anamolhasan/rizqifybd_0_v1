@@ -10,6 +10,7 @@ import {
   UserPlus,
   Users,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { StatsCard } from "@/components/shared/StatsCard";
@@ -35,6 +36,9 @@ interface ReferralPartnerDashboardProps {
 export function ReferralPartnerDashboard({
   data,
 }: ReferralPartnerDashboardProps) {
+  const t = useTranslations("referral.dashboard");
+  const tl = useTranslations("referral.link");
+  const tb = useTranslations("referral.badge");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -63,9 +67,9 @@ export function ReferralPartnerDashboard({
     try {
       await navigator.clipboard.writeText(referralLink);
       setCopied(true);
-      toast.success("Referral link copied");
+      toast.success(tl("toastCopied"));
     } catch {
-      toast.error("Could not copy the referral link");
+      toast.error(tl("toastCopyFailed"));
     }
   };
 
@@ -76,13 +80,13 @@ export function ReferralPartnerDashboard({
     }
     try {
       await navigator.share({
-        title: "Join RizqifyBD",
-        text: "Sign up with RizqifyBD using my referral link",
+        title: tl("shareTitle"),
+        text: tl("shareText"),
         url: referralLink,
       });
     } catch (error) {
       if (error instanceof Error && error.name !== "AbortError") {
-        toast.error("Could not share the referral link");
+        toast.error(tl("toastShareFailed"));
       }
     }
   };
@@ -97,24 +101,21 @@ export function ReferralPartnerDashboard({
         <CardHeader className="gap-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <CardTitle className="text-lg font-bold tracking-tight">
-              Your referral link
+              {tl("title")}
             </CardTitle>
             <Badge className="h-auto gap-1.5 border border-emerald-500/30 bg-emerald-100 px-3 py-1 text-emerald-800">
               <BadgeCheck className="size-3.5" />
-              Referral Partner
+              {tb("approved")}
             </Badge>
           </div>
-          <CardDescription>
-            Share this link with your network. Anyone who signs up with your
-            code is attributed to you as a referral.
-          </CardDescription>
+          <CardDescription>{t("linkDescription")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex flex-col gap-3 sm:flex-row">
             <Input
               readOnly
               value={referralLink}
-              aria-label="Referral link"
+              aria-label={tl("linkAria")}
               className="h-11 rounded-xl bg-white/70 font-medium"
               onFocus={(event) => event.currentTarget.select()}
             />
@@ -127,12 +128,12 @@ export function ReferralPartnerDashboard({
                 {copied ? (
                   <>
                     <Check />
-                    Copied!
+                    {tl("copied")}
                   </>
                 ) : (
                   <>
                     <Copy />
-                    Copy link
+                    {tl("copy")}
                   </>
                 )}
               </Button>
@@ -143,13 +144,13 @@ export function ReferralPartnerDashboard({
                 className="h-11 rounded-xl"
               >
                 <Share2 />
-                Share
+                {tl("share")}
               </Button>
             </div>
           </div>
           <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <Link2 className="size-3.5" />
-            Referral code:
+            {tl("codeLabel")}
             <span className="font-semibold text-foreground">
               {data.referralCode}
             </span>
@@ -159,36 +160,38 @@ export function ReferralPartnerDashboard({
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatsCard
-          title="Total referred accounts"
+          title={t("totalReferred")}
           value={formatNumber(data.totalReferredCount)}
           iconName="users"
-          description="Accounts that signed up with your code."
+          description={t("totalReferredDescription")}
         />
         <StatsCard
-          title="Active referred accounts"
+          title={t("activeReferred")}
           value={formatNumber(data.activeReferredCount)}
           iconName="award"
-          description="At least one paid offer purchase in 6 months."
+          description={t("activeReferredDescription")}
         />
         <Card className="sm:col-span-2 xl:col-span-1">
           <CardHeader className="gap-1">
             <CardTitle className="text-sm font-semibold">
-              Progress to referral income
+              {t("progressTitle")}
             </CardTitle>
             <CardDescription>
               {remaining > 0
-                ? `${formatNumber(remaining)} more active referral${
-                    remaining === 1 ? "" : "s"
-                  } needed (target ${formatNumber(data.targetActiveReferrals)}).`
-                : "You have met the active referral requirement."}
+                ? t("progressNeeded", {
+                    count: remaining,
+                    target: formatNumber(data.targetActiveReferrals),
+                  })
+                : t("progressMet")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <Progress value={progressValue} />
             <p className="text-xs text-muted-foreground">
-              {formatNumber(data.activeReferredCount)} /{" "}
-              {formatNumber(data.targetActiveReferrals)} active referred
-              accounts
+              {t("progressCount", {
+                current: formatNumber(data.activeReferredCount),
+                target: formatNumber(data.targetActiveReferrals),
+              })}
             </p>
           </CardContent>
         </Card>
@@ -196,11 +199,9 @@ export function ReferralPartnerDashboard({
 
       <Card>
         <CardHeader>
-          <CardTitle>Referred accounts</CardTitle>
+          <CardTitle>{t("referredAccounts")}</CardTitle>
           <CardDescription>
-            An account becomes active after at least one qualifying paid offer
-            purchase within the previous 6 months. Phone verification is not
-            required at this stage.
+            {t("referredAccountsDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -234,7 +235,9 @@ export function ReferralPartnerDashboard({
                       ) : (
                         <UserPlus className="size-3.5" />
                       )}
-                      {referral.isActive ? "Active" : "Pending"}
+                      {referral.isActive
+                        ? t("accountActive")
+                        : t("accountPending")}
                     </Badge>
                   </div>
                 </li>
@@ -248,15 +251,15 @@ export function ReferralPartnerDashboard({
 }
 
 function EmptyReferredAccounts() {
+  const t = useTranslations("referral.dashboard");
   return (
     <div className="flex flex-col items-center justify-center rounded-xl border border-dashed px-6 py-12 text-center">
       <span className="flex size-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600">
         <Users className="size-5" />
       </span>
-      <p className="mt-4 text-sm font-semibold">No referrals yet</p>
+      <p className="mt-4 text-sm font-semibold">{t("emptyTitle")}</p>
       <p className="mt-1 max-w-sm text-xs text-muted-foreground">
-        Share your referral link to get started. New sign-ups will appear here
-        as soon as they join.
+        {t("emptyBody")}
       </p>
     </div>
   );

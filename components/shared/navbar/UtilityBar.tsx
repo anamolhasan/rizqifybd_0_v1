@@ -1,20 +1,17 @@
 import Link from "next/link";
 import { Headphones, MapPin, Phone } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
-import {
-  SUPPORT_EMAIL,
-  SUPPORT_LOCATION,
-  SUPPORT_PHONE,
-  PUBLIC_NAV_LINKS,
-} from "./nav-config";
+import { PUBLIC_NAV_LINKS, SUPPORT_EMAIL, SUPPORT_PHONE } from "./nav-config";
 
 interface UtilityBarProps {
   className?: string;
 }
 
 export function UtilityBar({ className }: UtilityBarProps) {
+  const t = useTranslations("nav");
   const faqLink = PUBLIC_NAV_LINKS.find((link) => link.href === "/faq");
 
   return (
@@ -33,21 +30,21 @@ export function UtilityBar({ className }: UtilityBarProps) {
             className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
           >
             <Headphones className="size-3.5 text-primary" />
-            <span>গ্রাহক সহায়তা</span>
+            <span>{t("customerSupport")}</span>
           </a>
         </div>
 
         <div className="flex items-center gap-4">
           <span className="hidden items-center gap-1.5 text-slate-400 lg:inline-flex">
             <MapPin className="size-3.5 text-primary" />
-            {SUPPORT_LOCATION}
+            {t("location")}
           </span>
           {faqLink ? (
             <Link
               href={faqLink.href}
               className="font-medium text-slate-200 transition-colors hover:text-white"
             >
-              সাহায্য ও প্রশ্নোত্তর
+              {t("helpAndFaq")}
             </Link>
           ) : null}
         </div>

@@ -26,3 +26,11 @@ export interface IReviewAgentApplicationPayload {
   status: AgentApplicationStatus;
   rejectionReason?: string;
 }
+
+// Shape of GET /agent-applications/me: the caller's application (nullable so a
+// user who never applied can be offered the apply flow) plus the derived
+// reseller/commission cache flag.
+export interface IAgentStatus {
+  application: IAgentApplication | null;
+  canEarn: boolean;
+}

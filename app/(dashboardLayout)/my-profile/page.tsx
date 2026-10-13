@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { MyProfile } from "@/components/modules/profile/MyProfile";
 
-export const metadata: Metadata = {
-  title: "My Profile",
-  description: "View and manage your RizqifyBD account profile.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("myProfile.title"),
+    description: t("myProfile.description"),
+  };
+}
 
 export default function MyProfilePage() {
   return <MyProfile />;

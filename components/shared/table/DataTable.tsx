@@ -2,6 +2,7 @@
 
 import { flexRender, type Table as TanStackTable } from "@tanstack/react-table";
 import { RefreshCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,25 +22,45 @@ interface DataTableProps<TData>
   children?: React.ReactNode;
   emptyStateMessage?: string | null;
   isLoading?: boolean;
+  isRefetching?: boolean;
+  skeletonRowCount?: number;
 }
 
 export function DataTable<TData>({
   table,
   children,
-  emptyStateMessage = "No results found.",
+  emptyStateMessage,
   isLoading = false,
+  isRefetching = false,
+  skeletonRowCount = 5,
   className,
   ...props
 }: DataTableProps<TData>) {
+  const t = useTranslations("common");
+  const emptyMessage =
+    emptyStateMessage === undefined ? t("noResults") : emptyStateMessage;
   const refetch = (
     table.options.meta as { refetch?: () => void } | undefined
   )?.refetch;
 
   const columns = table.getAllColumns();
+  const showRefetchIndicator = isRefetching && !isLoading;
 
   return (
     <div className={cn("space-y-4", className)} {...props}>
-      <div className="overflow-hidden rounded-xl border bg-card">
+      <div
+        aria-busy={isLoading || isRefetching}
+        className="relative overflow-hidden rounded-xl border bg-card"
+      >
+        {showRefetchIndicator ? (
+          <div
+            role="progressbar"
+            aria-label={t("refreshingData")}
+            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-0.5 overflow-hidden"
+          >
+            <div className="h-full w-full animate-pulse bg-primary/70" />
+          </div>
+        ) : null}
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -59,8 +80,8 @@ export function DataTable<TData>({
           </TableHeader>
           <TableBody>
             {isLoading ? (
-              Array.from({ length: 5 }).map((_, rowIndex) => (
-                <TableRow key={`skeleton-${rowIndex}`}>
+              Array.from({ length: skeletonRowCount }).map((_, rowIndex) => (
+                <TableRow key={`skeleton-${rowIndex}`} aria-hidden="true">
                   {columns.map((_, cellIndex) => (
                     <TableCell key={`skeleton-${rowIndex}-${cellIndex}`}>
                       <Skeleton className="h-5 w-full" />
@@ -92,7 +113,7 @@ export function DataTable<TData>({
                 >
                   <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">
                     <RefreshCcw className="size-5" />
-                    <span>{emptyStateMessage}</span>
+                    <span>{emptyMessage}</span>
                     {refetch ? (
                       <Button
                         type="button"
@@ -100,7 +121,7 @@ export function DataTable<TData>({
                         size="sm"
                         onClick={() => refetch()}
                       >
-                        Refresh
+                        {t("refresh")}
                       </Button>
                     ) : null}
                   </div>

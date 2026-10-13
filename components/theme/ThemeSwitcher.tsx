@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { Gem, Leaf } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
 
 import { cn } from "@/lib/utils";
@@ -23,16 +24,17 @@ function useIsHydrated() {
 
 const OPTIONS: ReadonlyArray<{
   value: ThemeValue;
-  label: string;
+  labelKey: string;
   icon: typeof Gem;
 }> = [
-  { value: "emerald", label: "Emerald", icon: Gem },
-  { value: "mint", label: "Mint", icon: Leaf },
+  { value: "emerald", labelKey: "emerald", icon: Gem },
+  { value: "mint", labelKey: "mint", icon: Leaf },
 ];
 
 export function ThemeSwitcher({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
   const hydrated = useIsHydrated();
+  const t = useTranslations("theme");
 
   // Keep server and first client render identical to avoid hydration mismatches.
   const active: ThemeValue =
@@ -45,7 +47,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
   return (
     <div
       role="radiogroup"
-      aria-label="Color theme"
+      aria-label={t("ariaLabel")}
       className={cn(
         "relative grid grid-cols-2 gap-1 rounded-full border border-border/70 bg-muted/60 p-1",
         className,
@@ -61,16 +63,17 @@ export function ThemeSwitcher({ className }: { className?: string }) {
         )}
       />
 
-      {OPTIONS.map(({ value, label, icon: Icon }) => {
+      {OPTIONS.map(({ value, labelKey, icon: Icon }) => {
         const isActive = active === value;
+        const label = t(labelKey);
         return (
           <button
             key={value}
             type="button"
             role="radio"
             aria-checked={isActive}
-            aria-label={`${label} theme`}
-            title={`${label} theme`}
+            aria-label={t("optionAria", { name: label })}
+            title={t("optionAria", { name: label })}
             onClick={() => setTheme(value)}
             className={cn(
               "relative z-10 flex h-7 items-center justify-center gap-1.5 rounded-full px-2.5 text-xs font-medium whitespace-nowrap transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring/50",

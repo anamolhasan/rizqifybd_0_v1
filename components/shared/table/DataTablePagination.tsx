@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 import {
   Select,
   SelectContent,
@@ -49,6 +51,7 @@ export function DataTablePagination({
   pageSizeOptions = [10, 20, 50, 100],
   className,
 }: DataTablePaginationProps) {
+  const t = useTranslations("pagination");
   const { page, limit, total, totalPages } = autoPagination;
   const safeTotalPages = Math.max(totalPages, 1);
   const from = total === 0 ? 0 : (page - 1) * limit + 1;
@@ -63,15 +66,20 @@ export function DataTablePagination({
       )}
     >
       <p className="text-sm text-muted-foreground">
-        Showing <span className="font-medium text-foreground">{from}</span>–
-        <span className="font-medium text-foreground">{to}</span> of{" "}
-        <span className="font-medium text-foreground">{total}</span> results
+        {t.rich("showing", {
+          from,
+          to,
+          total,
+          b: (chunks) => (
+            <span className="font-medium text-foreground">{chunks}</span>
+          ),
+        })}
       </p>
 
       <div className="flex items-center gap-4">
         {onPageSizeChange ? (
           <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Rows</span>
+            <span className="text-sm text-muted-foreground">{t("rows")}</span>
             <Select
               value={String(limit)}
               onValueChange={(value) => onPageSizeChange(Number(value))}
@@ -97,7 +105,7 @@ export function DataTablePagination({
             disabled={isLoading || page <= 1}
             className="h-8 rounded-md px-2 text-sm text-muted-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40"
           >
-            Prev
+            {t("previous")}
           </button>
 
           {pageRange.map((item, index) =>
@@ -133,7 +141,7 @@ export function DataTablePagination({
             disabled={isLoading || page >= safeTotalPages}
             className="h-8 rounded-md px-2 text-sm text-muted-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-40"
           >
-            Next
+            {t("next")}
           </button>
         </div>
       </div>

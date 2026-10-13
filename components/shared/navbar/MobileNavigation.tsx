@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   ChevronDown,
   Headphones,
@@ -47,6 +48,7 @@ export function MobileNavigation() {
   const [open, setOpen] = useState(false);
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations();
 
   const { data: categoriesData } = useCategories();
   const { data: user } = useCurrentUser();
@@ -55,7 +57,9 @@ export function MobileNavigation() {
   const categories = categoriesData?.data ?? [];
   const role = user?.role as Role | undefined;
   const dashboardHref = getDefaultDashboardRoute(role);
-  const dashboardLabel = isStaffRole(role) ? "অ্যাডমিন ড্যাশবোর্ড" : "ড্যাশবোর্ড";
+  const dashboardLabel = isStaffRole(role)
+    ? t("nav.adminDashboard")
+    : t("nav.dashboard");
 
   function isActive(href: string, match: "exact" | "prefix") {
     if (match === "exact") return pathname === href;
@@ -69,7 +73,7 @@ export function MobileNavigation() {
           variant="ghost"
           size="icon"
           className="md:hidden"
-          aria-label="নেভিগেশন মেনু খুলুন"
+          aria-label={t("nav.openMenu")}
         >
           <Menu />
         </Button>
@@ -77,15 +81,16 @@ export function MobileNavigation() {
 
       <SheetContent side="left" className="w-[85vw] max-w-sm gap-0 p-0">
         <SheetHeader className="flex-row items-center justify-between border-b border-border px-4 py-3 pr-12">
-          <SheetTitle asChild>
-            <BrandLogo href="/" />
+          <SheetTitle className="sr-only">
+            {t("nav.mobileNavigation")}
           </SheetTitle>
+          <BrandLogo href="/" />
           <ThemeSwitcher />
         </SheetHeader>
 
         <ScrollArea className="min-h-0 flex-1">
           <div className="p-3">
-            <nav aria-label="মোবাইল নেভিগেশন" className="space-y-0.5">
+            <nav aria-label={t("nav.mobileNavigation")} className="space-y-0.5">
               {PUBLIC_NAV_LINKS.map((link) => {
                 const active = isActive(link.href, link.match);
                 return (
@@ -100,7 +105,7 @@ export function MobileNavigation() {
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                       )}
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                     </Link>
                   </SheetClose>
                 );
@@ -115,7 +120,7 @@ export function MobileNavigation() {
               >
                 <span className="inline-flex items-center gap-2">
                   <Tag className="size-4" />
-                  ক্যাটাগরি
+                  {t("nav.categories")}
                 </span>
                 <ChevronDown
                   className={cn(
@@ -140,7 +145,7 @@ export function MobileNavigation() {
                     ))
                   ) : (
                     <p className="px-3 py-2 text-sm text-muted-foreground">
-                      ক্যাটাগরি তালিকা বর্তমানে উপলব্ধ নয়।
+                      {t("nav.categoriesUnavailable")}
                     </p>
                   )}
                   <SheetClose asChild>
@@ -148,7 +153,7 @@ export function MobileNavigation() {
                       href={SERVICES_ROUTE}
                       className="block rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-muted"
                     >
-                      সব সেবা দেখুন
+                      {t("nav.allServices")}
                     </Link>
                   </SheetClose>
                 </div>
@@ -172,8 +177,7 @@ export function MobileNavigation() {
                 <Mail className="size-3.5 text-primary" />
                 {SUPPORT_EMAIL}
               </a>
-            </div>
-          </div>
+            </div>          </div>
         </ScrollArea>
 
         <div className="border-t border-border p-3">
@@ -185,7 +189,7 @@ export function MobileNavigation() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">
-                    {user.name ?? "RizqifyBD ব্যবহারকারী"}
+                    {user.name ?? t("common.defaultUser")}
                   </p>
                   <p className="truncate text-xs text-muted-foreground">
                     {user.email}
@@ -209,7 +213,7 @@ export function MobileNavigation() {
                     className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     <User className="size-4" />
-                    আমার প্রোফাইল
+                    {t("common.profile")}
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
@@ -218,7 +222,7 @@ export function MobileNavigation() {
                     className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                   >
                     <Key className="size-4" />
-                    পাসওয়ার্ড পরিবর্তন
+                    {t("common.changePassword")}
                   </Link>
                 </SheetClose>
                 <button
@@ -235,7 +239,7 @@ export function MobileNavigation() {
                   ) : (
                     <LogOut className="size-4" />
                   )}
-                  {logout.isPending ? "সাইন আউট হচ্ছে..." : "লগ আউট"}
+                  {logout.isPending ? t("common.signingOut") : t("common.signOut")}
                 </button>
               </div>
             </div>
@@ -243,12 +247,12 @@ export function MobileNavigation() {
             <div className="grid grid-cols-2 gap-2">
               <SheetClose asChild>
                 <Button asChild variant="outline">
-                  <Link href="/login">লগ ইন</Link>
+                  <Link href="/login">{t("common.signIn")}</Link>
                 </Button>
               </SheetClose>
               <SheetClose asChild>
                 <Button asChild className="bg-primary text-primary-foreground hover:bg-primary/90">
-                  <Link href="/sign-up">সাইন আপ</Link>
+                  <Link href="/sign-up">{t("common.signUp")}</Link>
                 </Button>
               </SheetClose>
             </div>
@@ -256,7 +260,7 @@ export function MobileNavigation() {
 
           <div className="mt-3 flex items-center gap-2 px-1 text-xs text-muted-foreground">
             <Headphones className="size-3.5 text-primary" />
-            গ্রাহক সহায়তা
+            {t("nav.customerSupport")}
           </div>
         </div>
       </SheetContent>

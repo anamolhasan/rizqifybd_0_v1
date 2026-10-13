@@ -53,7 +53,7 @@ export function canAccessRouteOwner(
   if (owner === null) return true;
   if (owner === "COMMON") return Boolean(role);
   if (owner === "STAFF") return isStaffRole(role);
-  return role !== undefined && (role === "USER" || role === "AGENT");
+  return role === "USER";
 }
 
 export function getDefaultDashboardRoute(role: Role | undefined): string {

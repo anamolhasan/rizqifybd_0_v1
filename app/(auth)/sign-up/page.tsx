@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 import { RegisterForm } from "@/components/shared/forms/RegisterForm";
 import { referralService } from "@/services/services";
 
-export const metadata: Metadata = {
-  title: "Create account",
-  description: "Create a new RizqifyBD account.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata.signUp");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
 interface SignUpPageProps {
   searchParams: Promise<{ redirect?: string; ref?: string }>;

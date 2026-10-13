@@ -12,11 +12,13 @@ export interface IOrderProduct {
 export interface IOrder {
   id: string;
   userId: string;
+  sellerId: string | null;
   productId: string;
   quantity: number;
   unitPrice: number;
   totalAmount: number;
   commissionAmount: number;
+  referralCommissionAmount: number;
   status: OrderStatus;
   paymentStatus: PaymentStatus;
   targetNumber: string | null;
@@ -47,6 +49,7 @@ export interface ICreateOrderPayload {
   quantity?: number;
   targetNumber?: string;
   note?: string;
+  buyerId?: string;
 }
 
 export interface IUpdateOrderStatusPayload {

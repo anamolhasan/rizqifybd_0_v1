@@ -13,6 +13,7 @@ import {
   Mail,
   User,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,7 @@ import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/auth/PasswordInput";
 import { PasswordStrength } from "@/components/auth/PasswordStrength";
 import { useRegister } from "@/hooks/use-auth";
-import { registerSchema, type RegisterFormInputs } from "@/lib/validations";
+import { createRegisterSchema, type RegisterFormInputs } from "@/lib/validations";
 
 interface RegisterFormProps {
   redirectPath?: string;
@@ -45,6 +46,9 @@ interface RegisterFormProps {
 export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) {
   const signup = useRegister(redirectPath);
   const [agreed, setAgreed] = useState(false);
+  const t = useTranslations("auth");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
 
   const {
     register,
@@ -52,7 +56,7 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
     control,
     formState: { errors },
   } = useForm<RegisterFormInputs>({
-    resolver: standardSchemaResolver(registerSchema),
+    resolver: standardSchemaResolver(createRegisterSchema(tv)),
     defaultValues: {
       name: "",
       email: "",
@@ -81,10 +85,10 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <CardHeader className="px-8">
           <CardTitle className="font-heading text-3xl font-extrabold">
-            অ্যাকাউন্ট তৈরি করুন
+            {t("registerTitle")}
           </CardTitle>
           <CardDescription className="text-[.95rem]">
-            মাত্র এক ধাপে RizqifyBD পরিবারে যোগ দিন।
+            {t("registerDescription")}
           </CardDescription>
         </CardHeader>
 
@@ -102,13 +106,13 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
             <Field data-invalid={Boolean(errors.name)}>
               <FieldLabel htmlFor="name" className="text-sm font-semibold">
                 <User className="size-4 text-muted-foreground" />
-                Full Name
+                {t("fieldFullName")}
               </FieldLabel>
               <Input
                 id="name"
                 type="text"
                 autoComplete="name"
-                placeholder="John Doe"
+                placeholder={t("placeholderName")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.name)}
                 disabled={signup.isPending}
@@ -120,13 +124,13 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
             <Field data-invalid={Boolean(errors.email)}>
               <FieldLabel htmlFor="email" className="text-sm font-semibold">
                 <Mail className="size-4 text-muted-foreground" />
-                Email
+                {t("fieldEmail")}
               </FieldLabel>
               <Input
                 id="email"
                 type="email"
                 autoComplete="email"
-                placeholder="you@example.com"
+                placeholder={t("placeholderEmail")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.email)}
                 disabled={signup.isPending}
@@ -141,16 +145,16 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
                 className="text-sm font-semibold"
               >
                 <Link2 className="size-4 text-muted-foreground" />
-                Referral Code{" "}
+                {t("fieldReferralCode")}{" "}
                 <span className="font-normal text-muted-foreground">
-                  (Optional)
+                  ({t("optional")})
                 </span>
               </FieldLabel>
               <Input
                 id="referralCode"
                 type="text"
                 autoComplete="off"
-                placeholder="e.g. AB12XYZ3"
+                placeholder={t("placeholderReferralCode")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.referralCode)}
                 disabled={signup.isPending}
@@ -162,12 +166,12 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
             <Field data-invalid={Boolean(errors.password)}>
               <FieldLabel htmlFor="password" className="text-sm font-semibold">
                 <Lock className="size-4 text-muted-foreground" />
-                Password
+                {t("fieldPassword")}
               </FieldLabel>
               <PasswordInput
                 id="password"
                 autoComplete="new-password"
-                placeholder="••••••••"
+                placeholder={t("placeholderPassword")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.password)}
                 disabled={signup.isPending}
@@ -183,12 +187,12 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
                 className="text-sm font-semibold"
               >
                 <Lock className="size-4 text-muted-foreground" />
-                Confirm Password
+                {t("fieldConfirmPassword")}
               </FieldLabel>
               <PasswordInput
                 id="confirmPassword"
                 autoComplete="new-password"
-                placeholder="••••••••"
+                placeholder={t("placeholderPassword")}
                 className="h-12 rounded-xl bg-input/50"
                 aria-invalid={Boolean(errors.confirmPassword)}
                 disabled={signup.isPending}
@@ -209,21 +213,24 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
               onCheckedChange={(value) => setAgreed(value === true)}
             />
             <span>
-              আমি{" "}
-              <Link
-                href="/terms"
-                className="font-medium text-primary hover:underline"
-              >
-                শর্তাবলী
-              </Link>{" "}
-              ও{" "}
-              <Link
-                href="/privacy"
-                className="font-medium text-primary hover:underline"
-              >
-                গোপনীয়তা নীতি
-              </Link>{" "}
-              সম্মত আছি।
+              {t.rich("terms", {
+                terms: (chunks) => (
+                  <Link
+                    href="/terms"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+                privacy: (chunks) => (
+                  <Link
+                    href="/privacy"
+                    className="font-medium text-primary hover:underline"
+                  >
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </span>
           </label>
         </CardContent>
@@ -237,22 +244,22 @@ export function RegisterForm({ redirectPath, referralCode }: RegisterFormProps) 
             {signup.isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                অ্যাকাউন্ট তৈরি হচ্ছে...
+                {t("creatingAccount")}
               </>
             ) : (
               <>
-                অ্যাকাউন্ট তৈরি করুন
+                {t("createAccount")}
                 <ArrowRight />
               </>
             )}
           </Button>
           <p className="text-center text-sm text-muted-foreground">
-            আগে থেকেই অ্যাকাউন্ট আছে?{" "}
+            {t("haveAccount")}{" "}
             <Link
               href="/login"
               className="font-semibold text-primary hover:underline"
             >
-              সাইন ইন করুন
+              {tc("signIn")}
             </Link>
           </p>
         </CardFooter>

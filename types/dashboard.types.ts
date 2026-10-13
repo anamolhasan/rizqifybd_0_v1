@@ -1,7 +1,8 @@
 import type { Role } from "./enums";
 
 export interface NavItem {
-  title: string;
+  /** next-intl message key resolved at render time (e.g. "dashboardNav.myWallet"). */
+  titleKey: string;
   href: string;
   icon: string;
   /**
@@ -12,7 +13,8 @@ export interface NavItem {
 }
 
 export interface NavSection {
-  title?: string;
+  /** Optional next-intl message key for the section heading. */
+  titleKey?: string;
   items: NavItem[];
 }
 

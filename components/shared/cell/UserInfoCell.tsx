@@ -1,3 +1,7 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -22,10 +26,13 @@ export function UserInfoCell({
   sub,
   className,
 }: UserInfoCellProps) {
+  const t = useTranslations("common");
   return (
     <div className={cn("flex items-center gap-3", className)}>
       <Avatar className="size-8">
-        {image ? <AvatarImage src={image} alt={name ?? "User"} /> : null}
+        {image ? (
+          <AvatarImage src={image} alt={name ?? t("userAvatar")} />
+        ) : null}
         <AvatarFallback>{getInitials(name)}</AvatarFallback>
       </Avatar>
       <div className="flex min-w-0 flex-col">

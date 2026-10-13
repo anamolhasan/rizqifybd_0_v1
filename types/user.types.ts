@@ -1,5 +1,15 @@
 import type { Role, UserStatus } from "./enums";
 
+export interface IAppUserReferrer {
+  id: string;
+  referralCode: string;
+  authUser: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
 export interface IAppUser {
   id: string;
   authUserId: string;
@@ -18,6 +28,10 @@ export interface IAppUser {
   deletedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  referrer?: IAppUserReferrer | null;
+  _count?: {
+    referrals: number;
+  };
 }
 
 export interface IUser {
@@ -63,12 +77,42 @@ export interface IUserDetail {
     | "canEarn"
     | "balance"
     | "totalEarned"
+    | "referralIncomeEligible"
+    | "referralCode"
     | "referredBy"
+    | "lastLogin"
     | "isDeleted"
     | "deletedAt"
     | "createdAt"
     | "updatedAt"
-  >;
+    | "referrer"
+    | "_count"
+  > | null;
+}
+
+export interface IUserListParams {
+  page?: number;
+  limit?: number;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  searchTerm?: string;
+  role?: Role;
+  status?: UserStatus;
+  isDeleted?: boolean;
+}
+
+export interface IUserStats {
+  total: number;
+  active: number;
+  pending: number;
+  suspended: number;
+  blocked: number;
+  inactive: number;
+  sleeping: number;
+  verified: number;
+  deleted: number;
+  byStatus: Record<UserStatus, number>;
+  byRole: Record<Role, number>;
 }
 
 export interface ICreateUserPayload {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AlertCircle, Loader2 } from "lucide-react";
-import { z } from "zod";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { useUpdateMyProfile } from "@/hooks/use-auth";
 import type { AuthUser, UpdateMyProfilePayload } from "@/lib/auth-api";
+import {
+  createProfileEditSchema,
+  type ProfileFormValues,
+} from "@/lib/validations";
 
 const PROFILE_FIELDS = [
   "name",
@@ -42,42 +46,6 @@ function isProfileField(path: string): path is ProfileFieldName {
 
 // Mirrors the backend allow-list (see auth.validation.ts -> updateProfileZodSchema).
 // Role, status, balance and other privileged fields are not present and cannot be set.
-const profileSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: "Name is required" })
-    .max(100, { message: "Name must be at most 100 characters" }),
-  phone: z
-    .string()
-    .trim()
-    .max(30, { message: "Phone must be at most 30 characters" })
-    .optional(),
-  contactNumber: z
-    .string()
-    .trim()
-    .max(30, { message: "Contact number must be at most 30 characters" })
-    .optional(),
-  address: z
-    .string()
-    .trim()
-    .max(255, { message: "Address must be at most 255 characters" })
-    .optional(),
-  country: z
-    .string()
-    .trim()
-    .max(100, { message: "Country must be at most 100 characters" })
-    .optional(),
-  profilePhoto: z
-    .union([
-      z.literal(""),
-      z.string().url({ message: "Profile photo must be a valid URL" }),
-    ])
-    .optional(),
-});
-
-export type ProfileFormValues = z.infer<typeof profileSchema>;
-
 const DEFAULT_VALUES: ProfileFormValues = {
   name: "",
   phone: "",
@@ -125,6 +93,9 @@ export function ProfileEditDialog({
   onOpenChange,
   user,
 }: ProfileEditDialogProps) {
+  const t = useTranslations("profile");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const {
     mutateAsync: updateProfile,
     isPending: isSubmitting,
@@ -140,7 +111,7 @@ export function ProfileEditDialog({
     clearErrors,
     formState: { errors },
   } = useForm<ProfileFormValues>({
-    resolver: standardSchemaResolver(profileSchema),
+    resolver: standardSchemaResolver(createProfileEditSchema(tv)),
     defaultValues: DEFAULT_VALUES,
   });
 
@@ -192,11 +163,8 @@ export function ProfileEditDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Edit Profile</DialogTitle>
-          <DialogDescription>
-            Update your personal details. Role, status and account fields cannot
-            be changed here.
-          </DialogDescription>
+          <DialogTitle>{t("editDialog.title")}</DialogTitle>
+          <DialogDescription>{t("editDialog.description")}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(submit)} noValidate>
@@ -209,10 +177,12 @@ export function ProfileEditDialog({
 
           <FieldGroup>
             <Field data-invalid={Boolean(errors.name)}>
-              <FieldLabel htmlFor="profile-name">Full Name</FieldLabel>
+              <FieldLabel htmlFor="profile-name">
+                {t("editDialog.fullName")}
+              </FieldLabel>
               <Input
                 id="profile-name"
-                placeholder="e.g. Mehedi Hasan"
+                placeholder={t("editDialog.fullNamePlaceholder")}
                 aria-invalid={Boolean(errors.name)}
                 disabled={isSubmitting}
                 {...register("name")}
@@ -222,11 +192,13 @@ export function ProfileEditDialog({
 
             <div className="grid gap-5 sm:grid-cols-2">
               <Field data-invalid={Boolean(errors.phone)}>
-                <FieldLabel htmlFor="profile-phone">Phone</FieldLabel>
+                <FieldLabel htmlFor="profile-phone">
+                  {t("editDialog.phone")}
+                </FieldLabel>
                 <Input
                   id="profile-phone"
                   type="tel"
-                  placeholder="e.g. 01700000000"
+                  placeholder={t("editDialog.phonePlaceholder")}
                   aria-invalid={Boolean(errors.phone)}
                   disabled={isSubmitting}
                   {...register("phone")}
@@ -236,12 +208,12 @@ export function ProfileEditDialog({
 
               <Field data-invalid={Boolean(errors.contactNumber)}>
                 <FieldLabel htmlFor="profile-contact-number">
-                  Contact Number
+                  {t("editDialog.contactNumber")}
                 </FieldLabel>
                 <Input
                   id="profile-contact-number"
                   type="tel"
-                  placeholder="e.g. 01800000000"
+                  placeholder={t("editDialog.contactNumberPlaceholder")}
                   aria-invalid={Boolean(errors.contactNumber)}
                   disabled={isSubmitting}
                   {...register("contactNumber")}
@@ -250,10 +222,12 @@ export function ProfileEditDialog({
               </Field>
 
               <Field data-invalid={Boolean(errors.address)}>
-                <FieldLabel htmlFor="profile-address">Address</FieldLabel>
+                <FieldLabel htmlFor="profile-address">
+                  {t("editDialog.address")}
+                </FieldLabel>
                 <Input
                   id="profile-address"
-                  placeholder="e.g. Mirpur, Dhaka"
+                  placeholder={t("editDialog.addressPlaceholder")}
                   aria-invalid={Boolean(errors.address)}
                   disabled={isSubmitting}
                   {...register("address")}
@@ -262,10 +236,12 @@ export function ProfileEditDialog({
               </Field>
 
               <Field data-invalid={Boolean(errors.country)}>
-                <FieldLabel htmlFor="profile-country">Country</FieldLabel>
+                <FieldLabel htmlFor="profile-country">
+                  {t("editDialog.country")}
+                </FieldLabel>
                 <Input
                   id="profile-country"
-                  placeholder="e.g. Bangladesh"
+                  placeholder={t("editDialog.countryPlaceholder")}
                   aria-invalid={Boolean(errors.country)}
                   disabled={isSubmitting}
                   {...register("country")}
@@ -275,11 +251,13 @@ export function ProfileEditDialog({
             </div>
 
             <Field data-invalid={Boolean(errors.profilePhoto)}>
-              <FieldLabel htmlFor="profile-photo">Profile Photo URL</FieldLabel>
+              <FieldLabel htmlFor="profile-photo">
+                {t("editDialog.profilePhoto")}
+              </FieldLabel>
               <Input
                 id="profile-photo"
                 type="url"
-                placeholder="https://example.com/photo.jpg"
+                placeholder={t("editDialog.profilePhotoPlaceholder")}
                 aria-invalid={Boolean(errors.profilePhoto)}
                 disabled={isSubmitting}
                 {...register("profilePhoto")}
@@ -295,7 +273,7 @@ export function ProfileEditDialog({
               disabled={isSubmitting}
               onClick={() => handleOpenChange(false)}
             >
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               type="submit"
@@ -305,10 +283,10 @@ export function ProfileEditDialog({
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin" />
-                  Saving...
+                  {tc("saving")}
                 </>
               ) : (
-                "Save Changes"
+                t("editDialog.saveChanges")
               )}
             </Button>
           </DialogFooter>

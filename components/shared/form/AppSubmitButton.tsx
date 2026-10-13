@@ -1,5 +1,8 @@
+"use client";
+
 import type { ComponentProps } from "react";
 import { Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 
@@ -10,11 +13,14 @@ interface AppSubmitButtonProps extends ComponentProps<typeof Button> {
 
 export function AppSubmitButton({
   isSubmitting = false,
-  submittingText = "Saving...",
+  submittingText,
   children,
   disabled,
   ...props
 }: AppSubmitButtonProps) {
+  const t = useTranslations("common");
+  const text = submittingText ?? t("saving");
+
   return (
     <Button
       type="submit"
@@ -24,7 +30,7 @@ export function AppSubmitButton({
       {isSubmitting ? (
         <>
           <Loader2 className="animate-spin" />
-          {submittingText}
+          {text}
         </>
       ) : (
         children

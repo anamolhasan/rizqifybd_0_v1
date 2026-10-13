@@ -1,9 +1,16 @@
-import React from 'react'
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-const AgentApplicationPage = () => {
-  return (
-    <div>AgentApplicationPage</div>
-  )
+import { AgentProgram } from "@/components/modules/agent/AgentProgram";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("agentApplication.title"),
+    description: t("agentApplication.description"),
+  };
 }
 
-export default AgentApplicationPage
+export default function AgentApplicationPage() {
+  return <AgentProgram />;
+}

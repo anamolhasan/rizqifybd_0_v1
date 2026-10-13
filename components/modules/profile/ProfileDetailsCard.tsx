@@ -7,6 +7,7 @@ import {
   Smartphone,
   UserRound,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { LucideIcon } from "lucide-react";
 
 import {
@@ -32,6 +33,7 @@ interface DetailItemProps {
 }
 
 function DetailItem({ icon: Icon, label, value, verified }: DetailItemProps) {
+  const t = useTranslations("common");
   const hasValue = Boolean(value && value.trim().length > 0);
 
   return (
@@ -50,7 +52,7 @@ function DetailItem({ icon: Icon, label, value, verified }: DetailItemProps) {
               !hasValue && "text-muted-foreground italic",
             )}
           >
-            {hasValue ? value : "Not provided"}
+            {hasValue ? value : t("notProvided")}
           </p>
           {verified && hasValue ? (
             <BadgeCheck className="size-4 shrink-0 text-success" />
@@ -65,41 +67,36 @@ export function ProfileDetailsCard({
   user,
   className,
 }: ProfileDetailsCardProps) {
+  const t = useTranslations("profile");
   const appUser = user.appUser;
 
   return (
     <Card className={className}>
       <CardHeader className="border-b">
-        <CardTitle>Personal Information</CardTitle>
-        <CardDescription>
-          Your profile details as registered with RizqifyBD.
-        </CardDescription>
+        <CardTitle>{t("personalInformation")}</CardTitle>
+        <CardDescription>{t("personalInformationDescription")}</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-3 sm:grid-cols-2">
-        <DetailItem
-          icon={UserRound}
-          label="Full name"
-          value={user.name}
-        />
+        <DetailItem icon={UserRound} label={t("fullName")} value={user.name} />
         <DetailItem
           icon={Mail}
-          label="Email address"
+          label={t("emailAddress")}
           value={user.email}
           verified={user.emailVerified}
         />
         <DetailItem
           icon={Smartphone}
-          label="Mobile number"
+          label={t("mobileNumber")}
           value={user.phone}
           verified={user.phoneVerified}
         />
         <DetailItem
           icon={Phone}
-          label="Contact number"
+          label={t("contactNumber")}
           value={appUser?.contactNumber}
         />
-        <DetailItem icon={MapPin} label="Address" value={appUser?.address} />
-        <DetailItem icon={Globe2} label="Country" value={appUser?.country} />
+        <DetailItem icon={MapPin} label={t("address")} value={appUser?.address} />
+        <DetailItem icon={Globe2} label={t("country")} value={appUser?.country} />
       </CardContent>
     </Card>
   );

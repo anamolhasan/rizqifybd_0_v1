@@ -1,0 +1,103 @@
+"use client";
+
+import { useEffect } from "react";
+import { AlertCircle, Loader2, Undo2 } from "lucide-react";
+
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { useDeleteUser } from "@/hooks/use-users";
+import type { IUser } from "@/types/user.types";
+
+interface DeleteUserDialogProps {
+  user: IUser | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function DeleteUserDialog({
+  user,
+  open,
+  onOpenChange,
+}: DeleteUserDialogProps) {
+  const { mutateAsync: deleteUser, isPending, error, reset } = useDeleteUser();
+
+  useEffect(() => {
+    if (open) reset();
+  }, [open, reset]);
+
+  const errorMessage = error
+    ? (error.errorSources?.[0]?.message ?? error.message)
+    : null;
+
+  const handleConfirm = async () => {
+    if (!user || isPending) return;
+    try {
+      await deleteUser(user.id);
+      onOpenChange(false);
+    } catch {
+      // Keep the dialog open; the failure is surfaced via toast and below.
+    }
+  };
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen && isPending) return;
+    onOpenChange(nextOpen);
+  };
+
+  return (
+    <AlertDialog open={open} onOpenChange={handleOpenChange}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete user?</AlertDialogTitle>
+          <AlertDialogDescription>
+            {user
+              ? `${user.name} (${user.email}) will be soft-deleted: their sessions are revoked and they can no longer sign in. The account can be restored later from the Deleted filter.`
+              : "This account will be soft-deleted."}
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <div className="flex items-start gap-2 rounded-lg border border-dashed px-3 py-2.5 text-xs text-muted-foreground">
+          <Undo2 className="mt-0.5 size-3.5 shrink-0" />
+          <span>Soft delete is reversible — data is retained, not destroyed.</span>
+        </div>
+
+        {errorMessage ? (
+          <Alert variant="destructive">
+            <AlertCircle />
+            <AlertDescription>{errorMessage}</AlertDescription>
+          </Alert>
+        ) : null}
+
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogAction
+            variant="destructive"
+            disabled={isPending}
+            onClick={(event) => {
+              event.preventDefault();
+              void handleConfirm();
+            }}
+          >
+            {isPending ? (
+              <>
+                <Loader2 className="animate-spin" />
+                Deleting...
+              </>
+            ) : (
+              "Delete user"
+            )}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}

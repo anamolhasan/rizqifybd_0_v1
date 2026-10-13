@@ -13,7 +13,7 @@ import type {
   IPartnerReferralDashboard,
   IDefaultReferralCode,
 } from "@/types/referral.types";
-import type { IAgentApplication } from "@/types/agentApplication.types";
+import type { IAgentApplication, IAgentStatus } from "@/types/agentApplication.types";
 
 export const userService = {
   async getUsers(params: ListQueryParams = {}) {
@@ -112,6 +112,6 @@ export const agentApplicationService = {
     );
   },
   async getMyApplication() {
-    return serverFetch<ApiResponse<IAgentApplication>>("/agent-applications/me");
+    return serverFetch<ApiResponse<IAgentStatus>>("/agent-applications/me");
   },
 };

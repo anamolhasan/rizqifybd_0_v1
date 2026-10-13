@@ -1,11 +1,34 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Lock, Plus, ShieldAlert, ShieldCheck, ShieldX } from "lucide-react";
+import { useCallback, useMemo, useState } from "react";
+import {
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import {
+  AlertCircle,
+  Lock,
+  Plus,
+  RefreshCcw,
+  ShieldAlert,
+  ShieldCheck,
+  ShieldX,
+} from "lucide-react";
 
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatsCard } from "@/components/shared/StatsCard";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { DataTable } from "@/components/shared/table/DataTable";
+import { DataTableFilters } from "@/components/shared/table/DataTableFilters";
+import { DataTablePagination } from "@/components/shared/table/DataTablePagination";
+import { DataTablePaginationSkeleton } from "@/components/shared/table/DataTablePaginationSkeleton";
+import { DataTableSearch } from "@/components/shared/table/DataTableSearch";
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,14 +37,40 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCurrentUser } from "@/hooks/use-auth";
-import type { Role } from "@/types/enums";
+import { useServerManagedDataTableSearch } from "@/hooks/useServerManagedDataTableSearch";
+import { useUsers, useUserStats } from "@/hooks/use-users";
+import type { Role, UserStatus } from "@/types/enums";
+import type { IUser } from "@/types/user.types";
+import { ChangeRoleDialog } from "./ChangeRoleDialog";
+import { DeleteUserDialog } from "./DeleteUserDialog";
+import { RestoreUserDialog } from "./RestoreUserDialog";
 import { StaffCreateDialog } from "./StaffCreateDialog";
+import { UserDetailsDrawer } from "./UserDetailsDrawer";
+import { UserEditDialog } from "./UserEditDialog";
+import { UserStatusDialog } from "./UserStatusDialog";
+import { getUserColumns } from "./UserColumns";
 import {
   canCreateStaffAccounts,
-  getCreatableStaffRoles,
-  STAFF_ROLE_LABELS,
+  ROLE_LABELS,
+  SUPPORTED_ROLES,
+  USER_STATUS_LABELS,
+  type UserStatusAction,
 } from "./user.constants";
+
+const ALL_ROLE_TAB = "ALL";
+const ALL_STATUS = "ALL";
+const STATUS_FILTER_OPTIONS = Object.keys(USER_STATUS_LABELS) as UserStatus[];
+
+type DeletedFilter = "active" | "deleted";
 
 interface StaffPermissionRule {
   actor: string;
@@ -30,8 +79,8 @@ interface StaffPermissionRule {
   note?: string;
 }
 
-// Mirrors the backend RBAC rules (src/app/constants/rbac.constant.ts) for staff
-// account creation. The backend enforces these on every request.
+// Mirrors the backend RBAC rules (src/app/constants/rbac.constant.ts). The
+// backend enforces these on every request.
 const STAFF_PERMISSION_RULES: StaffPermissionRule[] = [
   {
     actor: "Super Admin",
@@ -64,25 +113,131 @@ const STAFF_PERMISSION_RULES: StaffPermissionRule[] = [
 export function UserManagement() {
   const { data: currentUser } = useCurrentUser();
   const actorRole = currentUser?.role as Role | undefined;
+  const currentUserId = currentUser?.id;
   const canCreate = canCreateStaffAccounts(actorRole);
-  const creatableRoles = useMemo(
-    () => getCreatableStaffRoles(actorRole),
-    [actorRole],
-  );
+
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [roleTab, setRoleTab] = useState<string>(ALL_ROLE_TAB);
+  const [statusFilter, setStatusFilter] = useState<string>(ALL_STATUS);
+  const [deletedFilter, setDeletedFilter] = useState<DeletedFilter>("active");
 
   const [createOpen, setCreateOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [roleOpen, setRoleOpen] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [statusAction, setStatusAction] = useState<UserStatusAction | null>(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [restoreOpen, setRestoreOpen] = useState(false);
+
+  const handleSearch = useCallback((term: string) => {
+    setSearchTerm(term);
+    setPage(1);
+  }, []);
+
+  const {
+    searchTerm: searchInput,
+    handleSearchInputChange,
+    clearSearch,
+  } = useServerManagedDataTableSearch({ onSearch: handleSearch });
+
+  const { data: stats, isLoading: isStatsLoading } = useUserStats();
+
+  const { data, isLoading, isFetching, isError, error, refetch } = useUsers({
+    page,
+    limit,
+    searchTerm,
+    role: roleTab === ALL_ROLE_TAB ? undefined : (roleTab as Role),
+    status: statusFilter === ALL_STATUS ? undefined : (statusFilter as UserStatus),
+    isDeleted: deletedFilter === "deleted",
+  });
+
+  const hasActiveFilters =
+    statusFilter !== ALL_STATUS || deletedFilter !== "active" || Boolean(searchTerm);
+
+  const clearFilters = useCallback(() => {
+    setStatusFilter(ALL_STATUS);
+    setDeletedFilter("active");
+    setRoleTab(ALL_ROLE_TAB);
+    setSearchTerm("");
+    setPage(1);
+    clearSearch();
+  }, [clearSearch]);
+
+  const columns = useMemo(
+    () =>
+      getUserColumns({
+        actorRole,
+        currentUserId,
+        onView: (user) => {
+          setSelectedUser(user);
+          setDetailsOpen(true);
+        },
+        onEdit: (user) => {
+          setSelectedUser(user);
+          setEditOpen(true);
+        },
+        onChangeRole: (user) => {
+          setSelectedUser(user);
+          setRoleOpen(true);
+        },
+        onStatusChange: (user, action) => {
+          setSelectedUser(user);
+          setStatusAction(action);
+          setStatusOpen(true);
+        },
+        onDelete: (user) => {
+          setSelectedUser(user);
+          setDeleteOpen(true);
+        },
+        onRestore: (user) => {
+          setSelectedUser(user);
+          setRestoreOpen(true);
+        },
+      }),
+    [actorRole, currentUserId],
+  );
+
+  const rows = useMemo(() => data?.data ?? [], [data]);
+  const meta = data?.meta ?? null;
+
+  const table = useReactTable({
+    data: rows,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    meta: { refetch },
+  });
+
+  const openCreateDialog = () => {
+    setSelectedUser(null);
+    setCreateOpen(true);
+  };
+
+  const handlePageSizeChange = (nextLimit: number) => {
+    setLimit(nextLimit);
+    setPage(1);
+  };
+
+  const handleRoleTabChange = (value: string) => {
+    setRoleTab(value);
+    setPage(1);
+  };
 
   return (
     <div className="space-y-6">
       <PageHeader
         title="Users Management"
-        description="Create and manage staff accounts for the RizqifyBD admin panel."
+        description="Manage customers, agents and staff accounts across RizqifyBD."
       >
         {canCreate ? (
           <Button
             type="button"
             className="bg-primary text-primary-foreground hover:bg-primary/90"
-            onClick={() => setCreateOpen(true)}
+            onClick={openCreateDialog}
           >
             <Plus />
             Create Staff Account
@@ -100,36 +255,154 @@ export function UserManagement() {
         </Alert>
       ) : null}
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <StatsCard
-          title="Staff creation access"
-          value={canCreate ? "Enabled" : "Restricted"}
-          iconName="shield"
-          description={
-            canCreate
-              ? "You can create new staff accounts."
-              : "Only Super Admin and Admin can create staff."
-          }
-        />
-        <StatsCard
-          title="Roles you can create"
-          value={canCreate ? creatableRoles.length : "None"}
+          title="Total users"
+          value={stats ? stats.total : "—"}
           iconName="users"
-          description={
-            canCreate
-              ? creatableRoles
-                  .map((role) => STAFF_ROLE_LABELS[role])
-                  .join(", ")
-              : "No staff roles are available to your account."
-          }
+          description="All non-deleted accounts"
+          isLoading={isStatsLoading}
         />
         <StatsCard
-          title="Enforcement"
-          value="Server-side"
+          title="Active"
+          value={stats ? stats.active : "—"}
+          iconName="shield"
+          description="Can sign in normally"
+          isLoading={isStatsLoading}
+        />
+        <StatsCard
+          title="Pending"
+          value={stats ? stats.pending : "—"}
+          iconName="activity"
+          description="Awaiting first sign-in"
+          isLoading={isStatsLoading}
+        />
+        <StatsCard
+          title="Suspended"
+          value={stats ? stats.suspended : "—"}
           iconName="lock"
-          description="Role assignments are validated by the backend and cannot be bypassed from the UI."
+          description="Temporarily restricted"
+          isLoading={isStatsLoading}
+        />
+        <StatsCard
+          title="Blocked"
+          value={stats ? stats.blocked : "—"}
+          iconName="lock"
+          description="Access denied"
+          isLoading={isStatsLoading}
+        />
+        <StatsCard
+          title="Deleted"
+          value={stats ? stats.deleted : "—"}
+          iconName="refresh"
+          description="Soft-deleted, restorable"
+          isLoading={isStatsLoading}
         />
       </div>
+
+      <div className="space-y-4">
+        <Tabs value={roleTab} onValueChange={handleRoleTabChange}>
+          <div className="overflow-x-auto pb-1">
+            <TabsList>
+              <TabsTrigger value={ALL_ROLE_TAB}>All users</TabsTrigger>
+              {SUPPORTED_ROLES.map((role) => (
+                <TabsTrigger key={role} value={role}>
+                  {ROLE_LABELS[role]}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+        </Tabs>
+
+        <DataTableSearch
+          value={searchInput}
+          onChange={handleSearchInputChange}
+          onClear={clearSearch}
+          placeholder="Search users by name or email..."
+        />
+
+        <DataTableFilters hasFilters={hasActiveFilters} onClear={clearFilters}>
+          <Select
+            value={statusFilter}
+            onValueChange={(value) => {
+              setStatusFilter(value);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger size="sm" className="w-[150px]">
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={ALL_STATUS}>All statuses</SelectItem>
+              {STATUS_FILTER_OPTIONS.map((status) => (
+                <SelectItem key={status} value={status}>
+                  {USER_STATUS_LABELS[status]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={deletedFilter}
+            onValueChange={(value) => {
+              setDeletedFilter(value as DeletedFilter);
+              setPage(1);
+            }}
+          >
+            <SelectTrigger className="w-[150px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="active">Active accounts</SelectItem>
+              <SelectItem value="deleted">Deleted accounts</SelectItem>
+            </SelectContent>
+          </Select>
+        </DataTableFilters>
+      </div>
+
+      {isError ? (
+        <Alert variant="destructive">
+          <AlertCircle />
+          <AlertTitle>Failed to load users</AlertTitle>
+          <AlertDescription>
+            {error?.message ?? "Something went wrong. Please try again."}
+          </AlertDescription>
+          <AlertAction>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => refetch()}
+            >
+              <RefreshCcw />
+              Retry
+            </Button>
+          </AlertAction>
+        </Alert>
+      ) : (
+        <DataTable
+          table={table}
+          isLoading={isLoading}
+          isRefetching={isFetching && !isLoading}
+          skeletonRowCount={limit}
+          emptyStateMessage={
+            deletedFilter === "deleted"
+              ? "No deleted users found."
+              : "No users found."
+          }
+        >
+          {meta ? (
+            <DataTablePagination
+              autoPagination={meta}
+              isLoading={isFetching}
+              onPageChange={setPage}
+              onPageSizeChange={handlePageSizeChange}
+            />
+          ) : isLoading ? (
+            <DataTablePaginationSkeleton />
+          ) : null}
+        </DataTable>
+      )}
 
       <Card>
         <CardHeader>
@@ -181,7 +454,8 @@ export function UserManagement() {
             <span>
               The backend also permits EMPLOYEE accounts for Super Admin and
               Admin actors; this interface intentionally exposes only the four
-              roles above. The staff list will be wired in a later step.
+              roles above. AGENT is not a role — approved agents keep the
+              Customer (USER) role with the reseller feature flag enabled.
             </span>
           </div>
         </CardContent>
@@ -191,6 +465,44 @@ export function UserManagement() {
         open={createOpen}
         onOpenChange={setCreateOpen}
         actorRole={actorRole}
+      />
+
+      <UserDetailsDrawer
+        user={selectedUser}
+        open={detailsOpen}
+        onOpenChange={setDetailsOpen}
+      />
+
+      <UserEditDialog
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        user={selectedUser}
+      />
+
+      <ChangeRoleDialog
+        open={roleOpen}
+        onOpenChange={setRoleOpen}
+        user={selectedUser}
+        actorRole={actorRole}
+      />
+
+      <UserStatusDialog
+        open={statusOpen}
+        onOpenChange={setStatusOpen}
+        user={selectedUser}
+        action={statusAction}
+      />
+
+      <DeleteUserDialog
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+        user={selectedUser}
+      />
+
+      <RestoreUserDialog
+        open={restoreOpen}
+        onOpenChange={setRestoreOpen}
+        user={selectedUser}
       />
     </div>
   );

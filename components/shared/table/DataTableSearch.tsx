@@ -1,6 +1,7 @@
 "use client";
 
 import { Search, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,16 +19,17 @@ export function DataTableSearch({
   value,
   onChange,
   onClear,
-  placeholder = "Search...",
+  placeholder,
   className,
 }: DataTableSearchProps) {
+  const t = useTranslations("common");
   return (
     <div className={cn("relative w-full sm:max-w-xs", className)}>
       <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         value={value}
         onChange={onChange}
-        placeholder={placeholder}
+        placeholder={placeholder ?? t("searchPlaceholder")}
         className="h-9 pl-9"
       />
       {value && onClear ? (
@@ -36,6 +38,7 @@ export function DataTableSearch({
           variant="ghost"
           size="icon-xs"
           onClick={onClear}
+          aria-label={t("clear")}
           className="absolute top-1/2 right-1.5 -translate-y-1/2"
         >
           <X />

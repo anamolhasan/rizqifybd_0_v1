@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { KeyRound, Loader2, Lock, TriangleAlert } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { PasswordInput } from "@/components/auth/PasswordInput";
 import { PasswordStrength } from "@/components/auth/PasswordStrength";
@@ -26,7 +27,7 @@ import {
 import { useChangePassword } from "@/hooks/use-auth";
 import { ApiError } from "@/lib/api";
 import {
-  changePasswordSchema,
+  createChangePasswordSchema,
   type ChangePasswordFormInputs,
 } from "@/lib/validations";
 
@@ -42,6 +43,9 @@ const SERVER_FIELDS = new Set<keyof ChangePasswordFormInputs>([
 ]);
 
 export function ChangePassword() {
+  const t = useTranslations("auth");
+  const tv = useTranslations("validation");
+
   const {
     register,
     handleSubmit,
@@ -50,7 +54,7 @@ export function ChangePassword() {
     control,
     formState: { errors, isSubmitting },
   } = useForm<ChangePasswordFormInputs>({
-    resolver: standardSchemaResolver(changePasswordSchema),
+    resolver: standardSchemaResolver(createChangePasswordSchema(tv)),
     defaultValues: DEFAULT_VALUES,
   });
 
@@ -85,9 +89,9 @@ export function ChangePassword() {
 
       if (!mappedToField) {
         setFormError(
-          error instanceof Error
+          error instanceof Error && error.message
             ? error.message
-            : "Failed to change password. Please try again.",
+            : t("changePasswordFailed"),
         );
       }
     }
@@ -96,17 +100,14 @@ export function ChangePassword() {
   return (
     <div className="mx-auto w-full max-w-2xl space-y-6">
       <PageHeader
-        title="Change Password"
-        description="Update the password you use to sign in to your RizqifyBD account."
+        title={t("changePasswordHeading")}
+        description={t("changePasswordDescription")}
       />
 
       <Card>
         <CardHeader>
-          <CardTitle>Account password</CardTitle>
-          <CardDescription>
-            Enter your current password, then choose a new one. For your security
-            you&apos;ll stay signed in on this device.
-          </CardDescription>
+          <CardTitle>{t("changePasswordCardTitle")}</CardTitle>
+          <CardDescription>{t("changePasswordCardDescription")}</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -122,12 +123,12 @@ export function ChangePassword() {
               <Field data-invalid={Boolean(errors.currentPassword)}>
                 <FieldLabel htmlFor="currentPassword">
                   <Lock className="size-4 text-muted-foreground" />
-                  Current Password
+                  {t("currentPassword")}
                 </FieldLabel>
                 <PasswordInput
                   id="currentPassword"
                   autoComplete="current-password"
-                  placeholder="••••••••"
+                  placeholder={t("placeholderPassword")}
                   className="h-11"
                   aria-invalid={Boolean(errors.currentPassword)}
                   disabled={busy}
@@ -139,12 +140,12 @@ export function ChangePassword() {
               <Field data-invalid={Boolean(errors.newPassword)}>
                 <FieldLabel htmlFor="newPassword">
                   <KeyRound className="size-4 text-muted-foreground" />
-                  New Password
+                  {t("newPassword")}
                 </FieldLabel>
                 <PasswordInput
                   id="newPassword"
                   autoComplete="new-password"
-                  placeholder="At least 6 characters"
+                  placeholder={t("placeholderNewPassword")}
                   className="h-11"
                   aria-invalid={Boolean(errors.newPassword)}
                   disabled={busy}
@@ -157,12 +158,12 @@ export function ChangePassword() {
               <Field data-invalid={Boolean(errors.confirmNewPassword)}>
                 <FieldLabel htmlFor="confirmNewPassword">
                   <Lock className="size-4 text-muted-foreground" />
-                  Confirm New Password
+                  {t("confirmNewPassword")}
                 </FieldLabel>
                 <PasswordInput
                   id="confirmNewPassword"
                   autoComplete="new-password"
-                  placeholder="••••••••"
+                  placeholder={t("placeholderPassword")}
                   className="h-11"
                   aria-invalid={Boolean(errors.confirmNewPassword)}
                   disabled={busy}
@@ -182,7 +183,7 @@ export function ChangePassword() {
                   reset(DEFAULT_VALUES);
                 }}
               >
-                Reset
+                {t("reset")}
               </Button>
               <Button
                 type="submit"
@@ -192,12 +193,12 @@ export function ChangePassword() {
                 {busy ? (
                   <>
                     <Loader2 className="animate-spin" />
-                    Updating...
+                    {t("updating")}
                   </>
                 ) : (
                   <>
                     <KeyRound />
-                    Update Password
+                    {t("updatePassword")}
                   </>
                 )}
               </Button>

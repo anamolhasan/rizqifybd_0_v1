@@ -73,6 +73,15 @@ export function getOfferColumns({
       ),
     },
     {
+      accessorKey: "referralCommissionRate",
+      header: "Referral",
+      cell: ({ row }) => (
+        <span className="text-sm tabular-nums">
+          {formatNumber(row.original.referralCommissionRate)}%
+        </span>
+      ),
+    },
+    {
       id: "status",
       header: "Status",
       cell: ({ row }) => (

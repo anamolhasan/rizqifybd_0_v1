@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { ApiError } from "@/lib/api";
@@ -30,27 +31,29 @@ function resolveRedirect(redirectTo?: string, fallback = "/") {
   return fallback;
 }
 
-function describeError(error: unknown) {
+function describeError(error: unknown, fallback: string) {
   if (error instanceof ApiError && error.errorSources?.length) {
     return error.errorSources.map((source) => source.message).join(", ");
   }
-  if (error instanceof Error) {
+  if (error instanceof Error && error.message) {
     return error.message;
   }
-  return "Something went wrong. Please try again.";
+  return fallback;
 }
 
 export function useLogin(redirectTo?: string) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("toast");
+  const tc = useTranslations("common");
 
   return useMutation<AuthResult, ApiError, LoginPayload>({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      toast.success("Welcome back!", {
+      toast.success(t("welcomeBack"), {
         description: data.user?.email
-          ? `Signed in as ${data.user.email}`
-          : "You are now signed in.",
+          ? t("signedInAs", { email: data.user.email })
+          : t("signedIn"),
       });
       queryClient.invalidateQueries({ queryKey: ["auth/me"] });
       router.push(
@@ -62,7 +65,9 @@ export function useLogin(redirectTo?: string) {
       router.refresh();
     },
     onError: (error) => {
-      toast.error("Sign in failed", { description: describeError(error) });
+      toast.error(t("signInFailed"), {
+        description: describeError(error, tc("error")),
+      });
     },
   });
 }
@@ -70,14 +75,16 @@ export function useLogin(redirectTo?: string) {
 export function useRegister(redirectTo?: string) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("toast");
+  const tc = useTranslations("common");
 
   return useMutation<AuthResult, ApiError, RegisterPayload>({
     mutationFn: registerUser,
     onSuccess: (data) => {
-      toast.success("Account created!", {
+      toast.success(t("accountCreated"), {
         description: data.user?.email
-          ? `Welcome ${data.user.name ?? data.user.email}`
-          : "Your account is ready.",
+          ? t("welcomeUser", { name: data.user.name ?? data.user.email })
+          : t("accountReady"),
       });
       queryClient.invalidateQueries({ queryKey: ["auth/me"] });
       router.push(
@@ -89,7 +96,9 @@ export function useRegister(redirectTo?: string) {
       router.refresh();
     },
     onError: (error) => {
-      toast.error("Registration failed", { description: describeError(error) });
+      toast.error(t("registrationFailed"), {
+        description: describeError(error, tc("error")),
+      });
     },
   });
 }
@@ -105,20 +114,22 @@ export function useCurrentUser() {
 
 export function useUpdateMyProfile() {
   const queryClient = useQueryClient();
+  const t = useTranslations("toast");
+  const tc = useTranslations("common");
 
   return useMutation<AuthUser, ApiError, UpdateMyProfilePayload>({
     mutationFn: updateMyProfile,
     onSuccess: (user) => {
-      toast.success("Profile updated", {
-        description: "Your profile has been updated successfully.",
+      toast.success(t("profileUpdated"), {
+        description: t("profileUpdatedDescription"),
       });
       // Reflect the change immediately, then refetch to stay in sync.
       queryClient.setQueryData<AuthUser>(["auth/me"], user);
       queryClient.invalidateQueries({ queryKey: ["auth/me"] });
     },
     onError: (error) => {
-      toast.error("Failed to update profile", {
-        description: describeError(error),
+      toast.error(t("profileUpdateFailed"), {
+        description: describeError(error, tc("error")),
       });
     },
   });
@@ -126,19 +137,20 @@ export function useUpdateMyProfile() {
 
 export function useChangePassword() {
   const queryClient = useQueryClient();
+  const t = useTranslations("toast");
+  const tc = useTranslations("common");
 
   return useMutation<null, ApiError, ChangePasswordPayload>({
     mutationFn: changePassword,
     onSuccess: () => {
-      toast.success("Password changed", {
-        description:
-          "Your password has been updated. Use it the next time you sign in.",
+      toast.success(t("passwordChanged"), {
+        description: t("passwordChangedDescription"),
       });
       queryClient.invalidateQueries({ queryKey: ["auth/me"] });
     },
     onError: (error) => {
-      toast.error("Failed to change password", {
-        description: describeError(error),
+      toast.error(t("passwordChangeFailed"), {
+        description: describeError(error, tc("error")),
       });
     },
   });
@@ -147,11 +159,12 @@ export function useChangePassword() {
 export function useLogout() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("toast");
 
   return useMutation<unknown, ApiError, void>({
     mutationFn: () => logoutUser(),
     onSuccess: () => {
-      toast.success("You have been signed out.");
+      toast.success(t("signedOut"));
       queryClient.clear();
       router.push(LOGIN_ROUTE);
       router.refresh();

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Check, Copy, Link2, Share2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import { useMyReferral } from "@/hooks/use-referral";
 import { buildReferralLink } from "@/lib/referralLink";
 
 export function ReferralLinkCard() {
+  const t = useTranslations("referral.link");
   const { data: me, isLoading } = useMyReferral();
   const [copied, setCopied] = useState(false);
 
@@ -36,9 +38,9 @@ export function ReferralLinkCard() {
     try {
       await navigator.clipboard.writeText(referralLink);
       setCopied(true);
-      toast.success("Referral link copied");
+      toast.success(t("toastCopied"));
     } catch {
-      toast.error("Could not copy the referral link");
+      toast.error(t("toastCopyFailed"));
     }
   };
 
@@ -49,13 +51,13 @@ export function ReferralLinkCard() {
     }
     try {
       await navigator.share({
-        title: "Join RizqifyBD",
-        text: "Sign up with RizqifyBD using my referral link",
+        title: t("shareTitle"),
+        text: t("shareText"),
         url: referralLink,
       });
     } catch (error) {
       if (error instanceof Error && error.name !== "AbortError") {
-        toast.error("Could not share the referral link");
+        toast.error(t("toastShareFailed"));
       }
     }
   };
@@ -68,20 +70,16 @@ export function ReferralLinkCard() {
       />
       <CardHeader className="gap-2">
         <CardTitle className="text-lg font-bold tracking-tight">
-          Your referral link
+          {t("title")}
         </CardTitle>
-        <CardDescription>
-          Share this link — people who sign up with it are tracked as your
-          referrals. Referral income stays gated until your application is
-          approved.
-        </CardDescription>
+        <CardDescription>{t("description")}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="flex flex-col gap-3 lg:flex-row">
           <Input
             readOnly
             value={referralLink}
-            aria-label="Referral link"
+            aria-label={t("linkAria")}
             className="h-11 rounded-xl bg-white/70 font-medium"
             onFocus={(event) => event.currentTarget.select()}
           />
@@ -94,12 +92,12 @@ export function ReferralLinkCard() {
               {copied ? (
                 <>
                   <Check />
-                  Copied!
+                  {t("copied")}
                 </>
               ) : (
                 <>
                   <Copy />
-                  Copy link
+                  {t("copy")}
                 </>
               )}
             </Button>
@@ -110,13 +108,13 @@ export function ReferralLinkCard() {
               className="h-11 rounded-xl"
             >
               <Share2 />
-              Share
+              {t("share")}
             </Button>
           </div>
         </div>
         <p className="flex items-center gap-1.5 text-xs text-muted-foreground">
           <Link2 className="size-3.5" />
-          Referral code:
+          {t("codeLabel")}
           <span className="font-semibold text-foreground">
             {me.referralCode}
           </span>

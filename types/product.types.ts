@@ -8,6 +8,7 @@ export interface IProduct {
   type: ProductType;
   price: number;
   commissionRate: number;
+  referralCommissionRate: number;
   isActive: boolean;
   isDeleted: boolean;
   deletedAt: string | null;
@@ -23,6 +24,7 @@ export interface ICreateProductPayload {
   type?: ProductType;
   price: number;
   commissionRate?: number;
+  referralCommissionRate?: number;
   isActive?: boolean;
 }
 

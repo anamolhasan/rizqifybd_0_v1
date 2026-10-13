@@ -1,0 +1,165 @@
+"use client";
+
+import {
+  Ban,
+  Eye,
+  MoreHorizontal,
+  PauseCircle,
+  Pencil,
+  PlayCircle,
+  RotateCcw,
+  ShieldCheck,
+  Trash2,
+  Unlock,
+  UserCheck,
+  UserX,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import type { Role } from "@/types/enums";
+import type { IUser } from "@/types/user.types";
+import {
+  canDeleteUser,
+  canManageUser,
+  getAssignableRoles,
+  getStatusActions,
+  USER_STATUS_ACTION_LABELS,
+  type UserStatusAction,
+} from "./user.constants";
+
+const STATUS_ACTION_ICONS = {
+  ACTIVATE: UserCheck,
+  DEACTIVATE: UserX,
+  SUSPEND: PauseCircle,
+  UNSUSPEND: PlayCircle,
+  BLOCK: Ban,
+  UNBLOCK: Unlock,
+} as const;
+
+export interface UserRowActionsProps {
+  user: IUser;
+  actorRole?: Role | null;
+  currentUserId?: string;
+  onView: (user: IUser) => void;
+  onEdit: (user: IUser) => void;
+  onChangeRole: (user: IUser) => void;
+  onStatusChange: (user: IUser, action: UserStatusAction) => void;
+  onDelete: (user: IUser) => void;
+  onRestore: (user: IUser) => void;
+}
+
+export function UserRowActions({
+  user,
+  actorRole,
+  currentUserId,
+  onView,
+  onEdit,
+  onChangeRole,
+  onStatusChange,
+  onDelete,
+  onRestore,
+}: UserRowActionsProps) {
+  const isSelf = user.id === currentUserId;
+  const isDeleted = user.isDeleted;
+  const canManage = canManageUser(actorRole, user.role);
+  const canDelete = canDeleteUser(actorRole, user.role);
+  const canEdit = !isDeleted && (isSelf || canManage);
+  const assignableRoles = getAssignableRoles(actorRole, user.role);
+  const canChangeRole =
+    !isSelf && !isDeleted && assignableRoles.length > 0;
+  const statusActions =
+    !isSelf && !isDeleted && canManage ? getStatusActions(user.status) : [];
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          aria-label={`Actions for ${user.name}`}
+        >
+          <MoreHorizontal />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuItem onSelect={() => onView(user)}>
+          <Eye />
+          View details
+        </DropdownMenuItem>
+
+        {canEdit ? (
+          <DropdownMenuItem onSelect={() => onEdit(user)}>
+            <Pencil />
+            Edit user
+          </DropdownMenuItem>
+        ) : null}
+
+        {canChangeRole ? (
+          <DropdownMenuItem onSelect={() => onChangeRole(user)}>
+            <ShieldCheck />
+            Change role
+          </DropdownMenuItem>
+        ) : null}
+
+        {statusActions.length > 0 ? (
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <PauseCircle />
+              Manage status
+            </DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              {statusActions.map((action) => {
+                const Icon = STATUS_ACTION_ICONS[action];
+                return (
+                  <DropdownMenuItem
+                    key={action}
+                    onSelect={() => onStatusChange(user, action)}
+                  >
+                    <Icon />
+                    {USER_STATUS_ACTION_LABELS[action]}
+                  </DropdownMenuItem>
+                );
+              })}
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        ) : null}
+
+        {isDeleted ? (
+          canDelete ? (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onSelect={() => onRestore(user)}>
+                <RotateCcw />
+                Restore user
+              </DropdownMenuItem>
+            </>
+          ) : null
+        ) : canDelete ? (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => onDelete(user)}
+            >
+              <Trash2 />
+              Delete user
+            </DropdownMenuItem>
+          </>
+        ) : null}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}

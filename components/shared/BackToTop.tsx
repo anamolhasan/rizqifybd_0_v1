@@ -1,10 +1,12 @@
 "use client";
 
 import { ArrowUp } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 
 export function BackToTop() {
+  const t = useTranslations("common");
   return (
     <Button
       type="button"
@@ -20,7 +22,7 @@ export function BackToTop() {
         })
       }
     >
-      উপরে যান <ArrowUp />
+      {t("backToTop")} <ArrowUp />
     </Button>
   );
 }

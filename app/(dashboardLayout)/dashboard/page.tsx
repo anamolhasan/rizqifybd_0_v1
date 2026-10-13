@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 
+import { getTranslations } from "next-intl/server";
+
 import { DashboardOverview } from "@/components/modules/dashboard/DashboardOverview";
 
-export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Your RizqifyBD account overview.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("dashboard.title"),
+    description: t("dashboard.description"),
+  };
+}
 
 export default function DashboardPage() {
   return <DashboardOverview variant="customer" />;

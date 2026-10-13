@@ -8,13 +8,15 @@ export const REFERRAL_PROMOTION_METHOD_VALUES = [
   "OTHER",
 ] as const satisfies readonly ReferralPromotionMethod[];
 
-export const REFERRAL_PROMOTION_METHOD_LABELS: Record<
+// Keys into the shared `enums` namespace (enum values are translated for
+// display only; the underlying values are left untouched).
+export const REFERRAL_PROMOTION_METHOD_LABEL_KEYS: Record<
   ReferralPromotionMethod,
   string
 > = {
-  SOCIAL_MEDIA: "সোশ্যাল মিডিয়া (ফেসবুক, ইনস্টাগ্রাম, টিকটক)",
-  MESSAGING_APPS: "মেসেজিং অ্যাপ (হোয়াটসঅ্যাপ, টেলিগ্রাম)",
-  FRIENDS_FAMILY: "বন্ধু ও পরিবার",
-  COMMUNITY_GROUP: "কমিউনিটি গ্রুপ / ফোরাম",
-  OTHER: "অন্যান্য",
+  SOCIAL_MEDIA: "promotionMethod.socialMedia",
+  MESSAGING_APPS: "promotionMethod.messagingApps",
+  FRIENDS_FAMILY: "promotionMethod.friendsFamily",
+  COMMUNITY_GROUP: "promotionMethod.communityGroup",
+  OTHER: "promotionMethod.other",
 };

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { AlertCircle, KeyRound, Pencil, RefreshCcw } from "lucide-react";
 
 import { PageHeader } from "@/components/shared/PageHeader";
@@ -56,6 +57,8 @@ function showEarnings(user: AuthUser): boolean {
 }
 
 export function MyProfile() {
+  const t = useTranslations("profile");
+  const tc = useTranslations("common");
   const { data: user, isLoading, isError, error, refetch } = useCurrentUser();
   const [editOpen, setEditOpen] = useState(false);
 
@@ -65,18 +68,15 @@ export function MyProfile() {
 
   return (
     <div className="mx-auto w-full max-w-5xl space-y-6">
-      <PageHeader
-        title="My Profile"
-        description="View your personal details, account status and wallet summary."
-      >
+      <PageHeader title={t("heading")} description={t("description")}>
         <Button type="button" variant="outline" onClick={handleEdit}>
           <Pencil />
-          Edit Profile
+          {t("editProfile")}
         </Button>
         <Button asChild>
           <Link href="/change-password">
             <KeyRound />
-            Change Password
+            {tc("changePassword")}
           </Link>
         </Button>
       </PageHeader>
@@ -86,11 +86,9 @@ export function MyProfile() {
       {isError ? (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Failed to load your profile</AlertTitle>
+          <AlertTitle>{t("loadFailedTitle")}</AlertTitle>
           <AlertDescription>
-            {error instanceof Error
-              ? error.message
-              : "Something went wrong. Please try again."}
+            {error instanceof Error ? error.message : tc("error")}
           </AlertDescription>
           <AlertAction>
             <Button
@@ -100,9 +98,17 @@ export function MyProfile() {
               onClick={() => refetch()}
             >
               <RefreshCcw />
-              Retry
+              {tc("retry")}
             </Button>
           </AlertAction>
+        </Alert>
+      ) : null}
+
+      {!isLoading && !isError && !user ? (
+        <Alert>
+          <AlertCircle />
+          <AlertTitle>{t("unavailableTitle")}</AlertTitle>
+          <AlertDescription>{t("unavailableBody")}</AlertDescription>
         </Alert>
       ) : null}
 

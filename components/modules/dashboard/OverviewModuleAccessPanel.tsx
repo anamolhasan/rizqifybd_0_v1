@@ -16,18 +16,22 @@ export interface OverviewModule {
 
 interface OverviewModuleAccessPanelProps {
   modules: OverviewModule[];
+  title?: string;
+  description?: string;
+  soonLabel?: string;
 }
 
 export function OverviewModuleAccessPanel({
   modules,
+  title = "Modules",
+  description = "Shortcuts to the workspace features that arrive next.",
+  soonLabel = "Soon",
 }: OverviewModuleAccessPanelProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Modules</CardTitle>
-        <CardDescription>
-          Shortcuts to the workspace features that arrive next.
-        </CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="space-y-1">
         {modules.map((module) => {
@@ -48,7 +52,7 @@ export function OverviewModuleAccessPanel({
                 </p>
               </div>
               <Badge variant="outline" className="shrink-0">
-                Soon
+                {soonLabel}
               </Badge>
             </div>
           );
