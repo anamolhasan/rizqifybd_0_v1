@@ -40,8 +40,12 @@ import type {
   IReferralApplication,
   IReferralApplicationListParams,
 } from "@/types/referral.types";
+import { useTranslations } from "next-intl";
 
 export function ReferralApplicationsManagement() {
+  const t = useTranslations("admin.referralApplications");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [searchInput, setSearchInput] = useState("");
@@ -81,7 +85,7 @@ export function ReferralApplicationsManagement() {
     useReferralApplications(params);
   const stats = useReferralApplicationStats();
 
-  const columns = useMemo(
+const columns = useMemo(
     () =>
       getReferralApplicationColumns({
         onView: (application) => {
@@ -96,8 +100,30 @@ export function ReferralApplicationsManagement() {
           setReviewReason("");
           setReview({ application, action: "REJECT" });
         },
+        labels: {
+          applicant: t("columns.applicant"),
+          email: t("columns.email"),
+          phone: t("columns.phone"),
+          method: t("columns.method"),
+          amount: t("columns.amount"),
+          status: t("columns.status"),
+          createdAt: t("columns.createdAt"),
+          reviewedBy: t("columns.reviewedBy"),
+          actions: t("columns.actions"),
+          view: t("rowActions.view"),
+          approve: t("rowActions.approve"),
+          reject: t("rowActions.reject"),
+          notProvided: tc("notProvided"),
+          yes: tc("yes"),
+          no: tc("no"),
+          statusLabels: {
+            PENDING: te("applicationStatus.PENDING"),
+            APPROVED: te("applicationStatus.APPROVED"),
+            REJECTED: te("applicationStatus.REJECTED"),
+          },
+        },
       }),
-    [],
+    [t, tc, te],
   );
 
   const rows = useMemo(() => data?.data ?? [], [data]);
@@ -125,28 +151,28 @@ export function ReferralApplicationsManagement() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Referral Applications"
-        description="Review and manage user referral income applications."
+        title={t("title")}
+        description={t("description")}
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatsCard
-          title="Total"
+          title={t("stats.total")}
           value={statValue(statsValue?.total)}
           iconName="referrals"
         />
         <StatsCard
-          title="Pending"
+          title={t("stats.pending")}
           value={statValue(statsValue?.pending)}
           iconName="activity"
         />
         <StatsCard
-          title="Approved"
+          title={t("stats.approved")}
           value={statValue(statsValue?.approved)}
           iconName="award"
         />
         <StatsCard
-          title="Rejected"
+          title={t("stats.rejected")}
           value={statValue(statsValue?.rejected)}
           iconName="trending-down"
         />
@@ -160,7 +186,7 @@ export function ReferralApplicationsManagement() {
             setSearchInput("");
             setSearchTerm("");
           }}
-          placeholder="Search by applicant name or email"
+          placeholder={t("searchPlaceholder")}
         />
 
         <DataTableFilters hasFilters={hasFilters} onClear={clearFilters}>
@@ -172,12 +198,14 @@ export function ReferralApplicationsManagement() {
             }}
           >
             <SelectTrigger className="w-[170px]">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder={t("filters.statusPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
               {REFERRAL_STATUS_FILTER_OPTIONS.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
-                  {option.label}
+                  {option.value === "ALL"
+                    ? t("filters.allStatuses")
+                    : te(`applicationStatus.${option.value}`)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -188,9 +216,9 @@ export function ReferralApplicationsManagement() {
       {isError ? (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Failed to load referral applications</AlertTitle>
+          <AlertTitle>{t("errorTitle")}</AlertTitle>
           <AlertDescription>
-            {error?.message ?? "Something went wrong. Please try again."}
+            {error?.message ?? tc("error")}
           </AlertDescription>
           <AlertAction>
             <Button
@@ -200,7 +228,7 @@ export function ReferralApplicationsManagement() {
               onClick={() => refetch()}
             >
               <RefreshCcw />
-              Retry
+              {tc("retry")}
             </Button>
           </AlertAction>
         </Alert>
@@ -208,7 +236,7 @@ export function ReferralApplicationsManagement() {
         <DataTable
           table={table}
           isLoading={isLoading}
-          emptyStateMessage="No referral applications found."
+          emptyStateMessage={t("empty")}
         >
           <DataTablePagination
             autoPagination={

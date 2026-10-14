@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useDeleteOperator } from "@/hooks/use-operators";
 import type { IOperator } from "@/types/operator.types";
+import { useTranslations } from "next-intl";
 
 interface OperatorDeleteDialogProps {
   operator: IOperator | null;
@@ -28,6 +29,7 @@ export function OperatorDeleteDialog({
   open,
   onOpenChange,
 }: OperatorDeleteDialogProps) {
+  const t = useTranslations("admin.operatorForm");
   const {
     mutateAsync: deleteOperator,
     isPending,
@@ -63,11 +65,11 @@ export function OperatorDeleteDialog({
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete operator?</AlertDialogTitle>
+          <AlertDialogTitle>{t("deleteTitle")}</AlertDialogTitle>
           <AlertDialogDescription>
             {operator
-              ? `“${operator.name}” will be removed from the catalogue. This action cannot be undone.`
-              : "This operator will be removed from the catalogue."}
+              ? t("deleteConfirmDescription", { title: operator.name })
+              : t("deleteConfirmDescription", { title: "" })}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -79,7 +81,7 @@ export function OperatorDeleteDialog({
         ) : null}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>{t("cancel")}</AlertDialogCancel>
           <AlertDialogAction
             variant="destructive"
             disabled={isPending}
@@ -91,10 +93,10 @@ export function OperatorDeleteDialog({
             {isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                Deleting...
+                {t("deleting")}
               </>
             ) : (
-              "Delete"
+              t("deleteConfirm")
             )}
           </AlertDialogAction>
         </AlertDialogFooter>

@@ -15,6 +15,8 @@ import {
   UserX,
 } from "lucide-react";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -33,8 +35,8 @@ import {
   canDeleteUser,
   canManageUser,
   getAssignableRoles,
+  getStatusActionLabel,
   getStatusActions,
-  USER_STATUS_ACTION_LABELS,
   type UserStatusAction,
 } from "./user.constants";
 
@@ -70,6 +72,8 @@ export function UserRowActions({
   onDelete,
   onRestore,
 }: UserRowActionsProps) {
+  const t = useTranslations("admin.users.rowActions");
+  const te = useTranslations("enums");
   const isSelf = user.id === currentUserId;
   const isDeleted = user.isDeleted;
   const canManage = canManageUser(actorRole, user.role);
@@ -88,7 +92,7 @@ export function UserRowActions({
           type="button"
           variant="ghost"
           size="icon-sm"
-          aria-label={`Actions for ${user.name}`}
+          aria-label={t("actionsFor", { name: user.name })}
         >
           <MoreHorizontal />
         </Button>
@@ -96,20 +100,20 @@ export function UserRowActions({
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem onSelect={() => onView(user)}>
           <Eye />
-          View details
+          {t("view")}
         </DropdownMenuItem>
 
         {canEdit ? (
           <DropdownMenuItem onSelect={() => onEdit(user)}>
             <Pencil />
-            Edit user
+            {t("edit")}
           </DropdownMenuItem>
         ) : null}
 
         {canChangeRole ? (
           <DropdownMenuItem onSelect={() => onChangeRole(user)}>
             <ShieldCheck />
-            Change role
+            {t("changeRole")}
           </DropdownMenuItem>
         ) : null}
 
@@ -117,7 +121,7 @@ export function UserRowActions({
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <PauseCircle />
-              Manage status
+              {t("manageStatus")}
             </DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
               {statusActions.map((action) => {
@@ -128,7 +132,7 @@ export function UserRowActions({
                     onSelect={() => onStatusChange(user, action)}
                   >
                     <Icon />
-                    {USER_STATUS_ACTION_LABELS[action]}
+                    {getStatusActionLabel(action, te)}
                   </DropdownMenuItem>
                 );
               })}
@@ -142,20 +146,20 @@ export function UserRowActions({
               <DropdownMenuSeparator />
               <DropdownMenuItem onSelect={() => onRestore(user)}>
                 <RotateCcw />
-                Restore user
+                {t("restore")}
               </DropdownMenuItem>
             </>
           ) : null
         ) : canDelete ? (
           <>
             <DropdownMenuSeparator />
-            <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
+            <DropdownMenuLabel>{t("dangerZone")}</DropdownMenuLabel>
             <DropdownMenuItem
               variant="destructive"
               onSelect={() => onDelete(user)}
             >
               <Trash2 />
-              Delete user
+              {t("delete")}
             </DropdownMenuItem>
           </>
         ) : null}

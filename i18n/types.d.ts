@@ -176,9 +176,18 @@ declare module "next-intl" {
     pending: string;
     rejected: string;
   };
-  discountType: {
+  commissionType: {
     FIXED: string;
     PERCENTAGE: string;
+  };
+  discountType: {
+    FIXED: string;
+    NONE: string;
+    PERCENTAGE: string;
+  };
+  inventoryMode: {
+    LIMITED: string;
+    UNLIMITED: string;
   };
   offerBadge: {
     BEST_VALUE: string;
@@ -353,6 +362,39 @@ declare module "next-intl" {
   nameMin: string;
   nameRequired: string;
   newPasswordRequired: string;
+  offerAmountInteger: string;
+  offerAmountPositive: string;
+  offerAmountRequired: string;
+  offerCommissionPercentMax: string;
+  offerCommissionRequired: string;
+  offerCommissionTypeRequired: string;
+  offerCompanyCostRequired: string;
+  offerDescriptionMax: string;
+  offerDiscountExceedsPrice: string;
+  offerDiscountPercentMax: string;
+  offerDiscountTypeRequired: string;
+  offerDiscountValueRequired: string;
+  offerEndBeforeStart: string;
+  offerEndInvalid: string;
+  offerEndRequired: string;
+  offerFixedCommissionExceedsPrice: string;
+  offerInventoryModeRequired: string;
+  offerOperatorsRequired: string;
+  offerPriceNonNegative: string;
+  offerRegularPriceRequired: string;
+  offerStartInvalid: string;
+  offerStartRequired: string;
+  offerStockInteger: string;
+  offerStockNonNegative: string;
+  offerStockRequiredForLimited: string;
+  offerTitleMax: string;
+  offerTitleRequired: string;
+  offerTypeRequired: string;
+  offerUnitRequired: string;
+  offerValidityInteger: string;
+  offerValidityPositive: string;
+  offerValidityRequired: string;
+  offerValueNonNegative: string;
   passwordMin: string;
   passwordRequired: string;
   passwordsMismatch: string;
@@ -371,7 +413,7 @@ declare module "next-intl" {
   urlInvalid: string;
 };
     metadata: {
-  adminAddOffer: {
+  adminAddOperatorOffer: {
     description: string;
     title: string;
   };
@@ -387,7 +429,7 @@ declare module "next-intl" {
     description: string;
     title: string;
   };
-  adminOffers: {
+  adminOperatorOffers: {
     description: string;
     title: string;
   };
@@ -399,11 +441,11 @@ declare module "next-intl" {
     description: string;
     title: string;
   };
-  adminProducts: {
+  adminReferralApplications: {
     description: string;
     title: string;
   };
-  adminReferralApplications: {
+  adminRoleAccess: {
     description: string;
     title: string;
   };
@@ -436,6 +478,10 @@ declare module "next-intl" {
     title: string;
   };
   description: string;
+  features: {
+    description: string;
+    title: string;
+  };
   forgotPassword: {
     description: string;
     title: string;
@@ -809,8 +855,8 @@ declare module "next-intl" {
   operators: string;
   ordersManagement: string;
   overview: string;
-  productManagement: string;
   referralApplications: string;
+  roleAccess: string;
   sections: {
     administration: string;
     dashboard: string;
@@ -822,6 +868,208 @@ declare module "next-intl" {
   userManagement: string;
   walletsManagement: string;
   withdrawalsManagement: string;
+};
+    faq: {
+  categories: {
+    account: string;
+    agent: string;
+    all: string;
+    general: string;
+    offers: string;
+    orders: string;
+    payments: string;
+    referral: string;
+    refunds: string;
+  };
+  emptyState: {
+    clearSearch: string;
+    noResults: string;
+    noResultsDescription: string;
+  };
+  faq: {
+    account: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+    };
+    agent: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+    };
+    general: {
+      a1: string;
+      a2: string;
+      a3: string;
+      q1: string;
+      q2: string;
+      q3: string;
+    };
+    offers: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+    };
+    orders: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+    };
+    payments: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      a5: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+      q5: string;
+    };
+    referral: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      a5: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+      q5: string;
+    };
+    refunds: {
+      a1: string;
+      a2: string;
+      a3: string;
+      a4: string;
+      q1: string;
+      q2: string;
+      q3: string;
+      q4: string;
+    };
+  };
+  hero: {
+    searchPlaceholder: string;
+    subtitle: string;
+    title: string;
+  };
+  support: {
+    contactSupport: string;
+    description: string;
+    helpCenter: string;
+    title: string;
+  };
+};
+    features: {
+  benefits: {
+    badge: string;
+    items: string[];
+    subtitle: string;
+    summary: string[];
+    title: string;
+  };
+  coreFeatures: {
+    badge: string;
+    itemLabel: string;
+    items: string[];
+    subtitle: string;
+    title: string;
+  };
+  cta: {
+    badge: string;
+    description: string;
+    primaryAction: string;
+    secondaryAction: string;
+    title: string;
+    trust: string[];
+  };
+  faq: {
+    allFaq: string;
+    badge: string;
+    items: string[];
+    subtitle: string;
+    title: string;
+  };
+  hero: {
+    badge: string;
+    description: string;
+    highlights: string[];
+    primaryCta: string;
+    secondaryCta: string;
+    title: string;
+    titleAccent: string;
+    visualLabel: string;
+  };
+  howItWorks: {
+    badge: string;
+    note: string;
+    steps: string[];
+    subtitle: string;
+    title: string;
+  };
+  operatorPreview: {
+    badge: string;
+    cta: string;
+    note: string;
+    operators: string[];
+    sampleBadge: string;
+    subtitle: string;
+    title: string;
+    validityLabel: string;
+  };
+};
+    error: {
+  connecting: string;
+  description: string;
+  errorId: string;
+  globalDescription: string;
+  globalTitle: string;
+  goHome: string;
+  loading: string;
+  offlineDescription: string;
+  offlineTitle: string;
+  optimizing: string;
+  preparing: string;
+  retry: string;
+  title: string;
+  tryAgain: string;
+};
+    loading: {
+  connecting: string;
+  loading: string;
+  optimizing: string;
+  preparing: string;
+};
+    notFound: {
+  browseServices: string;
+  description: string;
+  goBack: string;
+  goHome: string;
+  or: string;
+  title: string;
+  visitFaq: string;
 };
     admin: {
       dashboard: {
@@ -1035,6 +1283,7 @@ declare module "next-intl" {
     restoring: string;
     title: string;
   };
+  roleAccessLink: string;
   rowActions: {
     actionsFor: string;
     changeRole: string;
@@ -1093,7 +1342,121 @@ declare module "next-intl" {
     phone: string;
   };
 };
-      offers: {
+      roleAccess: {
+  columns: {
+    permission: string;
+  };
+  description: string;
+  empty: {
+    description: string;
+    title: string;
+  };
+  emptyClear: string;
+  footerNote: string;
+  groups: {
+    audit: string;
+    catalog: string;
+    finance: string;
+    operations: string;
+    roleAccess: string;
+    userManagement: string;
+  };
+  legend: {
+    label: string;
+  };
+  notAuthorized: {
+    description: string;
+    title: string;
+  };
+  permissions: {
+    auditLogsRead: {
+      description: string;
+      label: string;
+    };
+    commissionsManage: {
+      description: string;
+      label: string;
+      restriction: string;
+    };
+    offersManage: {
+      description: string;
+      label: string;
+    };
+    ordersManage: {
+      description: string;
+      label: string;
+    };
+    rolePermissionsManage: {
+      description: string;
+      label: string;
+    };
+    rolesManage: {
+      description: string;
+      label: string;
+      restriction: string;
+    };
+    usersBlock: {
+      description: string;
+      label: string;
+      restriction: string;
+    };
+    usersDelete: {
+      description: string;
+      label: string;
+      restriction: string;
+    };
+    usersRead: {
+      description: string;
+      label: string;
+    };
+    usersUpdate: {
+      description: string;
+      label: string;
+      restriction: string;
+    };
+    walletAdjust: {
+      description: string;
+      label: string;
+    };
+    walletRead: {
+      description: string;
+      label: string;
+    };
+    withdrawalsReview: {
+      description: string;
+      label: string;
+      restriction: string;
+    };
+  };
+  readOnly: {
+    description: string;
+    title: string;
+  };
+  roleNotes: {
+    agent: string;
+  };
+  roles: {
+    agent: string;
+    agentFlag: string;
+  };
+  stateDescriptions: {
+    allowed: string;
+    denied: string;
+    limited: string;
+  };
+  states: {
+    allowed: string;
+    denied: string;
+    limited: string;
+  };
+  title: string;
+  toolbar: {
+    allRoles: string;
+    roleFilterLabel: string;
+    searchPlaceholder: string;
+  };
+};
+      operatorOffers: {
   addOffer: string;
   columns: {
     actions: string;
@@ -1101,7 +1464,6 @@ declare module "next-intl" {
     offer: string;
     operator: string;
     price: string;
-    referral: string;
     status: string;
     type: string;
   };
@@ -1242,11 +1604,13 @@ declare module "next-intl" {
   };
   title: string;
 };
-      offerForm: {
-  active: string;
+      operatorOfferForm: {
   addDescription: string;
   addTitle: string;
   agentCommission: string;
+  agentCommissionType: string;
+  agentCommissionValue: string;
+  agentProfit: string;
   amount: string;
   amountUnitPlaceholder: string;
   badges: string;
@@ -1254,10 +1618,13 @@ declare module "next-intl" {
   basicInfo: string;
   basicInfoDescription: string;
   cancel: string;
-  commission: string;
+  commissionSection: string;
+  commissionSectionDescription: string;
+  commissionTypePlaceholder: string;
   companyCost: string;
-  createOffer: string;
+  createOperatorOffer: string;
   creating: string;
+  dateTimePlaceholder: string;
   deleteConfirm: string;
   deleteConfirmDescription: string;
   deleteTitle: string;
@@ -1271,46 +1638,61 @@ declare module "next-intl" {
   editDescription: string;
   editTitle: string;
   endDate: string;
+  endDateTime: string;
   endTime: string;
+  inventory: string;
+  inventoryDescription: string;
+  inventoryMode: string;
+  inventoryModePlaceholder: string;
   inventorySchedule: string;
   inventoryScheduleDescription: string;
   loadingOperators: string;
-  name: string;
-  namePlaceholder: string;
   noOperatorsAvailable: string;
   offerType: string;
   operator: string;
+  operatorAndType: string;
+  operatorAndTypeDescription: string;
   operatorPlaceholder: string;
   operators: string;
   operatorsDescription: string;
   operatorsPlaceholder: string;
-  price: string;
+  packageQuantity: string;
+  packageQuantityDescription: string;
   pricingCommission: string;
   pricingCommissionDescription: string;
+  pricingDiscount: string;
+  pricingDiscountDescription: string;
   profitSummary: string;
   profitSummaryDescription: string;
   publishOffer: string;
   publishing: string;
-  referralCommission: string;
   regularPrice: string;
   resellerCommission: string;
+  resellerCommissionType: string;
+  resellerCommissionValue: string;
+  resellerProfit: string;
   reset: string;
   saveAsDraft: string;
   saveChanges: string;
   saving: string;
+  scheduleStatus: string;
+  scheduleStatusDescription: string;
+  selectDate: string;
+  selectTime: string;
   sellingPrice: string;
   sellingPriceDescription: string;
   startDate: string;
+  startDateTime: string;
   startTime: string;
   status: string;
   statusPlaceholder: string;
   stockQuantity: string;
+  stockQuantityDescription: string;
   successDraft: string;
   successOfferSaved: string;
   successPublished: string;
   title: string;
   titlePlaceholder: string;
-  type: string;
   typePlaceholder: string;
   unlimitedStock: string;
   validity: string;
@@ -1355,7 +1737,7 @@ declare module "next-intl" {
   saveChanges: string;
   saving: string;
 };
-      offerProfit: {
+      operatorOfferProfit: {
   agentCommission: string;
   agentSale: string;
   companyCost: string;

@@ -7,10 +7,6 @@ import { DateCell } from "@/components/shared/cell/DateCell";
 import { StatusBadgeCell } from "@/components/shared/cell/StatusBadgeCell";
 import { UserInfoCell } from "@/components/shared/cell/UserInfoCell";
 import { Button } from "@/components/ui/button";
-import {
-  PROMOTION_METHOD_LABELS,
-  REFERRAL_STATUS_LABELS,
-} from "./referral-application.constants";
 import type { IReferralApplication } from "@/types/referral.types";
 
 interface ReferralApplicationColumnActions {
@@ -19,18 +15,37 @@ interface ReferralApplicationColumnActions {
   onReject: (application: IReferralApplication) => void;
 }
 
+export interface ReferralApplicationColumnLabels {
+  applicant: string;
+  email: string;
+  phone: string;
+  method: string;
+  amount: string;
+  status: string;
+  createdAt: string;
+  reviewedBy: string;
+  actions: string;
+  view: string;
+  approve: string;
+  reject: string;
+  notProvided: string;
+  yes: string;
+  no: string;
+  statusLabels: Record<string, string>;
+}
+
 export function getReferralApplicationColumns({
   onView,
   onApprove,
   onReject,
-}: ReferralApplicationColumnActions): ColumnDef<
-  IReferralApplication,
-  unknown
->[] {
+  labels,
+}: ReferralApplicationColumnActions & {
+  labels: ReferralApplicationColumnLabels;
+}): ColumnDef<IReferralApplication, unknown>[] {
   return [
     {
       id: "applicant",
-      header: "Applicant",
+      header: labels.applicant,
       cell: ({ row }) => (
         <UserInfoCell
           name={row.original.appUser?.authUser?.name}
@@ -41,42 +56,40 @@ export function getReferralApplicationColumns({
     },
     {
       accessorKey: "status",
-      header: "Status",
+      header: labels.status,
       cell: ({ row }) => (
         <StatusBadgeCell
           status={row.original.status}
-          label={REFERRAL_STATUS_LABELS[row.original.status]}
+          label={labels.statusLabels[row.original.status] ?? row.original.status}
         />
       ),
     },
     {
       id: "promotionMethod",
-      header: "Promotion",
+      header: labels.method,
       cell: ({ row }) => (
         <span className="text-sm text-muted-foreground">
-          {row.original.promotionMethod
-            ? PROMOTION_METHOD_LABELS[row.original.promotionMethod]
-            : "—"}
+          {row.original.promotionMethod ?? labels.notProvided}
         </span>
       ),
     },
     {
       accessorKey: "appliedAt",
-      header: "Applied",
+      header: labels.createdAt,
       cell: ({ row }) => <DateCell value={row.original.appliedAt} withTime />,
     },
     {
       id: "reviewedBy",
-      header: "Reviewed by",
+      header: labels.reviewedBy,
       cell: ({ row }) => (
         <span className="text-sm text-muted-foreground">
-          {row.original.reviewedBy?.name ?? "—"}
+          {row.original.reviewedBy?.name ?? labels.notProvided}
         </span>
       ),
     },
     {
       id: "actions",
-      header: () => <span className="flex justify-end">Actions</span>,
+      header: () => <span className="flex justify-end">{labels.actions}</span>,
       cell: ({ row }) => {
         const application = row.original;
         const isPending = application.status === "PENDING";
@@ -87,7 +100,7 @@ export function getReferralApplicationColumns({
               type="button"
               variant="ghost"
               size="icon-sm"
-              aria-label="View application details"
+              aria-label={labels.view}
               onClick={() => onView(application)}
             >
               <Eye />
@@ -100,7 +113,7 @@ export function getReferralApplicationColumns({
                   variant="ghost"
                   size="icon-sm"
                   className="text-emerald-600 hover:text-emerald-600"
-                  aria-label="Approve application"
+                  aria-label={labels.approve}
                   onClick={() => onApprove(application)}
                 >
                   <Check />
@@ -110,7 +123,7 @@ export function getReferralApplicationColumns({
                   variant="ghost"
                   size="icon-sm"
                   className="text-destructive hover:text-destructive"
-                  aria-label="Reject application"
+                  aria-label={labels.reject}
                   onClick={() => onReject(application)}
                 >
                   <X />

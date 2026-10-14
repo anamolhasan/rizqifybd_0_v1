@@ -1,0 +1,114 @@
+{
+  "title": "Role Access Management",
+  "description": "Review the proposed permission model for every role and access audience. This is a read-only policy preview — access is enforced by the server.",
+  "readOnly": {
+    "title": "Read-only preview",
+    "description": "This page shows the proposed permission matrix. Editing and server-side enforcement arrive in a later step, so nothing here changes live access yet."
+  },
+  "toolbar": {
+    "searchPlaceholder": "Search permissions...",
+    "roleFilterLabel": "Role",
+    "allRoles": "All roles"
+  },
+  "legend": {
+    "label": "Legend"
+  },
+  "columns": {
+    "permission": "Permission"
+  },
+  "groups": {
+    "userManagement": "User management",
+    "roleAccess": "Role access",
+    "catalog": "Offers & catalogue",
+    "operations": "Orders & operations",
+    "finance": "Finance & wallet",
+    "audit": "Audit"
+  },
+  "states": {
+    "allowed": "Allowed",
+    "limited": "Limited",
+    "denied": "Denied"
+  },
+  "stateDescriptions": {
+    "allowed": "Full access for this operation.",
+    "limited": "Allowed only within the scope and conditions described.",
+    "denied": "Not permitted. Requests are rejected by the server."
+  },
+  "roles": {
+    "agent": "Agent",
+    "agentFlag": "Reseller"
+  },
+  "roleNotes": {
+    "agent": "Agent is not a system role. An approved agent keeps the Customer (USER) role and is granted the reseller feature set on top of it."
+  },
+  "permissions": {
+    "usersRead": {
+      "label": "View users",
+      "description": "Search and view user accounts and their permitted profile details."
+    },
+    "usersUpdate": {
+      "label": "Update users",
+      "description": "Edit another user's profile details.",
+      "restriction": "Limited to roles the actor is allowed to manage."
+    },
+    "usersBlock": {
+      "label": "Block or unblock users",
+      "description": "Restrict or restore a user's ability to sign in.",
+      "restriction": "Requires permission to manage the target role."
+    },
+    "usersDelete": {
+      "label": "Delete users",
+      "description": "Soft-delete an account and revoke its sessions.",
+      "restriction": "Cannot delete accounts outside the actor's management scope; Super Admin accounts are protected."
+    },
+    "rolesManage": {
+      "label": "Manage user roles",
+      "description": "Assign a different role to a user account.",
+      "restriction": "Cannot grant or revoke privileges beyond the actor's own scope; the Super Admin role is protected."
+    },
+    "rolePermissionsManage": {
+      "label": "Manage role permissions",
+      "description": "Configure the global role-permission matrix shown on this page."
+    },
+    "offersManage": {
+      "label": "Manage offers",
+      "description": "Create, update and delete telecom offers and catalogue content."
+    },
+    "ordersManage": {
+      "label": "Manage orders",
+      "description": "Review and progress customer orders through their lifecycle."
+    },
+    "walletRead": {
+      "label": "View wallet details",
+      "description": "View wallet balances and transaction history."
+    },
+    "walletAdjust": {
+      "label": "Adjust wallets",
+      "description": "Credit or debit a user's wallet balance."
+    },
+    "withdrawalsReview": {
+      "label": "Review withdrawals",
+      "description": "Approve, reject or mark withdrawal requests as paid.",
+      "restriction": "Final approval and payout steps are restricted to finance roles."
+    },
+    "commissionsManage": {
+      "label": "Manage commissions",
+      "description": "Configure commission rates and review agent commission earnings.",
+      "restriction": "Affects only the actor's own commission or rates on content they manage."
+    },
+    "auditLogsRead": {
+      "label": "Read audit logs",
+      "description": "Review the recorded history of sensitive administrative changes."
+    }
+  },
+  "notAuthorized": {
+    "title": "Super Admin only",
+    "description": "Role Access Management is restricted to Super Admins. Your account does not have permission to view this page."
+  },
+  "empty": {
+    "title": "No permissions match your search",
+    "description": "Try a different search term or clear the filters."
+  },
+  "emptyClear": "Clear search",
+  "footerNote": "The permissions shown here are the proposed target policy. The server remains the source of truth and enforces every check with default-deny."
+}

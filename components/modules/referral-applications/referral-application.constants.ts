@@ -1,10 +1,38 @@
 import type { ReferralApplicationStatus } from "@/types/enums";
 import type { ReferralPromotionMethod } from "@/types/referral.types";
 
-export const REFERRAL_STATUS_LABELS: Record<
-  ReferralApplicationStatus,
-  string
-> = {
+const STATUS_KEY_MAP: Record<ReferralApplicationStatus, string> = {
+  PENDING: "pending",
+  APPROVED: "approved",
+  REJECTED: "rejected",
+};
+
+const METHOD_KEY_MAP: Record<ReferralPromotionMethod, string> = {
+  SOCIAL_MEDIA: "socialMedia",
+  MESSAGING_APPS: "messagingApps",
+  FRIENDS_FAMILY: "friendsFamily",
+  COMMUNITY_GROUP: "communityGroup",
+  OTHER: "other",
+};
+
+// Backward-compatible label accessors. New code should call
+// `useTranslations("enums")` and read `applicationStatus.<status>` /
+// `promotionMethod.<method>` directly.
+export function getReferralApplicationStatusLabel(
+  t: (key: string) => string,
+  status: ReferralApplicationStatus,
+): string {
+  return t(`applicationStatus.${STATUS_KEY_MAP[status]}`);
+}
+
+export function getReferralPromotionMethodLabel(
+  t: (key: string) => string,
+  method: ReferralPromotionMethod,
+): string {
+  return t(`promotionMethod.${METHOD_KEY_MAP[method]}`);
+}
+
+export const REFERRAL_STATUS_LABELS: Record<ReferralApplicationStatus, string> = {
   PENDING: "Pending",
   APPROVED: "Approved",
   REJECTED: "Rejected",

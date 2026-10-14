@@ -2,8 +2,11 @@ export const OPERATOR_STATUS_FILTERS = ["ALL", "ACTIVE", "INACTIVE"] as const;
 
 export type OperatorStatusFilter = (typeof OPERATOR_STATUS_FILTERS)[number];
 
-export const OPERATOR_STATUS_LABELS: Record<OperatorStatusFilter, string> = {
-  ALL: "All statuses",
-  ACTIVE: "Active",
-  INACTIVE: "Inactive",
-};
+// Backward-compatible label accessor. New code should call
+// `useTranslations("enums")` and read `operatorStatus.<filter>` directly.
+export function getOperatorStatusLabel(
+  t: (key: string) => string,
+  status: OperatorStatusFilter,
+): string {
+  return t(`operatorStatus.${status}`);
+}

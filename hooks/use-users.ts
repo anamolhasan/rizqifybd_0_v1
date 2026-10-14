@@ -1,8 +1,13 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
+import {
+  getRoleLabel,
+  getStatusLabel,
+} from "@/components/modules/users/user.constants";
 import { ApiError } from "@/lib/api";
 import {
   createStaffUser,
@@ -93,17 +98,21 @@ function useInvalidateUsers() {
 
 export function useCreateStaffUser() {
   const invalidate = useInvalidateUsers();
+  const t = useTranslations("toast");
 
   return useMutation<IUserDetail, ApiError, ICreateUserPayload>({
     mutationFn: createStaffUser,
     onSuccess: (user) => {
-      toast.success("Staff account created", {
-        description: `“${user.name}” (${user.email}) has been added.`,
+      toast.success(t("staffCreated"), {
+        description: t("staffCreatedDescription", {
+          name: user.name,
+          email: user.email,
+        }),
       });
       invalidate();
     },
     onError: (error) => {
-      toast.error("Failed to create staff account", {
+      toast.error(t("staffCreateFailed"), {
         description: describeError(error),
       });
     },
@@ -117,17 +126,18 @@ export interface IUpdateUserProfileVariables {
 
 export function useUpdateUserProfile() {
   const invalidate = useInvalidateUsers();
+  const t = useTranslations("toast");
 
   return useMutation<IUserDetail, ApiError, IUpdateUserProfileVariables>({
     mutationFn: ({ id, payload }) => updateUserProfile(id, payload),
     onSuccess: (user) => {
-      toast.success("User updated", {
-        description: `“${user.name}” has been updated.`,
+      toast.success(t("userUpdated"), {
+        description: t("userUpdatedDescription", { name: user.name }),
       });
       invalidate();
     },
     onError: (error) => {
-      toast.error("Failed to update user", {
+      toast.error(t("userUpdateFailed"), {
         description: describeError(error),
       });
     },
@@ -141,17 +151,22 @@ export interface IUpdateUserStatusVariables {
 
 export function useUpdateUserStatus() {
   const invalidate = useInvalidateUsers();
+  const t = useTranslations("toast");
+  const te = useTranslations("enums");
 
   return useMutation<IUserDetail, ApiError, IUpdateUserStatusVariables>({
     mutationFn: ({ id, payload }) => updateUserStatus(id, payload),
     onSuccess: (user) => {
-      toast.success("User status updated", {
-        description: `${user.name} is now ${user.status.toLowerCase()}.`,
+      toast.success(t("userStatusUpdated"), {
+        description: t("userStatusUpdatedDescription", {
+          name: user.name,
+          status: getStatusLabel(user.status, te),
+        }),
       });
       invalidate();
     },
     onError: (error) => {
-      toast.error("Failed to update user status", {
+      toast.error(t("userStatusUpdateFailed"), {
         description: describeError(error),
       });
     },
@@ -165,17 +180,22 @@ export interface IUpdateUserRoleVariables {
 
 export function useChangeUserRole() {
   const invalidate = useInvalidateUsers();
+  const t = useTranslations("toast");
+  const te = useTranslations("enums");
 
   return useMutation<IUserDetail, ApiError, IUpdateUserRoleVariables>({
     mutationFn: ({ id, payload }) => updateUserRole(id, payload),
     onSuccess: (user) => {
-      toast.success("User role updated", {
-        description: `“${user.name}” is now ${user.role}.`,
+      toast.success(t("userRoleUpdated"), {
+        description: t("userRoleUpdatedDescription", {
+          name: user.name,
+          role: getRoleLabel(user.role, te),
+        }),
       });
       invalidate();
     },
     onError: (error) => {
-      toast.error("Failed to update user role", {
+      toast.error(t("userRoleUpdateFailed"), {
         description: describeError(error),
       });
     },
@@ -184,17 +204,18 @@ export function useChangeUserRole() {
 
 export function useDeleteUser() {
   const invalidate = useInvalidateUsers();
+  const t = useTranslations("toast");
 
   return useMutation<{ id: string; deletedAt: string }, ApiError, string>({
     mutationFn: deleteUser,
     onSuccess: () => {
-      toast.success("User deleted", {
-        description: "The account can be restored later.",
+      toast.success(t("userDeleted"), {
+        description: t("userDeletedDescription"),
       });
       invalidate();
     },
     onError: (error) => {
-      toast.error("Failed to delete user", {
+      toast.error(t("userDeleteFailed"), {
         description: describeError(error),
       });
     },
@@ -203,17 +224,18 @@ export function useDeleteUser() {
 
 export function useRestoreUser() {
   const invalidate = useInvalidateUsers();
+  const t = useTranslations("toast");
 
   return useMutation<IUserDetail, ApiError, string>({
     mutationFn: restoreUser,
     onSuccess: (user) => {
-      toast.success("User restored", {
-        description: `“${user.name}” can sign in again.`,
+      toast.success(t("userRestored"), {
+        description: t("userRestoredDescription", { name: user.name }),
       });
       invalidate();
     },
     onError: (error) => {
-      toast.error("Failed to restore user", {
+      toast.error(t("userRestoreFailed"), {
         description: describeError(error),
       });
     },

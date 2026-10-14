@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useDeleteCategory } from "@/hooks/use-categories";
 import type { ICategory } from "@/types/category.types";
+import { useTranslations } from "next-intl";
 
 interface CategoryDeleteDialogProps {
   category: ICategory | null;
@@ -28,6 +29,7 @@ export function CategoryDeleteDialog({
   open,
   onOpenChange,
 }: CategoryDeleteDialogProps) {
+  const t = useTranslations("admin.categoryForm");
   const {
     mutateAsync: deleteCategory,
     isPending,
@@ -63,11 +65,11 @@ export function CategoryDeleteDialog({
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete category?</AlertDialogTitle>
+          <AlertDialogTitle>{t("deleteTitle")}</AlertDialogTitle>
           <AlertDialogDescription>
             {category
-              ? `“${category.title}” will be removed from the catalogue. This action cannot be undone.`
-              : "This category will be removed from the catalogue."}
+              ? t("deleteConfirmDescription", { title: category.title })
+              : t("deleteConfirmDescription", { title: "" })}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -79,7 +81,7 @@ export function CategoryDeleteDialog({
         ) : null}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>{t("cancel")}</AlertDialogCancel>
           <AlertDialogAction
             variant="destructive"
             disabled={isPending}
@@ -91,10 +93,10 @@ export function CategoryDeleteDialog({
             {isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                Deleting...
+                {t("deleting")}
               </>
             ) : (
-              "Delete"
+              t("deleteConfirm")
             )}
           </AlertDialogAction>
         </AlertDialogFooter>

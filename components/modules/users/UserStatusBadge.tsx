@@ -1,10 +1,14 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { UserStatus } from "@/types/enums";
 import {
   USER_STATUS_BADGE_CLASSES,
   USER_STATUS_DOT_CLASSES,
-  USER_STATUS_LABELS,
+  getStatusLabel,
 } from "./user.constants";
 
 interface UserStatusBadgeProps {
@@ -13,11 +17,12 @@ interface UserStatusBadgeProps {
 }
 
 export function UserStatusBadge({ status, className }: UserStatusBadgeProps) {
+  const t = useTranslations("enums");
   const classes =
     USER_STATUS_BADGE_CLASSES[status as UserStatus] ??
     "border-border bg-muted/50 text-muted-foreground";
   const dot = USER_STATUS_DOT_CLASSES[status as UserStatus] ?? "bg-muted-foreground";
-  const label = USER_STATUS_LABELS[status as UserStatus] ?? status;
+  const label = getStatusLabel(status, t);
 
   return (
     <Badge

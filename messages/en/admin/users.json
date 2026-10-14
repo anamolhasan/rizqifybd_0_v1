@@ -2,6 +2,7 @@
   "title": "Users Management",
   "description": "Manage customers, agents and staff accounts across RizqifyBD.",
   "createStaff": "Create Staff Account",
+  "roleAccessLink": "Role Access",
   "noPermission": "Your account does not have permission to create staff accounts. Only Super Admin and Admin can do this. The server enforces this rule.",
   "stats": {
     "totalUsers": "Total users",

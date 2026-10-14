@@ -3,7 +3,7 @@ import { serverFetch } from "@/lib/api/server-fetch";
 import type { ApiResponse, ListQueryParams } from "@/types/api.types";
 import type { IUser } from "@/types/user.types";
 import type { IOrder } from "@/types/order.types";
-import type { IProduct } from "@/types/product.types";
+import type { IOperatorOffer } from "@/types/operator-offer.types";
 import type { IOperator } from "@/types/operator.types";
 import type { IWithdrawal } from "@/types/withdrawal.types";
 import type { IWalletSummary, IWalletTransaction } from "@/types/wallet.types";
@@ -39,13 +39,13 @@ export const orderService = {
   },
 };
 
-export const productService = {
-  async getProducts(params: ListQueryParams = {}) {
+export const operatorOfferService = {
+  async getOperatorOffers(params: ListQueryParams = {}) {
     const query = buildQueryString(params);
-    return serverFetch<ApiResponse<IProduct[]>>(`/products${query}`);
+    return serverFetch<ApiResponse<IOperatorOffer[]>>(`/operator-offers${query}`);
   },
-  async getProductById(id: string) {
-    return serverFetch<ApiResponse<IProduct>>(`/products/${id}`);
+  async getOperatorOfferById(id: string) {
+    return serverFetch<ApiResponse<IOperatorOffer>>(`/operator-offers/${id}`);
   },
 };
 

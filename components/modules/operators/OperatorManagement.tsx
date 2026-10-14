@@ -35,12 +35,15 @@ import { OperatorFormDialog } from "./OperatorFormDialog";
 import { getOperatorColumns } from "./OperatorColumns";
 import {
   OPERATOR_STATUS_FILTERS,
-  OPERATOR_STATUS_LABELS,
   type OperatorStatusFilter,
 } from "./operator.constants";
 import type { IOperator } from "@/types/operator.types";
+import { useTranslations } from "next-intl";
 
 export function OperatorManagement() {
+  const t = useTranslations("admin.operators");
+  const te = useTranslations("enums");
+  const tc = useTranslations("common");
   const [formOpen, setFormOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedOperator, setSelectedOperator] = useState<IOperator | null>(
@@ -83,8 +86,19 @@ export function OperatorManagement() {
           setSelectedOperator(operator);
           setDeleteOpen(true);
         },
+        labels: {
+          name: t("columns.name"),
+          code: t("columns.code"),
+          status: t("columns.status"),
+          createdAt: t("columns.createdAt"),
+          actions: t("columns.actions"),
+          edit: t("rowActions.edit"),
+          delete: t("rowActions.delete"),
+          active: te("operatorStatus.ACTIVE"),
+          inactive: te("operatorStatus.INACTIVE"),
+        },
       }),
-    [],
+    [t, te],
   );
 
   const rows = useMemo(() => data?.data ?? [], [data]);
@@ -117,8 +131,8 @@ export function OperatorManagement() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Operators Management"
-        description="Manage the mobile operators that power your telecom catalogue."
+        title={t("title")}
+        description={t("description")}
       >
         <Button
           type="button"
@@ -126,16 +140,16 @@ export function OperatorManagement() {
           onClick={openCreateDialog}
         >
           <Plus />
-          Add Operator
+          {t("addOperator")}
         </Button>
       </PageHeader>
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <StatsCard
-          title="Total Operators"
+          title={t("statsTitle")}
           value={totalOperators}
           iconName="operators"
-          description="Mobile operators in the catalogue."
+          description={t("statsDescription")}
         />
       </div>
 
@@ -144,7 +158,7 @@ export function OperatorManagement() {
           value={searchInput}
           onChange={handleSearchInputChange}
           onClear={clearSearch}
-          placeholder="Search operators by name or code..."
+          placeholder={t("searchPlaceholder")}
         />
         <DataTableFilters
           hasFilters={statusFilter !== "ALL"}
@@ -152,12 +166,12 @@ export function OperatorManagement() {
         >
           <Select value={statusFilter} onValueChange={handleStatusChange}>
             <SelectTrigger size="sm" className="w-[150px]">
-              <SelectValue placeholder="All statuses" />
+              <SelectValue placeholder={te("operatorStatus.ALL")} />
             </SelectTrigger>
             <SelectContent>
               {OPERATOR_STATUS_FILTERS.map((status) => (
                 <SelectItem key={status} value={status}>
-                  {OPERATOR_STATUS_LABELS[status]}
+                  {te(`operatorStatus.${status}`)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -168,9 +182,9 @@ export function OperatorManagement() {
       {isError ? (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Failed to load operators</AlertTitle>
+          <AlertTitle>{t("errorTitle")}</AlertTitle>
           <AlertDescription>
-            {error?.message ?? "Something went wrong. Please try again."}
+            {error?.message ?? tc("error")}
           </AlertDescription>
           <AlertAction>
             <Button
@@ -180,7 +194,7 @@ export function OperatorManagement() {
               onClick={() => refetch()}
             >
               <RefreshCcw />
-              Retry
+              {tc("retry")}
             </Button>
           </AlertAction>
         </Alert>
@@ -188,7 +202,7 @@ export function OperatorManagement() {
         <DataTable
           table={table}
           isLoading={isLoading}
-          emptyStateMessage="No operators found."
+          emptyStateMessage={t("empty")}
         >
           {meta ? (
             <DataTablePagination

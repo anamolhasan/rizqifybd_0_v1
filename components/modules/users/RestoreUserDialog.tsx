@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { AlertCircle, Loader2, RotateCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
@@ -28,6 +29,8 @@ export function RestoreUserDialog({
   open,
   onOpenChange,
 }: RestoreUserDialogProps) {
+  const t = useTranslations("admin.users.restore");
+  const tc = useTranslations("common");
   const { mutateAsync: restoreUser, isPending, error, reset } = useRestoreUser();
 
   useEffect(() => {
@@ -57,11 +60,11 @@ export function RestoreUserDialog({
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Restore user?</AlertDialogTitle>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription>
             {user
-              ? `${user.name} (${user.email}) will be reactivated with an Active status and will be able to sign in again.`
-              : "This account will be restored."}
+              ? t("descriptionNamed", { name: user.name, email: user.email })
+              : t("description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -73,7 +76,9 @@ export function RestoreUserDialog({
         ) : null}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>
+            {tc("cancel")}
+          </AlertDialogCancel>
           <AlertDialogAction
             disabled={isPending}
             onClick={(event) => {
@@ -84,12 +89,12 @@ export function RestoreUserDialog({
             {isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                Restoring...
+                {t("restoring")}
               </>
             ) : (
               <>
                 <RotateCcw />
-                Restore user
+                {t("confirm")}
               </>
             )}
           </AlertDialogAction>

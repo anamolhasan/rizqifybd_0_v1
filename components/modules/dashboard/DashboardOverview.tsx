@@ -30,57 +30,72 @@ interface OverviewConfig {
   modules: OverviewModule[];
 }
 
-const STAFF_CONFIG: OverviewConfig = {
-  heading: "Admin Overview",
-  description:
-    "A snapshot of the RizqifyBD platform. Live metrics arrive with the data layer.",
-  action: {
-    label: "Manage Orders",
-    href: "/admin/dashboard/orders-management",
-  },
-  stats: [
-    {
-      title: "Total Users",
-      iconName: "users",
-      description: "Registered users across all roles.",
+type Translator = (key: string) => string;
+
+function buildStaffConfig(t: Translator): OverviewConfig {
+  return {
+    heading: t("heading"),
+    description: t("description"),
+    action: {
+      label: t("action"),
+      href: "/admin/dashboard/orders-management",
     },
-    {
-      title: "Total Orders",
-      iconName: "orders",
-      description: "Recharge and bill orders placed.",
-    },
-    {
-      title: "Total Products",
-      iconName: "products",
-      description: "Active products and bundles.",
-    },
-    {
-      title: "Total Withdrawals",
-      iconName: "withdrawals",
-      description: "Withdrawal requests submitted.",
-    },
-  ],
-  modules: [
-    { title: "Users", description: "Roles, status and access", iconName: "users" },
-    { title: "Orders", description: "Recharges and bill payments", iconName: "orders" },
-    {
-      title: "Products",
-      description: "Recharge and bundle catalogue",
-      iconName: "products",
-    },
-    { title: "Operators", description: "Mobile operator setup", iconName: "operators" },
-    {
-      title: "Withdrawals",
-      description: "Review and payout requests",
-      iconName: "withdrawals",
-    },
-    {
-      title: "Referrals",
-      description: "Referral applications and income",
-      iconName: "referrals",
-    },
-  ],
-};
+    stats: [
+      {
+        title: t("stats.users.title"),
+        iconName: "users",
+        description: t("stats.users.description"),
+      },
+      {
+        title: t("stats.orders.title"),
+        iconName: "orders",
+        description: t("stats.orders.description"),
+      },
+      {
+        title: t("stats.products.title"),
+        iconName: "products",
+        description: t("stats.products.description"),
+      },
+      {
+        title: t("stats.withdrawals.title"),
+        iconName: "withdrawals",
+        description: t("stats.withdrawals.description"),
+      },
+    ],
+    modules: [
+      {
+        title: t("modules.users.title"),
+        description: t("modules.users.description"),
+        iconName: "users",
+      },
+      {
+        title: t("modules.orders.title"),
+        description: t("modules.orders.description"),
+        iconName: "orders",
+      },
+      {
+        title: t("modules.products.title"),
+        description: t("modules.products.description"),
+        iconName: "products",
+      },
+      {
+        title: t("modules.operators.title"),
+        description: t("modules.operators.description"),
+        iconName: "operators",
+      },
+      {
+        title: t("modules.withdrawals.title"),
+        description: t("modules.withdrawals.description"),
+        iconName: "withdrawals",
+      },
+      {
+        title: t("modules.referrals.title"),
+        description: t("modules.referrals.description"),
+        iconName: "referrals",
+      },
+    ],
+  };
+}
 
 const ACTION_ICON: Record<DashboardOverviewVariant, LucideIcon> = {
   staff: ArrowRight,
@@ -93,6 +108,8 @@ interface DashboardOverviewProps {
 
 export async function DashboardOverview({ variant }: DashboardOverviewProps) {
   const t = await getTranslations("dashboard");
+  const ta = await getTranslations("admin.dashboard");
+  const tc = await getTranslations("common");
   const ActionIcon = ACTION_ICON[variant];
   const isCustomer = variant === "customer";
 
@@ -154,7 +171,19 @@ export async function DashboardOverview({ variant }: DashboardOverviewProps) {
     ],
   };
 
-  const config = isCustomer ? customerConfig : STAFF_CONFIG;
+  const config = isCustomer ? customerConfig : buildStaffConfig(ta);
+  const activityTitle = isCustomer
+    ? t("overview.activity.title")
+    : ta("activity.title");
+  const activityDescription = isCustomer
+    ? t("overview.activity.description")
+    : ta("activity.description");
+  const modulesPanelTitle = isCustomer
+    ? t("overview.modulesPanel.title")
+    : ta("modulesPanel.title");
+  const modulesPanelDescription = isCustomer
+    ? t("overview.modulesPanel.description")
+    : ta("modulesPanel.description");
 
   return (
     <div className="space-y-6">
@@ -190,14 +219,14 @@ export async function DashboardOverview({ variant }: DashboardOverviewProps) {
       <div className="grid gap-6 lg:grid-cols-3">
         <OverviewActivityPanel
           className="lg:col-span-2"
-          title={isCustomer ? t("overview.activity.title") : undefined}
-          description={isCustomer ? t("overview.activity.description") : undefined}
+          title={activityTitle}
+          description={activityDescription}
         />
         <OverviewModuleAccessPanel
           modules={config.modules}
-          title={isCustomer ? t("overview.modulesPanel.title") : undefined}
-          description={isCustomer ? t("overview.modulesPanel.description") : undefined}
-          soonLabel={isCustomer ? t("overview.soon") : undefined}
+          title={modulesPanelTitle}
+          description={modulesPanelDescription}
+          soonLabel={tc("soon")}
         />
       </div>
     </div>

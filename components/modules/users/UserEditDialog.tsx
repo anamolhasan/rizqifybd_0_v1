@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AlertCircle, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -25,34 +26,37 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useUpdateUserProfile } from "@/hooks/use-users";
+import type { ValidationTranslator } from "@/lib/validations";
 import type { IUpdateUserProfilePayload, IUser } from "@/types/user.types";
 
-const optionalUrl = z
-  .string()
-  .trim()
-  .url({ message: "Must be a valid URL" })
-  .optional()
-  .or(z.literal(""));
+function buildEditUserSchema(t: ValidationTranslator) {
+  const optionalUrl = z
+    .string()
+    .trim()
+    .url({ message: t("urlInvalid") })
+    .optional()
+    .or(z.literal(""));
 
-const editUserSchema = z
-  .object({
-    name: z.string().trim().max(100, { message: "At most 100 characters" }),
-    phone: z.string().trim(),
-    image: optionalUrl,
-    profilePhoto: optionalUrl,
-    contactNumber: z.string().trim(),
-    address: z.string().trim(),
-    country: z.string().trim(),
-  })
-  .refine(
-    (data) =>
-      Object.values(data).some(
-        (value) => typeof value === "string" && value.length > 0,
-      ),
-    { message: "Provide at least one field to update" },
-  );
+  return z
+    .object({
+      name: z.string().trim().max(100, { message: t("atMost100") }),
+      phone: z.string().trim(),
+      image: optionalUrl,
+      profilePhoto: optionalUrl,
+      contactNumber: z.string().trim(),
+      address: z.string().trim(),
+      country: z.string().trim(),
+    })
+    .refine(
+      (data) =>
+        Object.values(data).some(
+          (value) => typeof value === "string" && value.length > 0,
+        ),
+      { message: t("provideAtLeastOneField") },
+    );
+}
 
-type EditFormValues = z.infer<typeof editUserSchema>;
+type EditFormValues = z.infer<ReturnType<typeof buildEditUserSchema>>;
 
 const EDITABLE_FIELDS = [
   "name",
@@ -88,6 +92,9 @@ interface UserEditDialogProps {
 }
 
 export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps) {
+  const t = useTranslations("admin.users.edit");
+  const tc = useTranslations("common");
+  const tv = useTranslations("validation");
   const {
     mutateAsync: updateProfile,
     isPending,
@@ -104,7 +111,7 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
     clearErrors,
     formState: { errors },
   } = useForm<EditFormValues>({
-    resolver: standardSchemaResolver(editUserSchema),
+    resolver: standardSchemaResolver(buildEditUserSchema(tv)),
     defaultValues: getFormValues(user),
   });
 
@@ -156,11 +163,11 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Edit user</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
             {user
-              ? `Update profile details for ${user.name}. Only filled fields are sent.`
-              : "Update user profile details."}
+              ? t("descriptionNamed", { name: user.name })
+              : t("description")}
           </DialogDescription>
         </DialogHeader>
 
@@ -174,13 +181,13 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
         <form onSubmit={handleSubmit(submit)} className="space-y-5" noValidate>
           <FieldGroup>
             <Field data-invalid={Boolean(errors.name)}>
-              <FieldLabel htmlFor="edit-name">Full name</FieldLabel>
+              <FieldLabel htmlFor="edit-name">{t("name")}</FieldLabel>
               <Input id="edit-name" autoComplete="off" {...register("name")} />
               <FieldError errors={[errors.name]} />
             </Field>
 
             <Field data-invalid={Boolean(errors.phone)}>
-              <FieldLabel htmlFor="edit-phone">Phone</FieldLabel>
+              <FieldLabel htmlFor="edit-phone">{t("phone")}</FieldLabel>
               <Input
                 id="edit-phone"
                 autoComplete="off"
@@ -191,7 +198,9 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
             </Field>
 
             <Field data-invalid={Boolean(errors.contactNumber)}>
-              <FieldLabel htmlFor="edit-contact">Contact number</FieldLabel>
+              <FieldLabel htmlFor="edit-contact">
+                {t("contactNumber")}
+              </FieldLabel>
               <Input
                 id="edit-contact"
                 autoComplete="off"
@@ -201,7 +210,7 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
             </Field>
 
             <Field data-invalid={Boolean(errors.image)}>
-              <FieldLabel htmlFor="edit-image">Avatar image URL</FieldLabel>
+              <FieldLabel htmlFor="edit-image">{t("image")}</FieldLabel>
               <Input
                 id="edit-image"
                 autoComplete="off"
@@ -212,7 +221,7 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
             </Field>
 
             <Field data-invalid={Boolean(errors.profilePhoto)}>
-              <FieldLabel htmlFor="edit-photo">Profile photo URL</FieldLabel>
+              <FieldLabel htmlFor="edit-photo">{t("profilePhoto")}</FieldLabel>
               <Input
                 id="edit-photo"
                 autoComplete="off"
@@ -223,7 +232,7 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
             </Field>
 
             <Field data-invalid={Boolean(errors.country)}>
-              <FieldLabel htmlFor="edit-country">Country</FieldLabel>
+              <FieldLabel htmlFor="edit-country">{t("country")}</FieldLabel>
               <Input id="edit-country" autoComplete="off" {...register("country")} />
               <FieldError errors={[errors.country]} />
             </Field>
@@ -233,7 +242,7 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
               name="address"
               render={({ field }) => (
                 <Field data-invalid={Boolean(errors.address)}>
-                  <FieldLabel htmlFor="edit-address">Address</FieldLabel>
+                  <FieldLabel htmlFor="edit-address">{t("address")}</FieldLabel>
                   <Textarea id="edit-address" rows={2} {...field} />
                   <FieldError errors={[errors.address]} />
                 </Field>
@@ -248,16 +257,16 @@ export function UserEditDialog({ user, open, onOpenChange }: UserEditDialogProps
               disabled={isPending}
               onClick={() => handleOpenChange(false)}
             >
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button type="submit" disabled={isPending}>
               {isPending ? (
                 <>
                   <Loader2 className="animate-spin" />
-                  Saving...
+                  {t("saving")}
                 </>
               ) : (
-                "Save changes"
+                t("save")
               )}
             </Button>
           </DialogFooter>

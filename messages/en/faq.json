@@ -1,0 +1,113 @@
+{
+  "hero": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Find answers to common questions about RizqifyBD services, offers, and your account.",
+    "searchPlaceholder": "Search questions..."
+  },
+  "categories": {
+    "all": "All",
+    "general": "General Questions",
+    "account": "Account & Registration",
+    "offers": "Telecom Offers",
+    "orders": "Orders & Purchases",
+    "payments": "Payments & Wallet",
+    "agent": "Agent & Reseller",
+    "referral": "Referral & Commission",
+    "refunds": "Refunds & Support"
+  },
+  "emptyState": {
+    "noResults": "No questions match your search.",
+    "noResultsDescription": "Try adjusting your search or browse all categories.",
+    "clearSearch": "Clear search"
+  },
+  "support": {
+    "title": "Still have questions?",
+    "description": "Our support team is here to help you with your RizqifyBD experience.",
+    "contactSupport": "Contact Support",
+    "helpCenter": "Visit Help Center"
+  },
+  "faq": {
+    "general": {
+      "q1": "What is RizqifyBD?",
+      "a1": "RizqifyBD is a Bangladesh-focused telecom offer marketplace that provides MB recharge, minute recharge, SMS packs, utility bill payments, and ticket support services — all in one platform.",
+      "q2": "Who can use RizqifyBD?",
+      "a2": "Anyone in Bangladesh with a valid mobile number can use RizqifyBD to purchase telecom services and manage their digital transactions.",
+      "q3": "Is RizqifyBD available nationwide?",
+      "a3": "Yes, RizqifyBD services are accessible throughout Bangladesh wherever you have internet connectivity."
+    },
+    "account": {
+      "q1": "How do I create an account?",
+      "a1": "Click \"Sign Up\" on the homepage, enter your name, email, and password, then verify your email address. You can also register with a referral code if you have one.",
+      "q2": "How do I sign in?",
+      "a2": "Click \"Sign In\" and enter your registered email and password. If you forget your password, use the \"Forgot Password\" link to reset it.",
+      "q3": "Can I change my registered email or phone number?",
+      "a3": "You can update your profile information from the dashboard after signing in. For security-sensitive changes, you may need to verify your identity.",
+      "q4": "What should I do if I forget my password?",
+      "a4": "Use the \"Forgot Password\" link on the sign-in page. Enter your registered email, and we'll send you a password reset link."
+    },
+    "offers": {
+      "q1": "How do I find telecom offers?",
+      "a1": "Browse the Services or Offers section. You can filter by operator (Grameenphone, Banglalink, Robi, Airtel, Teletalk) and package type (Internet, Voice, SMS, Combo).",
+      "q2": "Are all offers available in every region?",
+      "a2": "Offer availability may vary by operator and region. Some offers are specific to certain circles or customer segments. Check the offer details before purchasing.",
+      "q3": "How long are offers valid?",
+      "a3": "Each offer has its own validity period, which is displayed on the offer card. Validity typically ranges from a few days to several months depending on the package.",
+      "q4": "Can I purchase multiple offers at once?",
+      "a4": "Yes, you can add multiple offers to your cart and purchase them in a single transaction."
+    },
+    "orders": {
+      "q1": "How do I check my order status?",
+      "a1": "Sign in and go to \"My Orders\" in your dashboard. You'll see the status of all recent orders (Pending, Processing, Completed, Failed).",
+      "q2": "What happens if my purchase fails?",
+      "a2": "Failed orders are typically refunded to your wallet automatically within a short period. If the amount doesn't appear, contact support with your order ID.",
+      "q3": "Can I cancel an order?",
+      "a3": "Orders can only be cancelled if they are still in \"Pending\" status. Once processing starts, cancellation may not be possible.",
+      "q4": "Where can I see my purchase history?",
+      "a4": "All past orders are listed in the \"My Orders\" section of your dashboard with dates, amounts, and status."
+    },
+    "payments": {
+      "q1": "How do I add money to my wallet?",
+      "a1": "Go to \"My Wallet\" in your dashboard and click \"Add Funds.\" Choose your preferred payment method and follow the instructions.",
+      "q2": "What payment methods are supported?",
+      "a2": "Supported payment methods include bKash, Nagad, Rocket, bank transfers, and card payments. Available options may vary.",
+      "q3": "How do I check my wallet balance and transaction history?",
+      "a3": "Visit \"My Wallet\" in your dashboard to see your current balance, recent transactions, and deposit/withdrawal history.",
+      "q4": "Can I withdraw money from my wallet?",
+      "a4": "Yes, you can request a withdrawal from \"My Wallet.\" Withdrawals are processed to your registered mobile financial service account (bKash, Nagad, etc.) and may take 1-2 business days.",
+      "q5": "Are there any fees for deposits or withdrawals?",
+      "a5": "Deposit fees depend on the payment gateway. Withdrawal fees, if any, are displayed before you confirm the transaction."
+    },
+    "agent": {
+      "q1": "Who can become an agent or reseller?",
+      "a1": "Any registered user with a valid NID and business details can apply. Approval is subject to verification and compliance checks.",
+      "q2": "What are the benefits of being an agent?",
+      "a2": "Agents earn commission on sales, get access to bulk purchase tools, and can manage sub-agents. Specific commission rates are shared upon approval.",
+      "q3": "How do I apply to become an agent?",
+      "a3": "Go to \"Agent Application\" in your dashboard, fill out the form with your business details, and submit for review.",
+      "q4": "What documents are required for agent registration?",
+      "a4": "Typically: National ID, trade license (if applicable), bank account details, and a passport-sized photo. Requirements may vary."
+    },
+    "referral": {
+      "q1": "How does the referral program work?",
+      "a1": "Share your unique referral code. When someone signs up using your code and makes qualifying purchases, you earn commission.",
+      "q2": "What qualifies as a successful referral?",
+      "a2": "A referral is typically counted when the referred user completes their first purchase above a minimum threshold. Exact criteria are in the referral terms.",
+      "q3": "How much commission do I earn?",
+      "a3": "Commission rates vary by offer category and are subject to change. Current rates are visible in your referral dashboard.",
+      "q4": "When do I receive my referral earnings?",
+      "a4": "Referral commissions are credited to your wallet after the referred user's order is confirmed and any return period has passed.",
+      "q5": "Is there a limit to how many people I can refer?",
+      "a5": "There is no fixed limit on the number of referrals. However, fraudulent or spam referrals will be disqualified."
+    },
+    "refunds": {
+      "q1": "How do I request a refund?",
+      "a1": "Contact support with your order ID and reason for the refund request. Our team will review and process eligible refunds to your wallet.",
+      "q2": "What is the refund policy?",
+      "a2": "Refunds are considered for failed transactions, duplicate charges, or service non-delivery. Each case is reviewed individually.",
+      "q3": "How long does a refund take?",
+      "a3": "Approved refunds are typically credited to your wallet within 1-3 business days. Bank or MFS reversals may take longer depending on the provider.",
+      "q4": "How do I contact customer support?",
+      "a4": "Email us at info@rizqifybd.com or call +880 1607 950556. You can also submit a support ticket from your dashboard."
+    }
+  }
+}

@@ -22,8 +22,11 @@ import { CategoryDeleteDialog } from "./CategoryDeleteDialog";
 import { CategoryFormDialog } from "./CategoryFormDialog";
 import { getCategoryColumns } from "./CategoryColumns";
 import type { ICategory } from "@/types/category.types";
+import { useTranslations } from "next-intl";
 
 export function CategoryManagement() {
+  const t = useTranslations("admin.categories");
+  const tc = useTranslations("common");
   const { data, isLoading, isError, error, refetch } = useCategories();
 
   const [formOpen, setFormOpen] = useState(false);
@@ -43,8 +46,16 @@ export function CategoryManagement() {
           setSelectedCategory(category);
           setDeleteOpen(true);
         },
+        labels: {
+          title: t("columns.title"),
+          description: t("columns.description"),
+          created: t("columns.created"),
+          actions: t("columns.actions"),
+          edit: t("rowActions.edit"),
+          delete: t("rowActions.delete"),
+        },
       }),
-    [],
+    [t],
   );
 
   const rows = useMemo(() => data?.data ?? [], [data]);
@@ -64,8 +75,8 @@ export function CategoryManagement() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Categories"
-        description="Organise your products into categories for easier management."
+        title={t("title")}
+        description={t("description")}
       >
         <Button
           type="button"
@@ -73,16 +84,16 @@ export function CategoryManagement() {
           onClick={openCreateDialog}
         >
           <Plus />
-          Add Category
+          {t("addCategory")}
         </Button>
       </PageHeader>
 
       {isError ? (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Failed to load categories</AlertTitle>
+          <AlertTitle>{t("errorTitle")}</AlertTitle>
           <AlertDescription>
-            {error?.message ?? "Something went wrong. Please try again."}
+            {error?.message ?? tc("error")}
           </AlertDescription>
           <AlertAction>
             <Button
@@ -92,7 +103,7 @@ export function CategoryManagement() {
               onClick={() => refetch()}
             >
               <RefreshCcw />
-              Retry
+              {tc("retry")}
             </Button>
           </AlertAction>
         </Alert>
@@ -100,7 +111,7 @@ export function CategoryManagement() {
         <DataTable
           table={table}
           isLoading={isLoading}
-          emptyStateMessage="No categories yet. Add your first category to get started."
+          emptyStateMessage={t("empty")}
         />
       )}
 

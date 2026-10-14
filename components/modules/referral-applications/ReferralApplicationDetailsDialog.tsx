@@ -12,11 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {
-  PROMOTION_METHOD_LABELS,
-  REFERRAL_STATUS_LABELS,
-} from "./referral-application.constants";
 import type { IReferralApplication } from "@/types/referral.types";
+import { useTranslations } from "next-intl";
 
 interface ReferralApplicationDetailsDialogProps {
   application: IReferralApplication | null;
@@ -44,36 +41,37 @@ export function ReferralApplicationDetailsDialog({
   open,
   onOpenChange,
 }: ReferralApplicationDetailsDialogProps) {
+  const t = useTranslations("admin.referralApplications.details");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Referral application</DialogTitle>
-          <DialogDescription>
-            Submitted details and review history.
-          </DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         {application ? (
           <dl className="max-h-[60vh] divide-y overflow-y-auto">
-            <DetailRow label="Applicant">
-              {application.appUser?.authUser?.name ?? "—"}
+            <DetailRow label={t("applicant")}>
+              {application.appUser?.authUser?.name ?? tc("notProvided")}
             </DetailRow>
-            <DetailRow label="Email">
-              {application.appUser?.authUser?.email ?? "—"}
+            <DetailRow label={t("email")}>
+              {application.appUser?.authUser?.email ?? tc("notProvided")}
             </DetailRow>
-            <DetailRow label="Status">
+            <DetailRow label={t("status")}>
               <StatusBadgeCell
                 status={application.status}
-                label={REFERRAL_STATUS_LABELS[application.status]}
+                label={te(`applicationStatus.${application.status}`)}
               />
             </DetailRow>
-            <DetailRow label="Promotion method">
+            <DetailRow label={t("promotionMethod")}>
               {application.promotionMethod
-                ? PROMOTION_METHOD_LABELS[application.promotionMethod]
-                : "—"}
+                ? te(`promotionMethod.${application.promotionMethod}`)
+                : tc("notProvided")}
             </DetailRow>
-            <DetailRow label="Promotion URL">
+            <DetailRow label={t("promotionUrl")}>
               {application.promotionUrl ? (
                 <a
                   href={application.promotionUrl}
@@ -85,27 +83,27 @@ export function ReferralApplicationDetailsDialog({
                   <ExternalLink className="size-3.5" />
                 </a>
               ) : (
-                "—"
+                tc("notProvided")
               )}
             </DetailRow>
-            <DetailRow label="Reason">
-              {application.reason ?? "—"}
+            <DetailRow label={t("reason")}>
+              {application.reason ?? tc("notProvided")}
             </DetailRow>
-            <DetailRow label="Terms accepted">
-              {application.termsAccepted ? "Yes" : "No"}
+            <DetailRow label={t("termsAccepted")}>
+              {application.termsAccepted ? tc("yes") : tc("no")}
             </DetailRow>
-            <DetailRow label="Applied at">
+            <DetailRow label={t("appliedAt")}>
               <DateCell value={application.appliedAt} withTime />
             </DetailRow>
-            <DetailRow label="Reviewed by">
-              {application.reviewedBy?.name ?? "—"}
+            <DetailRow label={t("reviewedBy")}>
+              {application.reviewedBy?.name ?? tc("notProvided")}
             </DetailRow>
-            <DetailRow label="Reviewed at">
+            <DetailRow label={t("reviewedAt")}>
               <DateCell value={application.reviewedAt} withTime />
             </DetailRow>
             {application.status === "REJECTED" ? (
-              <DetailRow label="Rejection reason">
-                {application.rejectionReason ?? "—"}
+              <DetailRow label={t("rejectionReason")}>
+                {application.rejectionReason ?? tc("notProvided")}
               </DetailRow>
             ) : null}
           </dl>

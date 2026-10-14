@@ -1,4 +1,7 @@
+"use client";
+
 import { BadgeCheck, BadgeX, Mail, Phone } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -16,9 +19,10 @@ export function VerificationBadge({
   verified,
   className,
 }: VerificationBadgeProps) {
+  const t = useTranslations("admin.users.verification");
   const ChannelIcon = type === "email" ? Mail : Phone;
   const StatusIcon = verified ? BadgeCheck : BadgeX;
-  const label = type === "email" ? "Email" : "Phone";
+  const label = type === "email" ? t("email") : t("phone");
 
   return (
     <Badge

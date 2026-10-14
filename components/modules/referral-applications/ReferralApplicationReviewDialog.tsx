@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useReviewReferralApplication } from "@/hooks/use-referral-applications";
 import type { IReferralApplication } from "@/types/referral.types";
+import { useTranslations } from "next-intl";
 
 export type ReferralReviewAction = "APPROVE" | "REJECT";
 
@@ -37,6 +38,7 @@ export function ReferralApplicationReviewDialog({
   onReasonChange,
   onOpenChange,
 }: ReferralApplicationReviewDialogProps) {
+  const t = useTranslations("admin.referralApplications.review");
   const { mutateAsync, isPending, error, reset } = useReviewReferralApplication();
 
   useEffect(() => {
@@ -77,26 +79,29 @@ export function ReferralApplicationReviewDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {isReject ? "Reject application" : "Approve application"}
+            {isReject ? t("rejectTitle") : t("approveTitle")}
           </DialogTitle>
           <DialogDescription>
             {isReject
-              ? "Provide a reason for rejecting this referral application."
-              : "Approving makes the applicant eligible to earn referral income."}
+              ? t("rejectDescription")
+              : t("approveDescription")}
           </DialogDescription>
         </DialogHeader>
 
         {isReject ? (
           <div className="space-y-2">
-            <Label htmlFor="referral-rejection-reason">Rejection reason</Label>
+            <Label htmlFor="referral-rejection-reason">{t("reason")}</Label>
             <Textarea
               id="referral-rejection-reason"
               value={reason}
               onChange={(event) => onReasonChange(event.target.value)}
-              placeholder="Explain why this application is being rejected..."
+              placeholder={t("reasonPlaceholder")}
               rows={4}
               disabled={isPending}
             />
+            {reasonInvalid ? (
+              <p className="text-sm text-destructive">{t("reasonRequired")}</p>
+            ) : null}
           </div>
         ) : null}
 
@@ -114,7 +119,7 @@ export function ReferralApplicationReviewDialog({
             disabled={isPending}
             onClick={() => handleOpenChange(false)}
           >
-            Cancel
+            {t("cancel")}
           </Button>
           <Button
             type="button"
@@ -125,12 +130,10 @@ export function ReferralApplicationReviewDialog({
             {isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                Submitting...
+                {t("submitting")}
               </>
-            ) : isReject ? (
-              "Reject"
             ) : (
-              "Approve"
+              t("submit")
             )}
           </Button>
         </DialogFooter>

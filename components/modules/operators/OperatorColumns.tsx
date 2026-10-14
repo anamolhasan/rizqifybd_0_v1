@@ -15,15 +15,31 @@ interface OperatorColumnActions {
   onDelete: (operator: IOperator) => void;
 }
 
+export interface OperatorColumnLabels {
+  name: string;
+  code: string;
+  status: string;
+  createdAt: string;
+  actions: string;
+  edit: string;
+  delete: string;
+  active: string;
+  inactive: string;
+}
+
 export function getOperatorColumns({
   onEdit,
   onDelete,
-}: OperatorColumnActions): ColumnDef<IOperator, unknown>[] {
+  labels,
+}: OperatorColumnActions & { labels: OperatorColumnLabels }): ColumnDef<
+  IOperator,
+  unknown
+>[] {
   return [
     {
       accessorKey: "name",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Operator Name" />
+        <DataTableColumnsHeader column={column} title={labels.name} />
       ),
       cell: ({ row }) => (
         <span className="font-medium">{row.original.name}</span>
@@ -31,7 +47,7 @@ export function getOperatorColumns({
     },
     {
       accessorKey: "code",
-      header: "Code",
+      header: labels.code,
       cell: ({ row }) => (
         <Badge variant="secondary" className="font-mono tracking-wide">
           {row.original.code}
@@ -40,31 +56,33 @@ export function getOperatorColumns({
     },
     {
       id: "status",
-      header: "Status",
+      header: labels.status,
       cell: ({ row }) => (
         <StatusBadgeCell
           status={row.original.isActive ? "ACTIVE" : "INACTIVE"}
-          label={row.original.isActive ? "Active" : "Inactive"}
+          label={
+            row.original.isActive ? labels.active : labels.inactive
+          }
         />
       ),
     },
     {
       accessorKey: "createdAt",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Created At" />
+        <DataTableColumnsHeader column={column} title={labels.createdAt} />
       ),
       cell: ({ row }) => <DateCell value={row.original.createdAt} />,
     },
     {
       id: "actions",
-      header: () => <span className="flex justify-end">Actions</span>,
+      header: () => <span className="flex justify-end">{labels.actions}</span>,
       cell: ({ row }) => (
         <div className="flex items-center justify-end gap-1">
           <Button
             type="button"
             variant="ghost"
             size="icon-sm"
-            aria-label={`Edit ${row.original.name}`}
+            aria-label={`${labels.edit} ${row.original.name}`}
             onClick={() => onEdit(row.original)}
           >
             <Pencil />
@@ -74,7 +92,7 @@ export function getOperatorColumns({
             variant="ghost"
             size="icon-sm"
             className="text-destructive hover:text-destructive"
-            aria-label={`Delete ${row.original.name}`}
+            aria-label={`${labels.delete} ${row.original.name}`}
             onClick={() => onDelete(row.original)}
           >
             <Trash2 />

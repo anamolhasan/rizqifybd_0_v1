@@ -13,15 +13,28 @@ interface CategoryColumnActions {
   onDelete: (category: ICategory) => void;
 }
 
+export interface CategoryColumnLabels {
+  title: string;
+  description: string;
+  created: string;
+  actions: string;
+  edit: string;
+  delete: string;
+}
+
 export function getCategoryColumns({
   onEdit,
   onDelete,
-}: CategoryColumnActions): ColumnDef<ICategory, unknown>[] {
+  labels,
+}: CategoryColumnActions & { labels: CategoryColumnLabels }): ColumnDef<
+  ICategory,
+  unknown
+>[] {
   return [
     {
       accessorKey: "title",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Title" />
+        <DataTableColumnsHeader column={column} title={labels.title} />
       ),
       cell: ({ row }) => (
         <span className="font-medium">{row.original.title}</span>
@@ -29,7 +42,7 @@ export function getCategoryColumns({
     },
     {
       accessorKey: "description",
-      header: "Description",
+      header: labels.description,
       cell: ({ row }) => (
         <span className="block max-w-[420px] truncate text-sm text-muted-foreground">
           {row.original.description || "—"}
@@ -39,20 +52,20 @@ export function getCategoryColumns({
     {
       accessorKey: "createdAt",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Created" />
+        <DataTableColumnsHeader column={column} title={labels.created} />
       ),
       cell: ({ row }) => <DateCell value={row.original.createdAt} />,
     },
     {
       id: "actions",
-      header: () => <span className="flex justify-end">Actions</span>,
+      header: () => <span className="flex justify-end">{labels.actions}</span>,
       cell: ({ row }) => (
         <div className="flex items-center justify-end gap-1">
           <Button
             type="button"
             variant="ghost"
             size="icon-sm"
-            aria-label={`Edit ${row.original.title}`}
+            aria-label={`${labels.edit} ${row.original.title}`}
             onClick={() => onEdit(row.original)}
           >
             <Pencil />
@@ -62,7 +75,7 @@ export function getCategoryColumns({
             variant="ghost"
             size="icon-sm"
             className="text-destructive hover:text-destructive"
-            aria-label={`Delete ${row.original.title}`}
+            aria-label={`${labels.delete} ${row.original.title}`}
             onClick={() => onDelete(row.original)}
           >
             <Trash2 />

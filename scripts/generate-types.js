@@ -3,12 +3,13 @@ const fs = require('fs');
 const ROOT_NAMESPACES = [
   'common', 'nav', 'pagination', 'theme', 'footer', 'toast', 'enums',
   'auth', 'validation', 'metadata', 'dashboard', 'dashboardNav',
-  'profile', 'agent', 'referral', 'adminNav'
+  'profile', 'agent', 'referral', 'adminNav', 'faq', 'features',
+  'error', 'loading', 'notFound'
 ];
 
 const ADMIN_NAMESPACES = [
-  'dashboard', 'placeholders', 'users', 'offers', 'categories', 'operators',
-  'referralApplications', 'settings', 'offerForm', 'categoryForm', 'operatorForm', 'offerProfit'
+  'dashboard', 'placeholders', 'users', 'roleAccess', 'operatorOffers', 'categories', 'operators',
+  'referralApplications', 'settings', 'operatorOfferForm', 'categoryForm', 'operatorForm', 'operatorOfferProfit'
 ];
 
 function getType(obj, indent = 0) {

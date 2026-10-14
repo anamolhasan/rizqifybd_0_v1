@@ -1,0 +1,237 @@
+{
+  "hero": {
+    "badge": "Telecom offers, organised",
+    "title": "Everything you need to discover and manage telecom offers",
+    "titleAccent": "in one calm, clear place",
+    "description": "RizqifyBD brings internet packs, talktime, SMS bundles and combo offers from Bangladesh's leading operators into a single, searchable catalogue. Compare pricing, validity and availability, then keep track of every order from your dashboard.",
+    "primaryCta": "Explore Offers",
+    "secondaryCta": "Create Account",
+    "visualLabel": "A preview of the RizqifyBD experience",
+    "highlights": [
+      {
+        "title": "Offer Discovery",
+        "description": "Find offers from all operators in one place"
+      },
+      {
+        "title": "Operator Filter",
+        "description": "Narrow offers down to your own SIM's operator"
+      },
+      {
+        "title": "Transparent Pricing",
+        "description": "See regular price, discounts and final price upfront"
+      },
+      {
+        "title": "Order Tracking",
+        "description": "Follow every order from placement to completion"
+      }
+    ]
+  },
+  "coreFeatures": {
+    "badge": "Core Features",
+    "title": "Built around the way you manage offers",
+    "subtitle": "Every capability is focused on making telecom offers easy to find, understand and keep organised.",
+    "itemLabel": "Included",
+    "items": [
+      {
+        "title": "Telecom Offer Discovery",
+        "description": "Browse a catalogue of data, minute, SMS and bundle offers from major Bangladeshi operators in one place.",
+        "icon": "Search"
+      },
+      {
+        "title": "Operator-Based Offers",
+        "description": "Filter by operator — Grameenphone, Banglalink, Robi, Airtel and Teletalk — to see only what fits your SIM.",
+        "icon": "TowerControl"
+      },
+      {
+        "title": "Internet & Minute Packages",
+        "description": "Find data packs, voice bundles and combo offers for different usage patterns and budgets.",
+        "icon": "Wifi"
+      },
+      {
+        "title": "Offer Validity & Availability",
+        "description": "View validity periods and current availability so you know what you are getting before you order.",
+        "icon": "CalendarClock"
+      },
+      {
+        "title": "Transparent Pricing",
+        "description": "Regular price, selling price and applicable discounts are shown together with no hidden charges.",
+        "icon": "Tag"
+      },
+      {
+        "title": "User Account Management",
+        "description": "Manage your profile, orders, wallet and referral activity from a single dashboard.",
+        "icon": "UserCog"
+      },
+      {
+        "title": "Order & Transaction History",
+        "description": "Review your past purchases, wallet transactions and their current status at any time.",
+        "icon": "ReceiptText"
+      },
+      {
+        "title": "Secure Authentication",
+        "description": "Email-based registration with password protection and secure session handling.",
+        "icon": "ShieldCheck"
+      },
+      {
+        "title": "Responsive Mobile Experience",
+        "description": "A consistent, touch-friendly experience across phones, tablets and desktop screens.",
+        "icon": "Smartphone"
+      }
+    ]
+  },
+  "howItWorks": {
+    "badge": "How It Works",
+    "title": "Three simple steps to get started",
+    "subtitle": "From browsing to ordering, the flow stays short and predictable.",
+    "note": "Orders are processed through the platform's available fulfilment process; automated fulfilment is not guaranteed.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Browse Offers",
+        "description": "Explore the catalogue or filter by operator, package type, price and validity to find suitable offers."
+      },
+      {
+        "number": "02",
+        "title": "Select & Review",
+        "description": "Choose an offer, review its price, validity, operator and terms, then enter the number the offer is for."
+      },
+      {
+        "number": "03",
+        "title": "Complete Your Order",
+        "description": "Follow the available purchase process, then track the order status and history from your dashboard."
+      }
+    ]
+  },
+  "benefits": {
+    "badge": "Benefits",
+    "title": "Why people choose RizqifyBD",
+    "subtitle": "Designed to make telecom offer discovery simple, transparent and convenient.",
+    "items": [
+      {
+        "title": "Easier Offer Discovery",
+        "description": "No more jumping between operator websites or USSD codes. Offers are gathered into one searchable platform."
+      },
+      {
+        "title": "Clear Pricing & Validity",
+        "description": "Each offer shows price, discount, validity period and operator so you can compare with confidence."
+      },
+      {
+        "title": "Access Anywhere",
+        "description": "The responsive interface works on your phone, tablet or computer, so you can browse whenever it suits you."
+      },
+      {
+        "title": "Order Visibility",
+        "description": "Track your orders and transaction history from one place, with status and timestamps kept together."
+      },
+      {
+        "title": "Straightforward Experience",
+        "description": "A clean interface with minimal friction: find what you need, place your order and move on."
+      }
+    ],
+    "summary": [
+      "Major Bangladeshi operators covered",
+      "Offers managed from a single admin panel",
+      "Transparent pricing with no hidden charges"
+    ]
+  },
+  "operatorPreview": {
+    "badge": "Operators",
+    "sampleBadge": "Sample",
+    "title": "A glimpse of operator offers",
+    "subtitle": "Highlighted categories from the operators RizqifyBD supports.",
+    "note": "The cards below are illustrative samples, not live offers. Browse the offers page for the current catalogue.",
+    "validityLabel": "Validity",
+    "cta": "View All Offers",
+    "operators": [
+      {
+        "name": "Grameenphone",
+        "code": "GP",
+        "offers": [
+          { "title": "5 GB Internet Pack", "price": "৳299", "validity": "30 Days", "type": "Internet", "badge": "Popular" },
+          { "title": "100 Min Voice Pack", "price": "৳49", "validity": "7 Days", "type": "Minute" },
+          { "title": "2 GB + 50 Min Combo", "price": "৳199", "validity": "15 Days", "type": "Bundle", "badge": "Best Value" }
+        ]
+      },
+      {
+        "name": "Banglalink",
+        "code": "BL",
+        "offers": [
+          { "title": "3 GB Data Pack", "price": "৳199", "validity": "30 Days", "type": "Internet", "badge": "New" },
+          { "title": "200 Min Any Network", "price": "৳79", "validity": "30 Days", "type": "Minute" },
+          { "title": "1 GB + 100 SMS", "price": "৳149", "validity": "15 Days", "type": "Bundle" }
+        ]
+      },
+      {
+        "name": "Robi",
+        "code": "RB",
+        "offers": [
+          { "title": "4 GB Internet Pack", "price": "৳249", "validity": "28 Days", "type": "Internet", "badge": "Popular" },
+          { "title": "150 Min Voice Pack", "price": "৳59", "validity": "14 Days", "type": "Minute" },
+          { "title": "3 GB + 100 Min Combo", "price": "৳229", "validity": "30 Days", "type": "Combo", "badge": "Best Value" }
+        ]
+      },
+      {
+        "name": "Airtel",
+        "code": "AT",
+        "offers": [
+          { "title": "2.5 GB Data Pack", "price": "৳179", "validity": "28 Days", "type": "Internet", "badge": "New" },
+          { "title": "100 Min Talk Time", "price": "৳39", "validity": "7 Days", "type": "Minute" },
+          { "title": "1.5 GB + 50 Min Bundle", "price": "৳159", "validity": "15 Days", "type": "Bundle" }
+        ]
+      },
+      {
+        "name": "Teletalk",
+        "code": "TT",
+        "offers": [
+          { "title": "3 GB Internet Pack", "price": "৳189", "validity": "30 Days", "type": "Internet", "badge": "Popular" },
+          { "title": "200 Min Voice", "price": "৳69", "validity": "30 Days", "type": "Minute" },
+          { "title": "2 GB + 100 Min Combo", "price": "৳199", "validity": "30 Days", "type": "Combo", "badge": "Best Value" }
+        ]
+      }
+    ]
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently asked questions",
+    "subtitle": "Quick answers about discovering offers and using RizqifyBD.",
+    "allFaq": "See all FAQs",
+    "items": [
+      {
+        "question": "How do I find offers for my specific operator?",
+        "answer": "Use the operator filter on the offers page to show only offers from Grameenphone, Banglalink, Robi, Airtel or Teletalk."
+      },
+      {
+        "question": "Are the prices final or are there additional fees?",
+        "answer": "The displayed selling price is what you pay and any discounts are already applied. Where a payment method carries its own charges, those are shown before you confirm the order."
+      },
+      {
+        "question": "How do I check an offer's validity and availability?",
+        "answer": "Each offer card shows its validity period and availability status. Offers that have expired or are unavailable are marked and cannot be ordered."
+      },
+      {
+        "question": "Can I purchase an offer for someone else's number?",
+        "answer": "Yes. During the order process you enter the mobile number the offer should be applied to, whether that is your own number or someone else's."
+      },
+      {
+        "question": "How do I view my past orders?",
+        "answer": "Sign in and open your dashboard. The My Orders section lists your complete order history with status, dates and amounts."
+      },
+      {
+        "question": "Do I need an account to explore offers?",
+        "answer": "You can browse the offer catalogue freely. An account is only required when you are ready to place an order and manage your order and transaction history."
+      }
+    ]
+  },
+  "cta": {
+    "badge": "Get started",
+    "title": "Ready to explore the best telecom offers?",
+    "description": "Browse the catalogue as a guest, or create an account to place orders and keep your history in one place.",
+    "primaryAction": "Explore Offers",
+    "secondaryAction": "Create Account",
+    "trust": [
+      "Browse offers without signing in",
+      "Transparent pricing",
+      "Order history in your dashboard"
+    ]
+  }
+}

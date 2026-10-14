@@ -4,6 +4,7 @@ import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AlertCircle, Loader2, ShieldAlert } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -25,16 +26,19 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useChangeUserRole } from "@/hooks/use-users";
+import type { ValidationTranslator } from "@/lib/validations";
 import type { Role } from "@/types/enums";
 import type { IUser } from "@/types/user.types";
 import { RoleBadge } from "./RoleBadge";
-import { getAssignableRoles, ROLE_LABELS } from "./user.constants";
+import { getAssignableRoles, getRoleLabel } from "./user.constants";
 
-const changeRoleSchema = z.object({
-  role: z.string().min(1, { message: "Select a role" }),
-});
+function buildChangeRoleSchema(t: ValidationTranslator) {
+  return z.object({
+    role: z.string().min(1, { message: t("selectRole") }),
+  });
+}
 
-type ChangeRoleFormValues = z.infer<typeof changeRoleSchema>;
+type ChangeRoleFormValues = z.infer<ReturnType<typeof buildChangeRoleSchema>>;
 
 const PRIVILEGED_ROLES: Role[] = ["SUPER_ADMIN", "ADMIN"];
 
@@ -51,6 +55,10 @@ export function ChangeRoleDialog({
   open,
   onOpenChange,
 }: ChangeRoleDialogProps) {
+  const t = useTranslations("admin.users.changeRole");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
+  const tv = useTranslations("validation");
   const assignableRoles = useMemo(
     () =>
       user
@@ -75,7 +83,7 @@ export function ChangeRoleDialog({
     watch,
     formState: { errors },
   } = useForm<ChangeRoleFormValues>({
-    resolver: standardSchemaResolver(changeRoleSchema),
+    resolver: standardSchemaResolver(buildChangeRoleSchema(tv)),
     defaultValues: { role: "" },
   });
 
@@ -114,15 +122,19 @@ export function ChangeRoleDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Change role</DialogTitle>
+          <DialogTitle>{t("title")}</DialogTitle>
           <DialogDescription>
-            {user ? `Assign a new role to ${user.name}.` : "Assign a new role."}
+            {user
+              ? t("descriptionNamed", { name: user.name })
+              : t("description")}
           </DialogDescription>
         </DialogHeader>
 
         {user ? (
           <div className="flex items-center justify-between rounded-lg border bg-muted/40 px-3 py-2.5">
-            <span className="text-sm text-muted-foreground">Current role</span>
+            <span className="text-sm text-muted-foreground">
+              {t("currentRole")}
+            </span>
             <RoleBadge role={user.role} />
           </div>
         ) : null}
@@ -142,7 +154,7 @@ export function ChangeRoleDialog({
                 name="role"
                 render={({ field }) => (
                   <Field data-invalid={Boolean(errors.role)}>
-                    <FieldLabel htmlFor="change-role">New role</FieldLabel>
+                    <FieldLabel htmlFor="change-role">{t("newRole")}</FieldLabel>
                     <Select
                       value={field.value}
                       onValueChange={field.onChange}
@@ -153,12 +165,12 @@ export function ChangeRoleDialog({
                         className="w-full"
                         aria-invalid={Boolean(errors.role)}
                       >
-                        <SelectValue placeholder="Select a role" />
+                        <SelectValue placeholder={t("selectPlaceholder")} />
                       </SelectTrigger>
                       <SelectContent>
                         {assignableRoles.map((role) => (
                           <SelectItem key={role} value={role}>
-                            {ROLE_LABELS[role]}
+                            {getRoleLabel(role, te)}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -172,10 +184,7 @@ export function ChangeRoleDialog({
             {isSensitive ? (
               <div className="flex items-start gap-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2.5 text-xs text-amber-700 dark:text-amber-300">
                 <ShieldAlert className="mt-0.5 size-3.5 shrink-0" />
-                <span>
-                  This changes administrator-level privileges. Make sure this is
-                  intended — the action is recorded by the backend.
-                </span>
+                <span>{t("sensitive")}</span>
               </div>
             ) : null}
 
@@ -186,16 +195,16 @@ export function ChangeRoleDialog({
                 disabled={isPending}
                 onClick={() => handleOpenChange(false)}
               >
-                Cancel
+                {tc("cancel")}
               </Button>
               <Button type="submit" disabled={isPending || !selectedRole}>
                 {isPending ? (
                   <>
                     <Loader2 className="animate-spin" />
-                    Updating...
+                    {t("updating")}
                   </>
                 ) : (
-                  "Change role"
+                  t("submit")
                 )}
               </Button>
             </DialogFooter>
@@ -203,9 +212,7 @@ export function ChangeRoleDialog({
         ) : (
           <Alert>
             <AlertCircle />
-            <AlertDescription>
-              You are not authorized to assign any role to this user.
-            </AlertDescription>
+            <AlertDescription>{t("notAuthorized")}</AlertDescription>
           </Alert>
         )}
       </DialogContent>

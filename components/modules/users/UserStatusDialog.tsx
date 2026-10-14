@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { AlertCircle, Loader2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -17,30 +18,12 @@ import { useUpdateUserStatus } from "@/hooks/use-users";
 import type { IUser } from "@/types/user.types";
 import { UserStatusBadge } from "./UserStatusBadge";
 import {
-  USER_STATUS_ACTION_LABELS,
+  getStatusActionLabel,
   USER_STATUS_ACTION_TARGETS,
   type UserStatusAction,
 } from "./user.constants";
 
 const DESTRUCTIVE_ACTIONS: UserStatusAction[] = ["BLOCK", "SUSPEND", "DEACTIVATE"];
-
-const ACTION_TITLES: Record<UserStatusAction, string> = {
-  ACTIVATE: "Activate account?",
-  DEACTIVATE: "Deactivate account?",
-  SUSPEND: "Suspend account?",
-  UNSUSPEND: "Unsuspend account?",
-  BLOCK: "Block account?",
-  UNBLOCK: "Unblock account?",
-};
-
-const ACTION_DESCRIPTIONS: Record<UserStatusAction, string> = {
-  ACTIVATE: "The user will regain access to their account.",
-  DEACTIVATE: "The account will be set to inactive.",
-  SUSPEND: "The account will be temporarily suspended.",
-  UNSUSPEND: "The suspension will be lifted and access restored.",
-  BLOCK: "The user will be blocked from signing in until unblocked.",
-  UNBLOCK: "The block will be lifted and access restored.",
-};
 
 interface UserStatusDialogProps {
   user: IUser | null;
@@ -55,6 +38,9 @@ export function UserStatusDialog({
   open,
   onOpenChange,
 }: UserStatusDialogProps) {
+  const t = useTranslations("admin.users.statusDialog");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
   const {
     mutateAsync: updateStatus,
     isPending,
@@ -93,12 +79,16 @@ export function UserStatusDialog({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
-            {action ? ACTION_TITLES[action] : "Change status"}
+            {action
+              ? t(`titles.${action.toLowerCase()}`)
+              : t("titleFallback")}
           </DialogTitle>
           <DialogDescription>
             {user && action
-              ? `${ACTION_DESCRIPTIONS[action]} ${user.name} will be notified by the next sign-in attempt.`
-              : "Change the account status."}
+              ? `${t(`descriptions.${action.toLowerCase()}`)} ${t("notify", {
+                  name: user.name,
+                })}`
+              : t("descriptionFallback")}
           </DialogDescription>
         </DialogHeader>
 
@@ -113,10 +103,7 @@ export function UserStatusDialog({
         {isDestructive ? (
           <div className="flex items-start gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-3 py-2.5 text-xs text-destructive">
             <AlertCircle className="mt-0.5 size-3.5 shrink-0" />
-            <span>
-              This restricts access. The backend records who performed the
-              change and when.
-            </span>
+            <span>{t("destructive")}</span>
           </div>
         ) : null}
 
@@ -134,7 +121,7 @@ export function UserStatusDialog({
             disabled={isPending}
             onClick={() => handleOpenChange(false)}
           >
-            Cancel
+            {tc("cancel")}
           </Button>
           <Button
             type="button"
@@ -145,12 +132,12 @@ export function UserStatusDialog({
             {isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                Applying...
+                {t("applying")}
               </>
             ) : action ? (
-              USER_STATUS_ACTION_LABELS[action]
+              getStatusActionLabel(action, te)
             ) : (
-              "Apply"
+              t("apply")
             )}
           </Button>
         </DialogFooter>

@@ -47,7 +47,7 @@
     "unblock": "আনব্লক করুন"
   },
   "offerType": {
-    "MB": "মোবাইল ইন্টারনেট (MB)",
+    "MB": "মোবাইল ইন্টারনেট (MB / ডাটা)",
     "MINUTE": "কল টাইম (মিনিট)",
     "SMS": "SMS প্যাক",
     "BUNDLE": "বান্ডেল",
@@ -86,8 +86,17 @@
     "MONTHS": "মাস"
   },
   "discountType": {
+    "NONE": "বিলক্ষণ নেই",
     "FIXED": "স্থির পরিমাণ (৳)",
     "PERCENTAGE": "শতকরা (%)"
+  },
+  "commissionType": {
+    "FIXED": "স্থির পরিমাণ (৳)",
+    "PERCENTAGE": "শতকরা (%)"
+  },
+  "inventoryMode": {
+    "LIMITED": "সীমিত স্টক",
+    "UNLIMITED": "সীমাহীন স্টক"
   },
   "operatorStatus": {
     "ALL": "সকল অবস্থা",

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AlertCircle, Loader2, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 
 import { PasswordInput } from "@/components/auth/PasswordInput";
@@ -32,8 +33,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCreateStaffUser } from "@/hooks/use-users";
+import type { ValidationTranslator } from "@/lib/validations";
 import type { Role } from "@/types/enums";
-import { getCreatableStaffRoles, STAFF_ROLE_LABELS } from "./user.constants";
+import { getCreatableStaffRoles, getRoleLabel } from "./user.constants";
 
 const FIELD_NAMES = ["name", "email", "password", "role"] as const;
 type StaffFieldName = (typeof FIELD_NAMES)[number];
@@ -68,23 +70,23 @@ export function StaffCreateDialog({
 // Mirrors the backend createStaffUserZodSchema field rules. Role is validated
 // against the actor's own CREATABLE_ROLES_BY_ROLE; the backend enforces this
 // again on submit.
-function buildStaffSchema(roles: Role[]) {
+function buildStaffSchema(roles: Role[], t: ValidationTranslator) {
   return z.object({
     name: z
       .string()
-      .min(1, { message: "Name is required" })
-      .min(2, { message: "Name must be at least 2 characters" })
-      .max(100, { message: "Name must be at most 100 characters" }),
+      .min(1, { message: t("nameRequired") })
+      .min(2, { message: t("nameMin") })
+      .max(100, { message: t("nameMax") }),
     email: z
       .string()
-      .min(1, { message: "Email is required" })
-      .email({ message: "Invalid email address" }),
+      .min(1, { message: t("emailRequired") })
+      .email({ message: t("invalidEmail") }),
     password: z
       .string()
-      .min(1, { message: "Password is required" })
-      .min(6, { message: "Password must be at least 6 characters" }),
+      .min(1, { message: t("passwordRequired") })
+      .min(6, { message: t("passwordMin") }),
     role: z.enum(roles as [Role, ...Role[]], {
-      message: "Select a role for the staff account",
+      message: t("staffRoleRequired"),
     }),
   });
 }
@@ -100,7 +102,11 @@ function StaffCreateForm({
   creatableRoles,
   onOpenChange,
 }: StaffCreateFormProps) {
-  const schema = buildStaffSchema(creatableRoles);
+  const t = useTranslations("admin.users.create");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
+  const tv = useTranslations("validation");
+  const schema = buildStaffSchema(creatableRoles, tv);
   const DEFAULT_VALUES: StaffFormValues = {
     name: "",
     email: "",
@@ -181,17 +187,18 @@ function StaffCreateForm({
     <Dialog open onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Create Staff Account</DialogTitle>
-          <DialogDescription>
-            Grant a new member access to the RizqifyBD admin panel.
-          </DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
 
         <div className="flex items-start gap-2 rounded-lg border bg-muted/50 px-3 py-2.5 text-sm text-muted-foreground">
           <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" />
           <span>
-            Role assignments are enforced server-side. You can grant{" "}
-            {creatableRoles.map((role) => STAFF_ROLE_LABELS[role]).join(", ")}.
+            {t("roleInfo", {
+              roles: creatableRoles
+                .map((role) => getRoleLabel(role, te))
+                .join(", "),
+            })}
           </span>
         </div>
 
@@ -205,12 +212,12 @@ function StaffCreateForm({
 
           <FieldGroup>
             <Field data-invalid={Boolean(errors.name)}>
-              <FieldLabel htmlFor="staff-name">Full Name</FieldLabel>
+              <FieldLabel htmlFor="staff-name">{t("name")}</FieldLabel>
               <Input
                 id="staff-name"
                 type="text"
                 autoComplete="off"
-                placeholder="e.g. John Doe"
+                placeholder={t("namePlaceholder")}
                 aria-invalid={Boolean(errors.name)}
                 disabled={isSubmitting}
                 {...register("name")}
@@ -219,12 +226,12 @@ function StaffCreateForm({
             </Field>
 
             <Field data-invalid={Boolean(errors.email)}>
-              <FieldLabel htmlFor="staff-email">Email</FieldLabel>
+              <FieldLabel htmlFor="staff-email">{t("email")}</FieldLabel>
               <Input
                 id="staff-email"
                 type="email"
                 autoComplete="off"
-                placeholder="staff@rizqifybd.com"
+                placeholder={t("emailPlaceholder")}
                 aria-invalid={Boolean(errors.email)}
                 disabled={isSubmitting}
                 {...register("email")}
@@ -233,11 +240,11 @@ function StaffCreateForm({
             </Field>
 
             <Field data-invalid={Boolean(errors.password)}>
-              <FieldLabel htmlFor="staff-password">Temporary Password</FieldLabel>
+              <FieldLabel htmlFor="staff-password">{t("password")}</FieldLabel>
               <PasswordInput
                 id="staff-password"
                 autoComplete="new-password"
-                placeholder="At least 6 characters"
+                placeholder={t("passwordPlaceholder")}
                 aria-invalid={Boolean(errors.password)}
                 disabled={isSubmitting}
                 {...register("password")}
@@ -250,7 +257,7 @@ function StaffCreateForm({
               name="role"
               render={({ field }) => (
                 <Field data-invalid={Boolean(errors.role)}>
-                  <FieldLabel htmlFor="staff-role">Role</FieldLabel>
+                  <FieldLabel htmlFor="staff-role">{t("role")}</FieldLabel>
                   <Select
                     value={field.value}
                     onValueChange={field.onChange}
@@ -261,14 +268,14 @@ function StaffCreateForm({
                       className="w-full"
                       aria-invalid={Boolean(errors.role)}
                     >
-                      <SelectValue placeholder="Select a role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {creatableRoles.map((role) => (
-                        <SelectItem key={role} value={role}>
-                          {STAFF_ROLE_LABELS[role]}
-                        </SelectItem>
-                      ))}
+                        <SelectValue placeholder={t("rolePlaceholder")} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {creatableRoles.map((role) => (
+                          <SelectItem key={role} value={role}>
+                            {getRoleLabel(role, te)}
+                          </SelectItem>
+                        ))}
                     </SelectContent>
                   </Select>
                   <FieldError errors={[errors.role]} />
@@ -284,7 +291,7 @@ function StaffCreateForm({
               disabled={isSubmitting}
               onClick={() => handleOpenChange(false)}
             >
-              Cancel
+              {tc("cancel")}
             </Button>
             <Button
               type="submit"
@@ -294,10 +301,10 @@ function StaffCreateForm({
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin" />
-                  Creating...
+                  {t("creating")}
                 </>
               ) : (
-                "Create Staff Account"
+                t("submit")
               )}
             </Button>
           </DialogFooter>

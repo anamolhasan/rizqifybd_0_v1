@@ -1,0 +1,12 @@
+{
+  "sellingPrice": "Selling price",
+  "companyCost": "Company cost",
+  "estProfit": "Est. profit",
+  "directSale": "Direct sale",
+  "resellerSale": "Reseller sale",
+  "resellerCommission": "Reseller commission",
+  "agentSale": "Agent sale",
+  "agentCommission": "Agent commission",
+  "negativeProfitTitle": "Negative profit",
+  "negativeProfitDescription": "One or more scenarios would sell below company cost. Review the price and commissions before publishing."
+}

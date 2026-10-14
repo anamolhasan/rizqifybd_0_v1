@@ -3,9 +3,9 @@ import type {
   PaymentStatus,
 } from "./enums";
 import type { IOperator } from "./operator.types";
-import type { IProduct } from "./product.types";
+import type { IOperatorOffer } from "./operator-offer.types";
 
-export interface IOrderProduct {
+export interface IOrderOperatorOffer {
   operator: IOperator;
 }
 
@@ -13,7 +13,7 @@ export interface IOrder {
   id: string;
   userId: string;
   sellerId: string | null;
-  productId: string;
+  operatorOfferId: string;
   quantity: number;
   unitPrice: number;
   totalAmount: number;
@@ -26,7 +26,7 @@ export interface IOrder {
   completedAt: string | null;
   createdAt: string;
   updatedAt: string;
-  product?: (IProduct & { operator?: IOperator }) | null;
+  operatorOffer?: (IOperatorOffer & { operator?: IOperator }) | null;
   payment?: IPayment | null;
 }
 
@@ -45,7 +45,7 @@ export interface IPayment {
 }
 
 export interface ICreateOrderPayload {
-  productId: string;
+  operatorOfferId: string;
   quantity?: number;
   targetNumber?: string;
   note?: string;

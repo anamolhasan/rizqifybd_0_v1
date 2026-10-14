@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   getCoreRowModel,
   getSortedRowModel,
@@ -15,6 +16,7 @@ import {
   ShieldCheck,
   ShieldX,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { PageHeader } from "@/components/shared/PageHeader";
 import { StatsCard } from "@/components/shared/StatsCard";
@@ -60,61 +62,76 @@ import { UserStatusDialog } from "./UserStatusDialog";
 import { getUserColumns } from "./UserColumns";
 import {
   canCreateStaffAccounts,
-  ROLE_LABELS,
+  getRoleLabel,
+  getStatusLabel,
   SUPPORTED_ROLES,
-  USER_STATUS_LABELS,
+  USER_STATUS_LABEL_KEYS,
   type UserStatusAction,
 } from "./user.constants";
 
 const ALL_ROLE_TAB = "ALL";
 const ALL_STATUS = "ALL";
-const STATUS_FILTER_OPTIONS = Object.keys(USER_STATUS_LABELS) as UserStatus[];
+const STATUS_FILTER_OPTIONS = Object.keys(
+  USER_STATUS_LABEL_KEYS,
+) as UserStatus[];
 
 type DeletedFilter = "active" | "deleted";
 
+type StaffPermissionActor =
+  | "superAdmin"
+  | "admin"
+  | "moderator"
+  | "supporter"
+  | "publicSignup";
+
 interface StaffPermissionRule {
-  actor: string;
-  canCreate: string[];
-  blocked: string[];
-  note?: string;
+  actor: StaffPermissionActor;
+  canCreate: Role[];
+  blocked: Role[] | "all";
+  note?: boolean;
 }
 
 // Mirrors the backend RBAC rules (src/app/constants/rbac.constant.ts). The
 // backend enforces these on every request.
 const STAFF_PERMISSION_RULES: StaffPermissionRule[] = [
   {
-    actor: "Super Admin",
-    canCreate: ["Super Admin", "Admin", "Moderator", "Supporter"],
+    actor: "superAdmin",
+    canCreate: ["SUPER_ADMIN", "ADMIN", "MODERATOR", "SUPPORTER"],
     blocked: [],
   },
   {
-    actor: "Admin",
-    canCreate: ["Admin", "Moderator", "Supporter"],
-    blocked: ["Super Admin"],
+    actor: "admin",
+    canCreate: ["ADMIN", "MODERATOR", "SUPPORTER"],
+    blocked: ["SUPER_ADMIN"],
   },
   {
-    actor: "Moderator",
+    actor: "moderator",
     canCreate: [],
-    blocked: ["All staff roles"],
+    blocked: "all",
   },
   {
-    actor: "Supporter",
+    actor: "supporter",
     canCreate: [],
-    blocked: ["All staff roles"],
+    blocked: "all",
   },
   {
-    actor: "Public signup",
-    canCreate: ["Customer"],
+    actor: "publicSignup",
+    canCreate: ["USER"],
     blocked: [],
-    note: "Role can never be self-assigned — registrations always create a Customer (USER) account.",
+    note: true,
   },
 ];
 
 export function UserManagement() {
+  const t = useTranslations("admin.users");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
+  const tColumns = useTranslations("admin.users.columns");
   const { data: currentUser } = useCurrentUser();
   const actorRole = currentUser?.role as Role | undefined;
   const currentUserId = currentUser?.id;
   const canCreate = canCreateStaffAccounts(actorRole);
+  const canManageRoleAccess = actorRole === "SUPER_ADMIN";
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -172,6 +189,7 @@ export function UserManagement() {
       getUserColumns({
         actorRole,
         currentUserId,
+        t: tColumns,
         onView: (user) => {
           setSelectedUser(user);
           setDetailsOpen(true);
@@ -198,7 +216,7 @@ export function UserManagement() {
           setRestoreOpen(true);
         },
       }),
-    [actorRole, currentUserId],
+    [actorRole, currentUserId, tColumns],
   );
 
   const rows = useMemo(() => data?.data ?? [], [data]);
@@ -229,10 +247,15 @@ export function UserManagement() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Users Management"
-        description="Manage customers, agents and staff accounts across RizqifyBD."
-      >
+      <PageHeader title={t("title")} description={t("description")}>
+        {canManageRoleAccess ? (
+          <Button asChild variant="outline">
+            <Link href="/admin/dashboard/users-management/role-access">
+              <ShieldCheck />
+              {t("roleAccessLink")}
+            </Link>
+          </Button>
+        ) : null}
         {canCreate ? (
           <Button
             type="button"
@@ -240,7 +263,7 @@ export function UserManagement() {
             onClick={openCreateDialog}
           >
             <Plus />
-            Create Staff Account
+            {t("createStaff")}
           </Button>
         ) : null}
       </PageHeader>
@@ -248,54 +271,51 @@ export function UserManagement() {
       {!canCreate ? (
         <Alert>
           <ShieldAlert />
-          <AlertDescription>
-            Your account does not have permission to create staff accounts. Only
-            Super Admin and Admin can do this. The server enforces this rule.
-          </AlertDescription>
+          <AlertDescription>{t("noPermission")}</AlertDescription>
         </Alert>
       ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <StatsCard
-          title="Total users"
+          title={t("stats.totalUsers")}
           value={stats ? stats.total : "—"}
           iconName="users"
-          description="All non-deleted accounts"
+          description={t("stats.totalUsersDesc")}
           isLoading={isStatsLoading}
         />
         <StatsCard
-          title="Active"
+          title={t("stats.active")}
           value={stats ? stats.active : "—"}
           iconName="shield"
-          description="Can sign in normally"
+          description={t("stats.activeDesc")}
           isLoading={isStatsLoading}
         />
         <StatsCard
-          title="Pending"
+          title={t("stats.pending")}
           value={stats ? stats.pending : "—"}
           iconName="activity"
-          description="Awaiting first sign-in"
+          description={t("stats.pendingDesc")}
           isLoading={isStatsLoading}
         />
         <StatsCard
-          title="Suspended"
+          title={t("stats.suspended")}
           value={stats ? stats.suspended : "—"}
           iconName="lock"
-          description="Temporarily restricted"
+          description={t("stats.suspendedDesc")}
           isLoading={isStatsLoading}
         />
         <StatsCard
-          title="Blocked"
+          title={t("stats.blocked")}
           value={stats ? stats.blocked : "—"}
           iconName="lock"
-          description="Access denied"
+          description={t("stats.blockedDesc")}
           isLoading={isStatsLoading}
         />
         <StatsCard
-          title="Deleted"
+          title={t("stats.deleted")}
           value={stats ? stats.deleted : "—"}
           iconName="refresh"
-          description="Soft-deleted, restorable"
+          description={t("stats.deletedDesc")}
           isLoading={isStatsLoading}
         />
       </div>
@@ -304,10 +324,10 @@ export function UserManagement() {
         <Tabs value={roleTab} onValueChange={handleRoleTabChange}>
           <div className="overflow-x-auto pb-1">
             <TabsList>
-              <TabsTrigger value={ALL_ROLE_TAB}>All users</TabsTrigger>
+              <TabsTrigger value={ALL_ROLE_TAB}>{t("tabs.all")}</TabsTrigger>
               {SUPPORTED_ROLES.map((role) => (
                 <TabsTrigger key={role} value={role}>
-                  {ROLE_LABELS[role]}
+                  {getRoleLabel(role, te)}
                 </TabsTrigger>
               ))}
             </TabsList>
@@ -318,7 +338,7 @@ export function UserManagement() {
           value={searchInput}
           onChange={handleSearchInputChange}
           onClear={clearSearch}
-          placeholder="Search users by name or email..."
+          placeholder={t("searchPlaceholder")}
         />
 
         <DataTableFilters hasFilters={hasActiveFilters} onClear={clearFilters}>
@@ -330,13 +350,13 @@ export function UserManagement() {
             }}
           >
             <SelectTrigger size="sm" className="w-[150px]">
-              <SelectValue placeholder="Status" />
+              <SelectValue placeholder={t("filters.statusPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={ALL_STATUS}>All statuses</SelectItem>
+              <SelectItem value={ALL_STATUS}>{t("filters.allStatuses")}</SelectItem>
               {STATUS_FILTER_OPTIONS.map((status) => (
                 <SelectItem key={status} value={status}>
-                  {USER_STATUS_LABELS[status]}
+                  {getStatusLabel(status, te)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -353,8 +373,8 @@ export function UserManagement() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="active">Active accounts</SelectItem>
-              <SelectItem value="deleted">Deleted accounts</SelectItem>
+              <SelectItem value="active">{t("filters.active")}</SelectItem>
+              <SelectItem value="deleted">{t("filters.deleted")}</SelectItem>
             </SelectContent>
           </Select>
         </DataTableFilters>
@@ -363,10 +383,8 @@ export function UserManagement() {
       {isError ? (
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Failed to load users</AlertTitle>
-          <AlertDescription>
-            {error?.message ?? "Something went wrong. Please try again."}
-          </AlertDescription>
+          <AlertTitle>{t("errorTitle")}</AlertTitle>
+          <AlertDescription>{error?.message ?? tc("error")}</AlertDescription>
           <AlertAction>
             <Button
               type="button"
@@ -375,7 +393,7 @@ export function UserManagement() {
               onClick={() => refetch()}
             >
               <RefreshCcw />
-              Retry
+              {tc("retry")}
             </Button>
           </AlertAction>
         </Alert>
@@ -386,9 +404,7 @@ export function UserManagement() {
           isRefetching={isFetching && !isLoading}
           skeletonRowCount={limit}
           emptyStateMessage={
-            deletedFilter === "deleted"
-              ? "No deleted users found."
-              : "No users found."
+            deletedFilter === "deleted" ? t("emptyDeleted") : t("empty")
           }
         >
           {meta ? (
@@ -406,10 +422,8 @@ export function UserManagement() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Staff creation permissions</CardTitle>
-          <CardDescription>
-            Who can create which staff roles, per the existing role model.
-          </CardDescription>
+          <CardTitle>{t("permissions.title")}</CardTitle>
+          <CardDescription>{t("permissions.description")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           {STAFF_PERMISSION_RULES.map((rule) => (
@@ -419,31 +433,39 @@ export function UserManagement() {
             >
               <div className="flex items-center gap-2 text-sm font-medium">
                 <ShieldCheck className="size-4 shrink-0 text-primary" />
-                {rule.actor}
+                {t(`permissions.rules.${rule.actor}.actor`)}
               </div>
               <div className="flex flex-wrap items-center gap-1.5 text-xs">
                 {rule.canCreate.length ? (
-                  <span className="text-muted-foreground">Can create:</span>
+                  <span className="text-muted-foreground">
+                    {t("permissions.canCreate")}
+                  </span>
                 ) : null}
                 {rule.canCreate.map((role) => (
                   <span
                     key={role}
                     className="rounded-md border border-success/30 bg-success/10 px-2 py-0.5 font-medium text-success"
                   >
-                    {role}
+                    {getRoleLabel(role, te)}
                   </span>
                 ))}
                 {rule.blocked.length ? (
                   <span className="flex items-center gap-1 text-muted-foreground">
-                    <span className="ml-1">Blocked:</span>
+                    <span className="ml-1">{t("permissions.blocked")}</span>
                     <span className="flex items-center gap-1 rounded-md border border-destructive/30 bg-destructive/10 px-2 py-0.5 font-medium text-destructive">
                       <ShieldX className="size-3" />
-                      {rule.blocked.join(", ")}
+                      {rule.blocked === "all"
+                        ? t("permissions.allStaffRoles")
+                        : rule.blocked
+                            .map((role) => getRoleLabel(role, te))
+                            .join(", ")}
                     </span>
                   </span>
                 ) : null}
                 {rule.note ? (
-                  <span className="text-muted-foreground">{"\u2014"} {rule.note}</span>
+                  <span className="text-muted-foreground">
+                    {"\u2014"} {t(`permissions.rules.${rule.actor}.note`)}
+                  </span>
                 ) : null}
               </div>
             </div>
@@ -451,12 +473,7 @@ export function UserManagement() {
 
           <div className="flex items-start gap-2 rounded-lg border border-dashed px-3 py-2.5 text-xs text-muted-foreground">
             <Lock className="mt-0.5 size-3.5 shrink-0" />
-            <span>
-              The backend also permits EMPLOYEE accounts for Super Admin and
-              Admin actors; this interface intentionally exposes only the four
-              roles above. AGENT is not a role — approved agents keep the
-              Customer (USER) role with the reseller feature flag enabled.
-            </span>
+            <span>{t("permissions.footer")}</span>
           </div>
         </CardContent>
       </Card>

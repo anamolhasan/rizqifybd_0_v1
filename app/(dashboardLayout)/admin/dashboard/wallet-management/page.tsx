@@ -1,9 +1,15 @@
-import React from 'react'
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-const WalletManagementPage = () => {
-  return (
-    <div>WalletManagementPage</div>
-  )
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("adminWallet.title"),
+    description: t("adminWallet.description"),
+  };
 }
 
-export default WalletManagementPage
+export default async function WalletManagementPage() {
+  const t = await getTranslations("admin");
+  return <div>{t("placeholders.wallet")}</div>;
+}

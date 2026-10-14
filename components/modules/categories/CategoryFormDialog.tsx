@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateCategory, useUpdateCategory } from "@/hooks/use-categories";
 import type { ICategory } from "@/types/category.types";
+import { useTranslations } from "next-intl";
 
 const FIELD_NAMES = ["title", "description"] as const;
 type CategoryFieldName = (typeof FIELD_NAMES)[number];
@@ -62,6 +63,7 @@ export function CategoryFormDialog({
   onOpenChange,
   category,
 }: CategoryFormDialogProps) {
+  const t = useTranslations("admin.categoryForm");
   const isEditing = Boolean(category);
 
   const {
@@ -159,11 +161,11 @@ export function CategoryFormDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{isEditing ? "Edit Category" : "Add Category"}</DialogTitle>
+          <DialogTitle>{isEditing ? t("editTitle") : t("addTitle")}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? "Update the category details below."
-              : "Create a new category for your product catalogue."}
+              ? t("editDescription")
+              : t("addDescription")}
           </DialogDescription>
         </DialogHeader>
 
@@ -177,10 +179,10 @@ export function CategoryFormDialog({
 
           <FieldGroup>
             <Field data-invalid={Boolean(errors.title)}>
-              <FieldLabel htmlFor="category-title">Title</FieldLabel>
+              <FieldLabel htmlFor="category-title">{t("title")}</FieldLabel>
               <Input
                 id="category-title"
-                placeholder="e.g. Mobile Recharge"
+                placeholder={t("titlePlaceholder")}
                 aria-invalid={Boolean(errors.title)}
                 disabled={isSubmitting}
                 {...register("title")}
@@ -189,11 +191,11 @@ export function CategoryFormDialog({
             </Field>
 
             <Field data-invalid={Boolean(errors.description)}>
-              <FieldLabel htmlFor="category-description">Description</FieldLabel>
+              <FieldLabel htmlFor="category-description">{t("description")}</FieldLabel>
               <Textarea
                 id="category-description"
                 rows={3}
-                placeholder="Optional short description"
+                placeholder={t("descriptionPlaceholder")}
                 aria-invalid={Boolean(errors.description)}
                 disabled={isSubmitting}
                 {...register("description")}
@@ -209,7 +211,7 @@ export function CategoryFormDialog({
               disabled={isSubmitting}
               onClick={() => handleOpenChange(false)}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               type="submit"
@@ -219,12 +221,12 @@ export function CategoryFormDialog({
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin" />
-                  {isEditing ? "Saving..." : "Creating..."}
+                  {isEditing ? t("saving") : t("creating")}
                 </>
               ) : isEditing ? (
-                "Save Changes"
+                t("saveChanges")
               ) : (
-                "Create Category"
+                t("createCategory")
               )}
             </Button>
           </DialogFooter>

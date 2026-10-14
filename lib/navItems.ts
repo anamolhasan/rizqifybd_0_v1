@@ -118,7 +118,7 @@ const STAFF_NAV_SECTIONS: NavSection[] = [
       },
       {
         titleKey: "adminNav.telecomOffers",
-        href: "/admin/dashboard/offers-management",
+        href: "/admin/dashboard/operator-offers",
         icon: "offers",
         includedRoles: CONTENT_ADMIN_ROLES,
       },
@@ -134,10 +134,10 @@ const STAFF_NAV_SECTIONS: NavSection[] = [
         includedRoles: ROLE_MANAGEMENT_ACTORS,
       },
       {
-        titleKey: "adminNav.productManagement",
-        href: "/admin/dashboard/products-management",
-        icon: "products",
-        includedRoles: CONTENT_ADMIN_ROLES,
+        titleKey: "adminNav.roleAccess",
+        href: "/admin/dashboard/users-management/role-access",
+        icon: "shield",
+        includedRoles: ["SUPER_ADMIN"],
       },
       {
         titleKey: "adminNav.walletsManagement",

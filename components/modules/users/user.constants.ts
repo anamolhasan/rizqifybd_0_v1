@@ -21,36 +21,67 @@ export const STAFF_CREATABLE_ROLES: Role[] = [
 // through AgentApplication status + IAppUser.canEarn, never a Role.
 export const SUPPORTED_ROLES: Role[] = ALL_ROLES;
 
-export const ROLE_LABELS: Record<Role, string> = {
-  SUPER_ADMIN: "Super Admin",
-  ADMIN: "Admin",
-  MODERATOR: "Moderator",
-  SUPPORTER: "Supporter",
-  EMPLOYEE: "Employee",
-  USER: "Customer",
+export type EnumTranslator = (key: string) => string;
+
+/**
+ * Keys into the shared `enums` namespace. Kept as keys so the actual labels can
+ * be resolved in the active language at render time.
+ */
+export const ROLE_LABEL_KEYS: Record<Role, string> = {
+  SUPER_ADMIN: "role.superAdmin",
+  ADMIN: "role.admin",
+  MODERATOR: "role.moderator",
+  SUPPORTER: "role.supporter",
+  EMPLOYEE: "role.employee",
+  USER: "role.customer",
 };
 
-export const ROLE_DESCRIPTIONS: Record<Role, string> = {
-  SUPER_ADMIN: "Full, unrestricted access including role and staff management.",
-  ADMIN: "Manages staff, catalogues and day-to-day administration.",
-  MODERATOR: "Reviews and moderates submissions; cannot manage staff roles.",
-  SUPPORTER: "Handles customer support and withdrawal assistance.",
-  EMPLOYEE: "Internal staff operator with limited administrative scope.",
-  USER: "Customer account. Agents keep this role with the reseller flag.",
+export const ROLE_DESCRIPTION_KEYS: Record<Role, string> = {
+  SUPER_ADMIN: "roleDescription.superAdmin",
+  ADMIN: "roleDescription.admin",
+  MODERATOR: "roleDescription.moderator",
+  SUPPORTER: "roleDescription.supporter",
+  EMPLOYEE: "roleDescription.employee",
+  USER: "roleDescription.customer",
 };
 
-export const STAFF_ROLE_LABELS: Record<Role, string> = ROLE_LABELS;
-
-export const USER_STATUS_LABELS: Record<UserStatus, string> = {
-  ACTIVE: "Active",
-  SLEEPING: "Sleeping",
-  INACTIVE: "Inactive",
-  PENDING: "Pending",
-  SUSPENDED: "Suspended",
-  BLOCKED: "Blocked",
-  VERIFIED: "Verified",
-  DELETED: "Deleted",
+export const USER_STATUS_LABEL_KEYS: Record<UserStatus, string> = {
+  ACTIVE: "userStatus.active",
+  SLEEPING: "userStatus.sleeping",
+  INACTIVE: "userStatus.inactive",
+  PENDING: "userStatus.pending",
+  SUSPENDED: "userStatus.suspended",
+  BLOCKED: "userStatus.blocked",
+  VERIFIED: "userStatus.verified",
+  DELETED: "userStatus.deleted",
 };
+
+export function getRoleLabel(
+  role: Role | string,
+  t: EnumTranslator,
+): string {
+  return ROLE_LABEL_KEYS[role as Role] !== undefined
+    ? t(ROLE_LABEL_KEYS[role as Role])
+    : role;
+}
+
+export function getRoleDescription(
+  role: Role | string,
+  t: EnumTranslator,
+): string {
+  return ROLE_DESCRIPTION_KEYS[role as Role] !== undefined
+    ? t(ROLE_DESCRIPTION_KEYS[role as Role])
+    : role;
+}
+
+export function getStatusLabel(
+  status: UserStatus | string,
+  t: EnumTranslator,
+): string {
+  return USER_STATUS_LABEL_KEYS[status as UserStatus] !== undefined
+    ? t(USER_STATUS_LABEL_KEYS[status as UserStatus])
+    : status;
+}
 
 // Distinct, semantic, theme-aware treatments for every supported role. Kept as
 // full class strings so Tailwind can see them at build time.
@@ -154,14 +185,21 @@ export type UserStatusAction =
   | "BLOCK"
   | "UNBLOCK";
 
-export const USER_STATUS_ACTION_LABELS: Record<UserStatusAction, string> = {
-  ACTIVATE: "Activate",
-  DEACTIVATE: "Deactivate",
-  SUSPEND: "Suspend",
-  UNSUSPEND: "Unsuspend",
-  BLOCK: "Block",
-  UNBLOCK: "Unblock",
+export const USER_STATUS_ACTION_LABEL_KEYS: Record<UserStatusAction, string> = {
+  ACTIVATE: "userStatusAction.activate",
+  DEACTIVATE: "userStatusAction.deactivate",
+  SUSPEND: "userStatusAction.suspend",
+  UNSUSPEND: "userStatusAction.unsuspend",
+  BLOCK: "userStatusAction.block",
+  UNBLOCK: "userStatusAction.unblock",
 };
+
+export function getStatusActionLabel(
+  action: UserStatusAction,
+  t: EnumTranslator,
+): string {
+  return t(USER_STATUS_ACTION_LABEL_KEYS[action]);
+}
 
 export const USER_STATUS_ACTION_TARGETS: Record<
   UserStatusAction,

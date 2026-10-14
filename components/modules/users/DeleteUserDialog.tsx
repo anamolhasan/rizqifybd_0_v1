@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { AlertCircle, Loader2, Undo2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
@@ -28,6 +29,8 @@ export function DeleteUserDialog({
   open,
   onOpenChange,
 }: DeleteUserDialogProps) {
+  const t = useTranslations("admin.users.delete");
+  const tc = useTranslations("common");
   const { mutateAsync: deleteUser, isPending, error, reset } = useDeleteUser();
 
   useEffect(() => {
@@ -57,17 +60,17 @@ export function DeleteUserDialog({
     <AlertDialog open={open} onOpenChange={handleOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete user?</AlertDialogTitle>
+          <AlertDialogTitle>{t("title")}</AlertDialogTitle>
           <AlertDialogDescription>
             {user
-              ? `${user.name} (${user.email}) will be soft-deleted: their sessions are revoked and they can no longer sign in. The account can be restored later from the Deleted filter.`
-              : "This account will be soft-deleted."}
+              ? t("descriptionNamed", { name: user.name, email: user.email })
+              : t("description")}
           </AlertDialogDescription>
         </AlertDialogHeader>
 
         <div className="flex items-start gap-2 rounded-lg border border-dashed px-3 py-2.5 text-xs text-muted-foreground">
           <Undo2 className="mt-0.5 size-3.5 shrink-0" />
-          <span>Soft delete is reversible — data is retained, not destroyed.</span>
+          <span>{t("note")}</span>
         </div>
 
         {errorMessage ? (
@@ -78,7 +81,9 @@ export function DeleteUserDialog({
         ) : null}
 
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel disabled={isPending}>
+            {tc("cancel")}
+          </AlertDialogCancel>
           <AlertDialogAction
             variant="destructive"
             disabled={isPending}
@@ -90,10 +95,10 @@ export function DeleteUserDialog({
             {isPending ? (
               <>
                 <Loader2 className="animate-spin" />
-                Deleting...
+                {t("deleting")}
               </>
             ) : (
-              "Delete user"
+              t("confirm")
             )}
           </AlertDialogAction>
         </AlertDialogFooter>

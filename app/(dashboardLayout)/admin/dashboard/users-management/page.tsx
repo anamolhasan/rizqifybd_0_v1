@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 
+import { getTranslations } from "next-intl/server";
+
 import { UserManagement } from "@/components/modules/users/UserManagement";
 
-export const metadata: Metadata = {
-  title: "Users Management",
-  description: "Create and manage staff accounts for the RizqifyBD admin panel.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("adminUsers.title"),
+    description: t("adminUsers.description"),
+  };
+}
 
 export default function UsersManagementPage() {
   return <UserManagement />;

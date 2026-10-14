@@ -1,0 +1,16 @@
+{
+  "title": "Something went wrong",
+  "description": "We encountered an unexpected error. Please try again or go back to the homepage.",
+  "globalTitle": "Application Error",
+  "globalDescription": "An unexpected error occurred. Our team has been notified.",
+  "offlineTitle": "You're offline",
+  "offlineDescription": "Please check your internet connection and try again.",
+  "retry": "Try again",
+  "tryAgain": "Try again",
+  "goHome": "Go to homepage",
+  "loading": "Loading...",
+  "preparing": "Preparing your experience...",
+  "connecting": "Connecting...",
+  "optimizing": "Optimizing...",
+  "errorId": "Error ID"
+}

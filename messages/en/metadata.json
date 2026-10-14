@@ -62,13 +62,17 @@
     "title": "Users Management",
     "description": "Create and manage staff accounts for the RizqifyBD admin panel."
   },
-  "adminOffers": {
-    "title": "Offers Management",
-    "description": "Manage RizqifyBD telecom offers."
+  "adminRoleAccess": {
+    "title": "Role Access Management",
+    "description": "Review the proposed role-permission matrix for RizqifyBD roles and access audiences."
   },
-  "adminAddOffer": {
-    "title": "Add Offer",
-    "description": "Create a new telecom offer for your catalogue."
+  "adminOperatorOffers": {
+    "title": "Operator Offers Management",
+    "description": "Manage RizqifyBD telecom operator offers."
+  },
+  "adminAddOperatorOffer": {
+    "title": "Add Operator Offer",
+    "description": "Create a new telecom operator offer for your catalogue."
   },
   "adminCategories": {
     "title": "Categories Management",
@@ -90,10 +94,6 @@
     "title": "Orders Management",
     "description": "Review and manage customer orders."
   },
-  "adminProducts": {
-    "title": "Products Management",
-    "description": "Manage RizqifyBD products and bundles."
-  },
   "adminWallet": {
     "title": "Wallets Management",
     "description": "Manage user wallets and transactions."
@@ -105,5 +105,9 @@
   "adminAgentApplications": {
     "title": "Agent Applications",
     "description": "Review and manage agent programme applications."
+  },
+  "features": {
+    "title": "Features",
+    "description": "Discover RizqifyBD's premium telecom features — offer discovery, operator filtering, transparent pricing, and account management."
   }
 }

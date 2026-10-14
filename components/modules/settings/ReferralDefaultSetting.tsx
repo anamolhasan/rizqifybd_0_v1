@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AlertCircle, Check, Loader2, RefreshCcw, Save, Search } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { PageHeader } from "@/components/shared/PageHeader";
 import {
@@ -21,7 +22,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
-import { STAFF_ROLE_LABELS } from "@/components/modules/users/user.constants";
+import { getRoleLabel } from "@/components/modules/users/user.constants";
 import { useCurrentUser } from "@/hooks/use-auth";
 import {
   useReferralDefaultSetting,
@@ -31,11 +32,8 @@ import { useUsersSearch } from "@/hooks/use-users";
 import { cn } from "@/lib/utils";
 import type { IUser } from "@/types/user.types";
 
-function roleLabel(role: IUser["role"]) {
-  return STAFF_ROLE_LABELS[role] ?? role;
-}
-
 export function ReferralDefaultSetting() {
+  const t = useTranslations("admin.settings.referralSettings");
   const { data: currentUser, isLoading: isRoleLoading } = useCurrentUser();
 
   if (isRoleLoading) {
@@ -46,14 +44,14 @@ export function ReferralDefaultSetting() {
     return (
       <div className="space-y-6">
         <PageHeader
-          title="Settings"
-          description="Manage system-wide RizqifyBD settings."
+          title={t("title")}
+          description={t("description")}
         />
         <Alert variant="destructive">
           <AlertCircle />
-          <AlertTitle>Not authorized</AlertTitle>
+          <AlertTitle>{t("notAuthorizedTitle")}</AlertTitle>
           <AlertDescription>
-            Only Super Admins can manage system settings.
+            {t("notAuthorizedDescription")}
           </AlertDescription>
         </Alert>
       </div>
@@ -64,11 +62,12 @@ export function ReferralDefaultSetting() {
 }
 
 function SettingsLoading() {
+  const t = useTranslations("admin.settings.referralSettings");
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Settings"
-        description="Manage system-wide RizqifyBD settings."
+        title={t("title")}
+        description={t("description")}
       />
       <Card>
         <CardContent className="space-y-3">
@@ -81,6 +80,7 @@ function SettingsLoading() {
 }
 
 function DefaultReferralManager() {
+  const t = useTranslations("admin.settings.referralSettings");
   const {
     data: setting,
     isLoading,
@@ -90,6 +90,7 @@ function DefaultReferralManager() {
     isFetching,
   } = useReferralDefaultSetting();
   const updateSetting = useUpdateReferralDefaultSetting();
+  const te = useTranslations("enums");
 
   const [searchInput, setSearchInput] = useState("");
   const [query, setQuery] = useState("");
@@ -134,17 +135,15 @@ function DefaultReferralManager() {
   return (
     <div className="space-y-6">
       <PageHeader
-        title="Settings"
-        description="Manage the system-wide default referral code used when a new user registers without a referral link."
+        title={t("title")}
+        description={t("description")}
       />
 
       <Card>
         <CardHeader>
-          <CardTitle>Current default referrer</CardTitle>
+          <CardTitle>{t("currentDefaultReferrer")}</CardTitle>
           <CardDescription>
-            New registrations without a referral link are attributed to this
-            user&apos;s referral code. Changing it never rewrites existing
-            referral relationships.
+            {t("currentDefaultDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -156,7 +155,7 @@ function DefaultReferralManager() {
           ) : isError ? (
             <Alert variant="destructive">
               <AlertCircle />
-              <AlertTitle>Could not load the current setting</AlertTitle>
+              <AlertTitle>{t("couldNotLoad")}</AlertTitle>
               <AlertDescription>{error?.message}</AlertDescription>
               <AlertAction>
                 <Button
@@ -168,7 +167,7 @@ function DefaultReferralManager() {
                   <RefreshCcw
                     className={cn("size-4", isFetching && "animate-spin")}
                   />
-                  Retry
+                  {t("retry")}
                 </Button>
               </AlertAction>
             </Alert>
@@ -182,15 +181,14 @@ function DefaultReferralManager() {
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="secondary">
-                  {roleLabel(setting.referrer.role)}
+                  {getRoleLabel(setting.referrer.role, te)}
                 </Badge>
                 <Badge variant="outline">{currentCode}</Badge>
               </div>
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">
-              No default referral code is configured. Registrations without a
-              referral link will not be attributed to anyone.
+              {t("noDefaultConfigured")}
             </p>
           )}
         </CardContent>
@@ -198,10 +196,9 @@ function DefaultReferralManager() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Set default referral code</CardTitle>
+          <CardTitle>{t("setDefaultValue")}</CardTitle>
           <CardDescription>
-            Search for any user, then save their referral code as the global
-            default.
+            {t("setDefaultDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -210,7 +207,7 @@ function DefaultReferralManager() {
             <Input
               value={searchInput}
               onChange={(event) => setSearchInput(event.target.value)}
-              placeholder="Search users by name or email"
+              placeholder={t("searchPlaceholder")}
               className="pl-9"
             />
           </div>
@@ -224,11 +221,11 @@ function DefaultReferralManager() {
                 </div>
               ) : isSearchError ? (
                 <p className="p-3 text-sm text-destructive">
-                  Could not search users. Please try again.
+                  {t("searchError")}
                 </p>
               ) : candidates.length === 0 ? (
                 <p className="p-3 text-sm text-muted-foreground">
-                  No users with a referral code match &ldquo;{query}&rdquo;.
+                  {t("noCandidates")}
                 </p>
               ) : (
                 <ul className="divide-y">
@@ -255,7 +252,7 @@ function DefaultReferralManager() {
                           </span>
                           <span className="flex shrink-0 items-center gap-2">
                             <Badge variant="secondary">
-                              {roleLabel(user.role)}
+                              {getRoleLabel(user.role, te)}
                             </Badge>
                             <Badge variant="outline">{code}</Badge>
                             {isSelected ? (
@@ -288,8 +285,8 @@ function DefaultReferralManager() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-muted-foreground">
               {currentCode
-                ? `Current default: ${currentCode}`
-                : "No default configured yet."}
+                ? `${t("currentDefault")}: ${currentCode}`
+                : t("noDefaultYet")}
             </p>
             <Button onClick={handleSave} disabled={!canSave}>
               {updateSetting.isPending ? (
@@ -297,7 +294,7 @@ function DefaultReferralManager() {
               ) : (
                 <Save className="size-4" />
               )}
-              Save default
+              {t("saveDefault")}
             </Button>
           </div>
         </CardContent>

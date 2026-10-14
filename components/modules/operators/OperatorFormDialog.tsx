@@ -29,6 +29,7 @@ import type {
   ICreateOperatorPayload,
   IOperator,
 } from "@/types/operator.types";
+import { useTranslations } from "next-intl";
 
 const FIELD_NAMES = ["name", "code"] as const;
 type OperatorFieldName = (typeof FIELD_NAMES)[number];
@@ -71,6 +72,7 @@ export function OperatorFormDialog({
   onOpenChange,
   operator,
 }: OperatorFormDialogProps) {
+  const t = useTranslations("admin.operatorForm");
   const isEditing = Boolean(operator);
 
   const {
@@ -170,11 +172,11 @@ export function OperatorFormDialog({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>{isEditing ? "Edit Operator" : "Add Operator"}</DialogTitle>
+          <DialogTitle>{isEditing ? t("editTitle") : t("addTitle")}</DialogTitle>
           <DialogDescription>
             {isEditing
-              ? "Update the operator details below."
-              : "Create a new telecom operator for your catalogue."}
+              ? t("editDescription")
+              : t("addDescription")}
           </DialogDescription>
         </DialogHeader>
 
@@ -188,10 +190,10 @@ export function OperatorFormDialog({
 
           <FieldGroup>
             <Field data-invalid={Boolean(errors.name)}>
-              <FieldLabel htmlFor="operator-name">Operator Name</FieldLabel>
+              <FieldLabel htmlFor="operator-name">{t("operatorName")}</FieldLabel>
               <Input
                 id="operator-name"
-                placeholder="e.g. Grameenphone"
+                placeholder={t("namePlaceholder")}
                 aria-invalid={Boolean(errors.name)}
                 disabled={isSubmitting}
                 {...register("name")}
@@ -200,10 +202,10 @@ export function OperatorFormDialog({
             </Field>
 
             <Field data-invalid={Boolean(errors.code)}>
-              <FieldLabel htmlFor="operator-code">Code</FieldLabel>
+              <FieldLabel htmlFor="operator-code">{t("code")}</FieldLabel>
               <Input
                 id="operator-code"
-                placeholder="e.g. GP"
+                placeholder={t("codePlaceholder")}
                 aria-invalid={Boolean(errors.code)}
                 disabled={isSubmitting}
                 {...register("code")}
@@ -212,7 +214,7 @@ export function OperatorFormDialog({
             </Field>
 
             <Field orientation="horizontal">
-              <FieldLabel htmlFor="operator-active">Active</FieldLabel>
+              <FieldLabel htmlFor="operator-active">{t("active")}</FieldLabel>
               <Controller
                 control={control}
                 name="isActive"
@@ -235,7 +237,7 @@ export function OperatorFormDialog({
               disabled={isSubmitting}
               onClick={() => handleOpenChange(false)}
             >
-              Cancel
+              {t("cancel")}
             </Button>
             <Button
               type="submit"
@@ -245,12 +247,12 @@ export function OperatorFormDialog({
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin" />
-                  {isEditing ? "Saving..." : "Creating..."}
+                  {isEditing ? t("saving") : t("creating")}
                 </>
               ) : isEditing ? (
-                "Save Changes"
+                t("saveChanges")
               ) : (
-                "Create Operator"
+                t("createOperator")
               )}
             </Button>
           </DialogFooter>

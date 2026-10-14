@@ -47,7 +47,7 @@
     "unblock": "Unblock"
   },
   "offerType": {
-    "MB": "Mobile Internet (MB)",
+    "MB": "Mobile Internet (MB / Data)",
     "MINUTE": "Talktime (Minute)",
     "SMS": "SMS Pack",
     "BUNDLE": "Bundle",
@@ -86,8 +86,17 @@
     "MONTHS": "Months"
   },
   "discountType": {
+    "NONE": "No discount",
     "FIXED": "Fixed amount (৳)",
     "PERCENTAGE": "Percentage (%)"
+  },
+  "commissionType": {
+    "FIXED": "Fixed amount (৳)",
+    "PERCENTAGE": "Percentage (%)"
+  },
+  "inventoryMode": {
+    "LIMITED": "Limited stock",
+    "UNLIMITED": "Unlimited stock"
   },
   "operatorStatus": {
     "ALL": "All statuses",

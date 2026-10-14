@@ -14,9 +14,15 @@ import { UserStatusBadge } from "./UserStatusBadge";
 import { VerificationBadge } from "./VerificationBadge";
 import type { UserStatusAction } from "./user.constants";
 
+export type ColumnTranslator = (
+  key: string,
+  values?: Record<string, string | number>,
+) => string;
+
 export interface UserColumnActions {
   actorRole?: Role | null;
   currentUserId?: string;
+  t: ColumnTranslator;
   onView: (user: IUser) => void;
   onEdit: (user: IUser) => void;
   onChangeRole: (user: IUser) => void;
@@ -28,6 +34,7 @@ export interface UserColumnActions {
 export function getUserColumns({
   actorRole,
   currentUserId,
+  t,
   onView,
   onEdit,
   onChangeRole,
@@ -39,7 +46,7 @@ export function getUserColumns({
     {
       accessorKey: "name",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="User" />
+        <DataTableColumnsHeader column={column} title={t("user")} />
       ),
       cell: ({ row }) => (
         <UserInfoCell
@@ -51,7 +58,7 @@ export function getUserColumns({
     },
     {
       accessorKey: "id",
-      header: "User ID",
+      header: t("userId"),
       cell: ({ row }) => (
         <span
           className="block max-w-[130px] truncate font-mono text-xs text-muted-foreground"
@@ -64,20 +71,20 @@ export function getUserColumns({
     {
       accessorKey: "role",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Role" />
+        <DataTableColumnsHeader column={column} title={t("role")} />
       ),
       cell: ({ row }) => <RoleBadge role={row.original.role} />,
     },
     {
       accessorKey: "status",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Status" />
+        <DataTableColumnsHeader column={column} title={t("status")} />
       ),
       cell: ({ row }) => <UserStatusBadge status={row.original.status} />,
     },
     {
       id: "verification",
-      header: "Verification",
+      header: t("verification"),
       cell: ({ row }) => (
         <div className="flex flex-col items-start gap-1">
           <VerificationBadge
@@ -93,7 +100,7 @@ export function getUserColumns({
     },
     {
       id: "referral",
-      header: "Referral",
+      header: t("referral"),
       cell: ({ row }) => {
         const appUser = row.original.appUser;
         if (!appUser?.referralCode) {
@@ -106,8 +113,8 @@ export function getUserColumns({
             </span>
             <span className="truncate text-xs text-muted-foreground">
               {appUser.referrer?.authUser?.name
-                ? `via ${appUser.referrer.authUser.name}`
-                : "Direct"}
+                ? t("via", { name: appUser.referrer.authUser.name })
+                : t("direct")}
             </span>
           </div>
         );
@@ -115,7 +122,7 @@ export function getUserColumns({
     },
     {
       id: "wallet",
-      header: "Wallet",
+      header: t("wallet"),
       cell: ({ row }) => {
         const appUser = row.original.appUser;
         if (!appUser) {
@@ -127,7 +134,7 @@ export function getUserColumns({
               {formatBDT(appUser.balance)}
             </span>
             <span className="text-xs text-muted-foreground tabular-nums">
-              earned {formatBDT(appUser.totalEarned)}
+              {t("earned", { amount: formatBDT(appUser.totalEarned) })}
             </span>
           </div>
         );
@@ -136,13 +143,13 @@ export function getUserColumns({
     {
       accessorKey: "createdAt",
       header: ({ column }) => (
-        <DataTableColumnsHeader column={column} title="Registered" />
+        <DataTableColumnsHeader column={column} title={t("registered")} />
       ),
       cell: ({ row }) => <DateCell value={row.original.createdAt} />,
     },
     {
       id: "actions",
-      header: () => <span className="flex justify-end">Actions</span>,
+      header: () => <span className="flex justify-end">{t("actions")}</span>,
       cell: ({ row }) => (
         <div className="flex justify-end">
           <UserRowActions

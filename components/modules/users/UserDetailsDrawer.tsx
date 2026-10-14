@@ -1,6 +1,7 @@
 "use client";
 
 import { History, Info } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +19,7 @@ import type { IUser } from "@/types/user.types";
 import { RoleBadge } from "./RoleBadge";
 import { UserStatusBadge } from "./UserStatusBadge";
 import { VerificationBadge } from "./VerificationBadge";
-import { ROLE_DESCRIPTIONS } from "./user.constants";
+import { getRoleDescription } from "./user.constants";
 
 interface UserDetailsDrawerProps {
   user: IUser | null;
@@ -75,6 +76,9 @@ export function UserDetailsDrawer({
   open,
   onOpenChange,
 }: UserDetailsDrawerProps) {
+  const t = useTranslations("admin.users.details");
+  const tc = useTranslations("common");
+  const te = useTranslations("enums");
   const appUser = user?.appUser ?? null;
 
   return (
@@ -108,47 +112,51 @@ export function UserDetailsDrawer({
 
             <ScrollArea className="min-h-0 flex-1">
               <div className="space-y-6 p-4">
-                <Section title="Personal information">
-                  <DetailRow label="Email">
+                <Section title={t("personalInfo")}>
+                  <DetailRow label={t("email")}>
                     <div className="flex items-center justify-end gap-1.5">
                       <span className="truncate">{user.email}</span>
                       <VerificationBadge type="email" verified={user.emailVerified} />
                     </div>
                   </DetailRow>
-                  <DetailRow label="Phone">
+                  <DetailRow label={t("phone")}>
                     {user.phone ?? appUser?.contactNumber ?? "—"}
                   </DetailRow>
-                  <DetailRow label="Contact number">
+                  <DetailRow label={t("contactNumber")}>
                     {appUser?.contactNumber ?? "—"}
                   </DetailRow>
-                  <DetailRow label="Address">{appUser?.address ?? "—"}</DetailRow>
-                  <DetailRow label="Country">{appUser?.country ?? "—"}</DetailRow>
-                  <DetailRow label="User ID">
+                  <DetailRow label={t("address")}>
+                    {appUser?.address ?? "—"}
+                  </DetailRow>
+                  <DetailRow label={t("country")}>
+                    {appUser?.country ?? "—"}
+                  </DetailRow>
+                  <DetailRow label={t("userId")}>
                     <span className="font-mono text-xs">{user.id}</span>
                   </DetailRow>
                 </Section>
 
                 <Separator />
 
-                <Section title="Account & verification">
-                  <DetailRow label="Account status">
+                <Section title={t("accountVerification")}>
+                  <DetailRow label={t("accountStatus")}>
                     <UserStatusBadge status={user.status} />
                   </DetailRow>
-                  <DetailRow label="Phone verified">
+                  <DetailRow label={t("phoneVerified")}>
                     <VerificationBadge type="phone" verified={user.phoneVerified} />
                   </DetailRow>
-                  <DetailRow label="Password change required">
+                  <DetailRow label={t("passwordChangeRequired")}>
                     <Badge variant={user.needPasswordChange ? "secondary" : "outline"}>
-                      {user.needPasswordChange ? "Yes" : "No"}
+                      {user.needPasswordChange ? tc("yes") : tc("no")}
                     </Badge>
                   </DetailRow>
-                  <DetailRow label="Deleted">
+                  <DetailRow label={t("deleted")}>
                     <Badge variant={user.isDeleted ? "destructive" : "outline"}>
-                      {user.isDeleted ? "Yes" : "No"}
+                      {user.isDeleted ? tc("yes") : tc("no")}
                     </Badge>
                   </DetailRow>
                   {user.deletedAt ? (
-                    <DetailRow label="Deleted at">
+                    <DetailRow label={t("deletedAt")}>
                       {formatDateTime(user.deletedAt)}
                     </DetailRow>
                   ) : null}
@@ -156,67 +164,71 @@ export function UserDetailsDrawer({
 
                 <Separator />
 
-                <Section title="Role & permissions">
+                <Section title={t("rolePermissions")}>
                   <div className="flex items-center justify-between gap-3">
                     <RoleBadge role={user.role} />
                   </div>
                   <p className="text-xs leading-5 text-muted-foreground">
-                    {ROLE_DESCRIPTIONS[user.role]}
+                    {getRoleDescription(user.role, te)}
                   </p>
                 </Section>
 
                 <Separator />
 
-                <Section title="Referral information">
-                  <DetailRow label="Referral code">
+                <Section title={t("referralSection")}>
+                  <DetailRow label={t("referralCode")}>
                     {appUser?.referralCode ? (
                       <span className="font-mono text-xs">{appUser.referralCode}</span>
                     ) : (
                       "—"
                     )}
                   </DetailRow>
-                  <DetailRow label="Referred by">
-                    {appUser?.referrer?.authUser?.name ?? "Direct signup"}
+                  <DetailRow label={t("referredBy")}>
+                    {appUser?.referrer?.authUser?.name ?? t("directSignup")}
                   </DetailRow>
-                  <DetailRow label="Total referrals">
+                  <DetailRow label={t("totalReferrals")}>
                     {appUser?._count?.referrals ?? 0}
                   </DetailRow>
-                  <DetailRow label="Referral income eligible">
+                  <DetailRow label={t("referralIncomeEligible")}>
                     <Badge variant={appUser?.referralIncomeEligible ? "default" : "outline"}>
-                      {appUser?.referralIncomeEligible ? "Eligible" : "Not eligible"}
+                      {appUser?.referralIncomeEligible
+                        ? t("eligible")
+                        : t("notEligible")}
                     </Badge>
                   </DetailRow>
                 </Section>
 
                 <Separator />
 
-                <Section title="Wallet & earnings">
-                  <DetailRow label="Balance">
+                <Section title={t("walletEarnings")}>
+                  <DetailRow label={t("balance")}>
                     {formatBDT(appUser?.balance ?? 0)}
                   </DetailRow>
-                  <DetailRow label="Total earned">
+                  <DetailRow label={t("totalEarned")}>
                     {formatBDT(appUser?.totalEarned ?? 0)}
                   </DetailRow>
-                  <DetailRow label="Agent / reseller feature">
+                  <DetailRow label={t("agentFeature")}>
                     <Badge variant={appUser?.canEarn ? "default" : "outline"}>
-                      {appUser?.canEarn ? "Enabled" : "Disabled"}
+                      {appUser?.canEarn ? t("enabled") : t("disabled")}
                     </Badge>
                   </DetailRow>
                 </Section>
 
                 <Separator />
 
-                <Section title="Account activity">
-                  <DetailRow label="Registered">
+                <Section title={t("accountActivity")}>
+                  <DetailRow label={t("registered")}>
                     {formatDateTime(user.createdAt)}
                   </DetailRow>
-                  <DetailRow label="Last updated">
+                  <DetailRow label={t("lastUpdated")}>
                     {formatDateTime(user.updatedAt)}
                   </DetailRow>
-                  <DetailRow label="Last login">
-                    {appUser?.lastLogin ? formatDateTime(appUser.lastLogin) : "Never"}
+                  <DetailRow label={t("lastLogin")}>
+                    {appUser?.lastLogin
+                      ? formatDateTime(appUser.lastLogin)
+                      : t("never")}
                   </DetailRow>
-                  <DetailRow label="Member since">
+                  <DetailRow label={t("memberSince")}>
                     {formatDate(user.createdAt)}
                   </DetailRow>
                 </Section>
@@ -226,15 +238,11 @@ export function UserDetailsDrawer({
                 <section className="space-y-2">
                   <h3 className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                     <History className="size-3.5" />
-                    Transaction history
+                    {t("transactionHistory")}
                   </h3>
                   <div className="flex items-start gap-2 rounded-lg border border-dashed px-3 py-2.5 text-xs text-muted-foreground">
                     <Info className="mt-0.5 size-3.5 shrink-0" />
-                    <span>
-                      The backend does not yet expose an admin endpoint for another
-                      user&apos;s wallet transactions, so this section is
-                      intentionally omitted rather than faked.
-                    </span>
+                    <span>{t("transactionNote")}</span>
                   </div>
                 </section>
               </div>
