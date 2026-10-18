@@ -54,6 +54,72 @@
       "description": "Shortcuts to the workspace features that arrive next."
     }
   },
+  "orders": {
+    "result": {
+      "title": "Order details",
+      "description": "Review the current status of your order.",
+      "backToOrders": "Back to my orders",
+      "offer": "Offer",
+      "summary": "Order summary",
+      "operator": "Operator",
+      "quantity": "Quantity",
+      "unitPrice": "Unit price",
+      "total": "Total amount",
+      "targetNumber": "Target number",
+      "note": "Note",
+      "notProvided": "Not provided",
+      "orderId": "Order ID",
+      "paymentStatus": "Payment status",
+      "fulfilmentStatus": "Order status",
+      "placedOn": "Placed on",
+      "lastUpdated": "Last updated",
+      "completedOn": "Completed on",
+      "loadFailedTitle": "Couldn't load this order",
+      "notFoundTitle": "Order not found",
+      "notFoundDescription": "We couldn't find this order, or it doesn't belong to your account."
+    },
+    "status": {
+      "pending": {
+        "title": "Awaiting payment",
+        "description": "This order was created but is not paid yet."
+      },
+      "paid": {
+        "title": "Paid",
+        "description": "Payment received. Your order is being processed."
+      },
+      "fulfilled": {
+        "title": "Fulfilled",
+        "description": "This order has been completed."
+      },
+      "cancelled": {
+        "title": "Cancelled",
+        "description": "This order was cancelled."
+      },
+      "failed": {
+        "title": "Failed",
+        "description": "This order could not be completed."
+      },
+      "refunded": {
+        "title": "Refunded",
+        "description": "This order was refunded."
+      }
+    },
+    "paymentStatuses": {
+      "PENDING": "Pending",
+      "PAID": "Paid",
+      "FAILED": "Failed",
+      "REFUNDED": "Refunded",
+      "CANCELLED": "Cancelled"
+    },
+    "orderStatuses": {
+      "PENDING": "Pending",
+      "PROCESSING": "Processing",
+      "WORKING": "In progress",
+      "COMPLETED": "Completed",
+      "CANCELLED": "Cancelled",
+      "FAILED": "Failed"
+    }
+  },
   "placeholders": {
     "myOrders": "My orders will appear here soon.",
     "newOrders": "Placing new orders will be available here soon.",

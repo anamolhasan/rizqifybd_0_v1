@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { ExternalLink } from "lucide-react";
 
+import { REFERRAL_PROMOTION_METHOD_LABEL_KEYS } from "@/components/modules/referral/referral.constants";
 import { DateCell } from "@/components/shared/cell/DateCell";
 import { StatusBadgeCell } from "@/components/shared/cell/StatusBadgeCell";
 import {
@@ -68,7 +69,11 @@ export function ReferralApplicationDetailsDialog({
             </DetailRow>
             <DetailRow label={t("promotionMethod")}>
               {application.promotionMethod
-                ? te(`promotionMethod.${application.promotionMethod}`)
+                ? te(
+                    REFERRAL_PROMOTION_METHOD_LABEL_KEYS[
+                      application.promotionMethod
+                    ],
+                  )
                 : tc("notProvided")}
             </DetailRow>
             <DetailRow label={t("promotionUrl")}>

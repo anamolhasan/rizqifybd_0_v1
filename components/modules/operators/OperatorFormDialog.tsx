@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { z } from "zod";
@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { ImageUploadField } from "@/components/shared/ImageUploadField";
 import { useCreateOperator, useUpdateOperator } from "@/hooks/use-operators";
 import type {
   ICreateOperatorPayload,
@@ -51,6 +52,8 @@ const operatorSchema = z.object({
     .min(1, { message: "Code is required" })
     .max(20, { message: "Code must be at most 20 characters" }),
   isActive: z.boolean(),
+  logo: z.string().optional(),
+  logoPublicId: z.string().optional(),
 });
 
 export type OperatorFormValues = z.infer<typeof operatorSchema>;
@@ -75,6 +78,8 @@ export function OperatorFormDialog({
   const t = useTranslations("admin.operatorForm");
   const isEditing = Boolean(operator);
 
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+
   const {
     mutateAsync: createOperator,
     isPending: isCreating,
@@ -89,7 +94,8 @@ export function OperatorFormDialog({
     reset: resetUpdate,
   } = useUpdateOperator();
 
-  const isSubmitting = isCreating || isUpdating;
+  const isSaving = isCreating || isUpdating;
+  const isSubmitting = isSaving || isUploadingLogo;
   const submissionError = isEditing ? updateError : createError;
 
   const {
@@ -97,6 +103,7 @@ export function OperatorFormDialog({
     register,
     handleSubmit,
     reset,
+    setValue,
     setError,
     clearErrors,
     formState: { errors },
@@ -104,6 +111,8 @@ export function OperatorFormDialog({
     resolver: standardSchemaResolver(operatorSchema),
     defaultValues: DEFAULT_VALUES,
   });
+
+  const logoValue = useWatch({ control, name: "logo" });
 
   useEffect(() => {
     if (!open) return;
@@ -115,6 +124,8 @@ export function OperatorFormDialog({
             name: operator.name,
             code: operator.code,
             isActive: operator.isActive,
+            logo: operator.logo ?? undefined,
+            logoPublicId: operator.logoPublicId ?? undefined,
           }
         : DEFAULT_VALUES,
     );
@@ -149,6 +160,17 @@ export function OperatorFormDialog({
       code: values.code.trim(),
       isActive: values.isActive,
     };
+
+    // Send the stored pair as-is. On edit this preserves the existing logo
+    // (including legacy logos that have no public id) whenever the user has
+    // not selected a replacement.
+    if (values.logo) {
+      payload.logo = values.logo;
+    }
+
+    if (values.logoPublicId) {
+      payload.logoPublicId = values.logoPublicId;
+    }
 
     try {
       if (isEditing && operator) {
@@ -228,6 +250,27 @@ export function OperatorFormDialog({
                 )}
               />
             </Field>
+
+            <ImageUploadField
+              id="operator-logo"
+              value={logoValue}
+              onChange={(secureUrl, publicId) => {
+                setValue("logo", secureUrl, { shouldDirty: true });
+                setValue("logoPublicId", publicId, { shouldDirty: true });
+              }}
+              onUploadingChange={setIsUploadingLogo}
+              disabled={isSaving}
+              labels={{
+                label: t("logoLabel"),
+                select: t("logoSelect"),
+                replace: t("logoReplace"),
+                uploading: t("logoUploading"),
+                hint: t("logoHint"),
+                invalidType: t("logoInvalidType"),
+                tooLarge: t("logoTooLarge"),
+                uploadFailed: t("logoUploadFailed"),
+              }}
+            />
           </FieldGroup>
 
           <DialogFooter className="mt-6">

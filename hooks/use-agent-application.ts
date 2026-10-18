@@ -24,12 +24,13 @@ function describeError(error: ApiError): string {
   return error.message;
 }
 
-export function useMyAgentApplication() {
+export function useMyAgentApplication(enabled = true) {
   return useQuery<IAgentStatus, ApiError>({
     queryKey: AGENT_APPLICATION_QUERY_KEY,
     queryFn: getMyAgentApplication,
     retry: false,
     staleTime: 60 * 1000,
+    enabled,
   });
 }
 

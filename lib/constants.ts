@@ -20,6 +20,7 @@ export const AUTH_COOKIE_NAMES = [
 
 export const DASHBOARD_STAFF_HOME = "/admin/dashboard";
 export const DASHBOARD_CUSTOMER_HOME = "/dashboard";
+export const MY_ORDERS_ROUTE = "/dashboard/my-orders";
 export const LOGIN_ROUTE = "/login";
 
 export const DEFAULT_PAGE_LIMIT = 10;

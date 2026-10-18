@@ -3,8 +3,11 @@
     "account": "Account"
   },
   "joinAgent": "Join Agent",
+  "myAgentDashboard": "My Agent Dashboard",
+  "joinAffiliate": "Join Affiliate",
+  "myAffiliateDashboard": "My Affiliate Dashboard",
   "joinReferral": "Join Referral",
-  "myReferrals": "My Referrals",
+  "myReferralDashboard": "My Referral Dashboard",
   "myOrders": "My Orders",
   "newOrder": "New Order",
   "myWallet": "My Wallet",

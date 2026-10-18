@@ -1,0 +1,168 @@
+{
+  "badge": {
+    "become": "Become an Affiliate",
+    "pending": "Affiliate Pending",
+    "approved": "Affiliate",
+    "rejected": "Affiliate Rejected",
+    "applyAria": "Apply to become an affiliate",
+    "viewAria": "View affiliate application status",
+    "approvedAria": "You are an approved affiliate"
+  },
+  "program": {
+    "eyebrow": "Affiliate Programme",
+    "heading": "Grow with us as an affiliate at <brand>RizqifyBD</brand>",
+    "description": "Partner with RizqifyBD as an affiliate. Share our services with your audience and grow together. Read the rules below and apply today.",
+    "loadFailedTitle": "Couldn't load information",
+    "loadFailedBody": "There was a problem fetching information from the server."
+  },
+  "info": {
+    "whyTitle": "Why become an affiliate?",
+    "whyDescription": "Start your affiliate journey with a single application.",
+    "highlights": {
+      "partnership": "Partnership benefits",
+      "secure": "Safe & transparent",
+      "promotion": "Promote & grow"
+    },
+    "sections": {
+      "rules": {
+        "title": "Programme rules",
+        "description": "Know the rules before you apply."
+      },
+      "eligibility": {
+        "title": "Eligibility",
+        "description": "What you need in order to apply."
+      },
+      "benefits": {
+        "title": "Benefits",
+        "description": "What you get as an affiliate."
+      }
+    },
+    "rulesItems": [
+      "Only one affiliate application can be submitted per account.",
+      "An approved application is required for affiliate membership to activate.",
+      "Even after approval your account stays a customer account — only the affiliate badge and benefits are added.",
+      "Promotion must be conducted honestly and transparently.",
+      "Benefits may be removed if a breach of the rules is proven."
+    ],
+    "eligibilityItems": [
+      "You must have an active RizqifyBD customer account.",
+      "The account must not be suspended or deleted.",
+      "You must agree to the programme's terms and conditions.",
+      "You should have a genuine way to promote RizqifyBD to your audience.",
+      "Benefits continue as long as you keep promoting responsibly."
+    ],
+    "benefitsItems": [
+      "An affiliate badge on your profile and dashboard.",
+      "Recognition as an official RizqifyBD affiliate partner.",
+      "A clear, single application with fast review.",
+      "Fair and transparent evaluation of every application.",
+      "Support from the RizqifyBD team as the programme grows."
+    ]
+  },
+  "form": {
+    "title": "Apply to become an affiliate",
+    "description": "Fill in the information below and submit your application. Your affiliate membership only activates after approval.",
+    "applicantInfo": "Applicant information (from your profile)",
+    "fieldName": "Name",
+    "fieldEmail": "Email",
+    "fieldMobile": "Mobile",
+    "reasonLabel": "Reason for application",
+    "reasonPlaceholder": "Briefly explain why you want to become an affiliate and how you will promote RizqifyBD.",
+    "submit": "Submit application",
+    "submitting": "Submitting...",
+    "errorGeneric": "Couldn't submit the application. Please try again."
+  },
+  "status": {
+    "title": "Your application status",
+    "appliedOn": "Applied on",
+    "lastUpdated": "Last updated",
+    "rejectionReason": "Reason for rejection",
+    "approvedNote": "Your affiliate membership is active — you are now an official RizqifyBD affiliate.",
+    "singleApplication": "Only one application is accepted per account, so you can't apply again until a decision is final.",
+    "pendingNote": "Your account stays a normal customer until approval — the affiliate badge and benefits are added afterwards.",
+    "labels": {
+      "pending": "Under review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "descriptions": {
+      "pending": "Your affiliate application was submitted successfully. Our team will review it and let you know soon.",
+      "approved": "Congratulations! Your affiliate application has been approved. Your affiliate membership is now active.",
+      "rejected": "Sorry, your application was not approved. See the reason below."
+    }
+  },
+  "dashboard": {
+    "loadErrorTitle": "Couldn't load your affiliate dashboard",
+    "loadErrorBody": "There was a problem talking to the server. Please try again in a moment.",
+    "pageTitle": "My Affiliate Dashboard",
+    "pageDescription": "Track your affiliate links, clicks, attributed customers and commission.",
+    "statusTitle": "Your affiliate application",
+    "appliedOn": "Applied on",
+    "rejectionReason": "Reason for rejection",
+    "notApprovedNotice": "Your links, clicks, conversions and commission appear here once your affiliate application is approved.",
+    "applyCta": "Go to affiliate application",
+    "linksTitle": "Your links",
+    "linksTotal": "Total links",
+    "linksActive": "Active links",
+    "totalClicks": "Total clicks",
+    "customersAttributed": "Customers attributed",
+    "attributionTitle": "What is attributed to you",
+    "attributionDescription": "We track the customers and conversions linked to your affiliate links.",
+    "conversionsTitle": "Conversions",
+    "conversionsTotal": "Total conversions",
+    "conversionOrderAmount": "Converted order amount",
+    "conversionCommission": "Total commission",
+    "earningsTitle": "Earnings summary",
+    "pending": "Pending",
+    "available": "Available",
+    "reversed": "Reversed",
+    "walletBalance": "Wallet balance",
+    "totalEarned": "Total earned",
+    "noLinksTitle": "No links yet",
+    "noLinksBody": "Create your first affiliate link to start sharing.",
+    "noConversionsTitle": "No conversions yet",
+    "noConversionsBody": "Orders coming from your links will appear here.",
+    "noEarningsTitle": "No earnings yet",
+    "noEarningsBody": "Commission credited to you will appear here.",
+    "conversionsColumns": {
+      "order": "Order",
+      "orderAmount": "Order amount",
+      "commission": "Commission",
+      "status": "Status",
+      "convertedOn": "Converted on"
+    },
+    "earningsColumns": {
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "description": "Description",
+      "reference": "Reference"
+    }
+  },
+  "links": {
+    "title": "Affiliate links",
+    "description": "Create links, share them and track the traffic they bring.",
+    "createTitle": "Create a new link",
+    "label": "Label",
+    "labelPlaceholder": "e.g. Facebook campaign",
+    "productId": "Product id (optional)",
+    "productIdPlaceholder": "Leave empty for a general link",
+    "create": "Create link",
+    "creating": "Creating...",
+    "copyLink": "Copy link",
+    "copied": "Copied",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "activeLabel": "Active",
+    "inactiveLabel": "Inactive",
+    "codeLabel": "Code",
+    "clicksLabel": "Clicks",
+    "attributionsLabel": "Attributions",
+    "createError": "Could not create the link",
+    "createSuccess": "Link created",
+    "updateError": "Could not update the link",
+    "updateSuccess": "Link updated",
+    "copyError": "Could not copy the link",
+    "createdOn": "Created on"
+  }
+}

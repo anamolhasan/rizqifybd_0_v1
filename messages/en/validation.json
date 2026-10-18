@@ -20,6 +20,8 @@
   "profilePhotoUrl": "Profile photo must be a valid URL",
   "agentReasonMin": "Please write at least 10 characters",
   "agentReasonMax": "You can write up to 2000 characters",
+  "affiliateReasonMin": "Please write at least 10 characters",
+  "affiliateReasonMax": "You can write up to 2000 characters",
   "promotionMethodRequired": "Choose a promotion method",
   "promotionUrlInvalid": "Enter a valid URL (e.g. https://example.com)",
   "referralReasonMin": "Please write at least 10 characters",

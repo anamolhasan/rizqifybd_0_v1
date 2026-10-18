@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+import OperatorOffersCatalogue from "@/components/offers/OperatorOffersCatalogue";
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("metadata");
   return {
@@ -9,7 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function NewOrdersPage() {
-  const t = await getTranslations("dashboard");
-  return <div>{t("placeholders.newOrders")}</div>;
+export default function NewOrdersPage() {
+  return <OperatorOffersCatalogue />;
 }

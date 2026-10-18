@@ -4,6 +4,7 @@ import type {
 } from "./enums";
 import type { IOperator } from "./operator.types";
 import type { IOperatorOffer } from "./operator-offer.types";
+import type { IWalletTransaction } from "./wallet.types";
 
 export interface IOrderOperatorOffer {
   operator: IOperator;
@@ -52,8 +53,37 @@ export interface ICreateOrderPayload {
   buyerId?: string;
 }
 
+export interface ICreateOrderWithWalletPayload {
+  operatorOfferId: string;
+  quantity?: number;
+  targetNumber?: string;
+  note?: string;
+  idempotencyKey?: string;
+}
+
+export interface ICreateOrderWithWalletResult {
+  order: IOrder;
+  walletTransaction: IWalletTransaction | null;
+  idempotent: boolean;
+}
+
 export interface IUpdateOrderStatusPayload {
   status: OrderStatus;
+}
+
+// Query contract shared by the customer (/orders/my) and staff (/orders) list
+// endpoints. Both use the backend QueryBuilder, so they accept the same generic
+// pagination/sort params plus per-endpoint filterable fields.
+export interface IOrderListParams {
+  page?: number;
+  limit?: number;
+  searchTerm?: string;
+  sortBy?: string;
+  sortOrder?: "asc" | "desc";
+  status?: OrderStatus;
+  paymentStatus?: PaymentStatus;
+  operatorOfferId?: string;
+  userId?: string;
 }
 
 export interface IPayOrderResult {

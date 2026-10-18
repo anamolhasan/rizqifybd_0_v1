@@ -63,11 +63,16 @@ export async function apiRequest<T>(
   init: RequestInit = {},
   options: { skipAuthRefresh?: boolean } = {},
 ): Promise<ApiEnvelope<T>> {
+  // Multipart uploads must let the browser set the boundary; only JSON or
+  // other explicit bodies get the default JSON content type.
+  const isFormData =
+    typeof FormData !== "undefined" && init.body instanceof FormData;
+
   const response = await fetch(`${API_BASE_URL}${path}`, {
     ...init,
     credentials: "include",
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       Accept: "application/json",
       ...init.headers,
     },

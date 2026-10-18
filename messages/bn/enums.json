@@ -19,9 +19,9 @@
     "deleted": "মুছে ফেলা"
   },
   "applicationStatus": {
-    "pending": "মুলতুবি",
-    "approved": "অনুমোদিত",
-    "rejected": "বাতিল"
+    "APPROVED": "অনুমোদিত",
+    "PENDING": "মুলতুবি",
+    "REJECTED": "বাতিল"
   },
   "promotionMethod": {
     "socialMedia": "সোশ্যাল মিডিয়া (ফেসবুক, ইনস্টাগ্রাম, টিকটক)",
@@ -112,5 +112,25 @@
   "yesNo": {
     "yes": "হ্যাঁ",
     "no": "না"
+  },
+  "orderStatus": {
+    "PENDING": "অপেক্ষমাণ",
+    "PROCESSING": "প্রক্রিয়াধীন",
+    "WORKING": "চলমান",
+    "COMPLETED": "সম্পন্ন",
+    "CANCELLED": "বাতিল",
+    "FAILED": "ব্যর্থ"
+  },
+  "paymentStatus": {
+    "PENDING": "অপেক্ষমাণ",
+    "PAID": "পরিশোধিত",
+    "FAILED": "ব্যর্থ",
+    "REFUNDED": "ফেরত",
+    "CANCELLED": "বাতিল"
+  },
+  "earningStatus": {
+    "PENDING": "মুলতুবি",
+    "AVAILABLE": "উপলব্ধ",
+    "REVERSED": "ফিরিয়ে নেওয়া"
   }
 }

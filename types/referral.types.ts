@@ -48,7 +48,11 @@ export interface IPartnerReferralItem {
 
 export interface IPartnerReferralDashboard {
   referralCode: string;
-  applicationStatus: ReferralApplicationStatus;
+  // null when the caller has not submitted a Referral application yet. The
+  // dashboard itself is programme participation, so it is readable before
+  // approval; only `referralIncomeEligible` reflects the approved-application
+  // rule.
+  applicationStatus: ReferralApplicationStatus | null;
   totalReferredCount: number;
   activeReferredCount: number;
   targetActiveReferrals: number;

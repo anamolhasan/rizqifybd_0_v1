@@ -32,12 +32,12 @@ export default async function NotFound() {
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-            <Link href="/">
-              <Button size="lg" className="w-full sm:w-auto gap-2">
+            <Button asChild size="lg" className="w-full sm:w-auto gap-2">
+              <Link href="/">
                 <Home className="h-4 w-4" aria-hidden="true" />
                 {t("goHome")}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
             <Button
               variant="outline"
               size="lg"
@@ -51,13 +51,13 @@ export default async function NotFound() {
 
           <div className="mt-8 flex items-center justify-center gap-4 text-sm text-muted-foreground">
             <span>{t("or")}</span>
-            <a href="/services" className="text-primary hover:underline">
+            <Link href="/services" className="text-primary hover:underline">
               {t("browseServices")}
-            </a>
+            </Link>
             <span aria-hidden="true">·</span>
-            <a href="/faq" className="text-primary hover:underline">
+            <Link href="/faq" className="text-primary hover:underline">
               {t("visitFaq")}
-            </a>
+            </Link>
           </div>
         </CardContent>
       </Card>

@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ProgramAuthPrompt } from "@/components/shared/ProgramAuthPrompt";
 import { useMyAgentApplication } from "@/hooks/use-agent-application";
 import { useCurrentUser } from "@/hooks/use-auth";
 import { AgentApplicationForm } from "./AgentApplicationForm";
@@ -16,9 +17,10 @@ import { AgentStatusCard } from "./AgentStatusCard";
 export function AgentProgram() {
   const t = useTranslations("agent.program");
   const tc = useTranslations("common");
-  const { data: user } = useCurrentUser();
+  const { data: user, isLoading: isUserLoading } = useCurrentUser();
+  const isAuthed = Boolean(user);
   const { data: status, isLoading, isError, error, refetch, isFetching } =
-    useMyAgentApplication();
+    useMyAgentApplication(isAuthed);
 
   return (
     <section className="relative isolate overflow-hidden bg-background">
@@ -52,7 +54,11 @@ export function AgentProgram() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-start">
           <div className="space-y-6">
-            {isLoading ? (
+            {isUserLoading ? (
+              <AgentActionSkeleton />
+            ) : !user ? (
+              <ProgramAuthPrompt />
+            ) : isLoading ? (
               <AgentActionSkeleton />
             ) : isError ? (
               <Alert variant="destructive" role="alert">

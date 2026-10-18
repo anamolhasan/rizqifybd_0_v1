@@ -1,0 +1,32 @@
+{
+  "title": "Orders Management",
+  "description": "Review customer orders and advance their fulfilment status.",
+  "searchPlaceholder": "Search by order ID or target number...",
+  "errorTitle": "Failed to load orders",
+  "empty": "No orders found.",
+  "unknownOffer": "Offer unavailable",
+  "columns": {
+    "order": "Order",
+    "targetNumber": "Target number",
+    "quantity": "Quantity",
+    "total": "Total",
+    "payment": "Payment",
+    "status": "Status",
+    "placedOn": "Placed on",
+    "actions": "Actions"
+  },
+  "rowActions": {
+    "manage": "Update status"
+  },
+  "filters": {
+    "allStatuses": "All order statuses",
+    "allPaymentStatuses": "All payment statuses"
+  },
+  "status": {
+    "title": "Update order status",
+    "description": "Choose the next fulfilment status for this order.",
+    "current": "Current status",
+    "noTransitions": "This order is in a final state and cannot be changed.",
+    "cancel": "Cancel"
+  }
+}

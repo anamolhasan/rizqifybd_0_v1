@@ -66,11 +66,42 @@ export async function updateOperatorOffer(
   return data;
 }
 
+export async function getOperatorOfferById(id: string): Promise<IOperatorOffer> {
+  const { data } = await apiRequest<IOperatorOffer>(
+    `${OPERATOR_OFFERS_ENDPOINT}/${encodeURIComponent(id)}`,
+    {
+      method: "GET",
+    },
+  );
+
+  return data;
+}
+
 export async function deleteOperatorOffer(id: string): Promise<IOperatorOffer> {
   const { data } = await apiRequest<IOperatorOffer>(
     `${OPERATOR_OFFERS_ENDPOINT}/${encodeURIComponent(id)}`,
     {
       method: "DELETE",
+    },
+  );
+
+  return data;
+}
+
+// Administrative availability action: pause hides a live offer, resume returns a
+// paused offer to ACTIVE, archive soft-deletes it. Mirrors the backend's
+// PATCH /operator-offers/:id/status contract.
+export type OperatorOfferStatusAction = "pause" | "resume" | "archive";
+
+export async function changeOperatorOfferStatus(
+  id: string,
+  action: OperatorOfferStatusAction,
+): Promise<IOperatorOffer> {
+  const { data } = await apiRequest<IOperatorOffer>(
+    `${OPERATOR_OFFERS_ENDPOINT}/${encodeURIComponent(id)}/status`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ action }),
     },
   );
 

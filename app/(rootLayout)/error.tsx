@@ -83,15 +83,14 @@ export default function Error({
               {!isOnline ? t("tryAgain") : t("retry")}
             </Button>
 
-            <Link href="/" className="w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full"
-              >
-                {t("goHome")}
-              </Button>
-            </Link>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              <Link href="/">{t("goHome")}</Link>
+            </Button>
           </div>
 
           {error.digest && (

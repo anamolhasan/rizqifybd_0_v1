@@ -139,6 +139,20 @@ export type AgentApplicationFormValues = z.infer<
   ReturnType<typeof createAgentApplicationSchema>
 >;
 
+export function createAffiliateApplicationSchema(t: ValidationTranslator) {
+  return z.object({
+    reason: z
+      .string()
+      .trim()
+      .min(10, { message: t("affiliateReasonMin") })
+      .max(2000, { message: t("affiliateReasonMax") }),
+  });
+}
+
+export type AffiliateApplicationFormValues = z.infer<
+  ReturnType<typeof createAffiliateApplicationSchema>
+>;
+
 export function createReferralApplicationSchema(t: ValidationTranslator) {
   return z.object({
     promotionMethod: z.string().min(1, { message: t("promotionMethodRequired") }),

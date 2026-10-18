@@ -15,7 +15,52 @@
     "actions": "কার্যক্রম"
   },
   "rowActions": {
+    "view": "অফার দেখুন",
     "edit": "অফার সম্পাদনা করুন",
-    "delete": "অফার মুছুন"
+    "delete": "অফার মুছুন",
+    "pause": "অফার পজ করুন",
+    "resume": "অফার চালু করুন"
+  },
+  "details": {
+    "overview": "সারসংক্ষেপ",
+    "offerName": "অফারের নাম",
+    "operator": "অপারেটর",
+    "offerType": "অফারের ধরন",
+    "status": "অবস্থা",
+    "description": "বিবরণ",
+    "badges": "ব্যাজ",
+    "benefit": "সুবিধা",
+    "amount": "পরিমাণ",
+    "validity": "বৈধতা",
+    "pricing": "মূল্য নির্ধারণ",
+    "regularPrice": "নিয়মিত মূল্য",
+    "sellingPrice": "বিক্রয় মূল্য",
+    "discountType": "ছাড়ের ধরন",
+    "discountValue": "ছাড়ের পরিমাণ",
+    "schedule": "সময়সূচি",
+    "startsAt": "শুরু হয়",
+    "endsAt": "শেষ হয়",
+    "inventory": "ইনভেন্টরি",
+    "inventoryMode": "ইনভেন্টরি মোড",
+    "stockQuantity": "স্টক পরিমাণ",
+    "unlimited": "সীমাহীন",
+    "active": "সক্রিয়",
+    "inactive": "নিষ্ক্রিয়",
+    "notProvided": "প্রদান করা হয়নি",
+    "commercial": {
+      "title": "বাণিজ্যিক তথ্য",
+      "subtitle": "শুধুমাত্র প্রশাসকদের জন্য দৃশ্যমান।",
+      "companyCost": "কোম্পানির ক্রয় মূল্য",
+      "resellerCommission": "রিসেলার কমিশন",
+      "agentCommission": "এজেন্ট কমিশন",
+      "commissionRate": "কমিশন হার",
+      "referralCommissionRate": "রেফারেল কমিশন হার",
+      "profitTitle": "মুনাফার সারসংক্ষেপ"
+    },
+    "metadata": "মেটাডেটা",
+    "offerId": "অফার আইডি",
+    "createdAt": "তৈরি করা হয়েছে",
+    "updatedAt": "আপডেট করা হয়েছে",
+    "deletedAt": "মুছে ফেলা হয়েছে"
   }
 }

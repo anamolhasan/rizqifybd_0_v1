@@ -19,9 +19,9 @@
     "deleted": "Deleted"
   },
   "applicationStatus": {
-    "pending": "Pending",
-    "approved": "Approved",
-    "rejected": "Rejected"
+    "APPROVED": "Approved",
+    "PENDING": "Pending",
+    "REJECTED": "Rejected"
   },
   "promotionMethod": {
     "socialMedia": "Social media (Facebook, Instagram, TikTok)",
@@ -112,5 +112,25 @@
   "yesNo": {
     "yes": "Yes",
     "no": "No"
+  },
+  "orderStatus": {
+    "PENDING": "Pending",
+    "PROCESSING": "Processing",
+    "WORKING": "In progress",
+    "COMPLETED": "Completed",
+    "CANCELLED": "Cancelled",
+    "FAILED": "Failed"
+  },
+  "paymentStatus": {
+    "PENDING": "Pending",
+    "PAID": "Paid",
+    "FAILED": "Failed",
+    "REFUNDED": "Refunded",
+    "CANCELLED": "Cancelled"
+  },
+  "earningStatus": {
+    "PENDING": "Pending",
+    "AVAILABLE": "Available",
+    "REVERSED": "Reversed"
   }
 }

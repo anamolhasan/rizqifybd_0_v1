@@ -21,12 +21,13 @@ function describeError(error: ApiError): string {
   return error.message;
 }
 
-export function useMyReferral() {
+export function useMyReferral(enabled = true) {
   return useQuery<IReferralMe, ApiError>({
     queryKey: REFERRAL_QUERY_KEY,
     queryFn: getMyReferral,
     retry: false,
     staleTime: 60 * 1000,
+    enabled,
   });
 }
 

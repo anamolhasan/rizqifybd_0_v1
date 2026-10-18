@@ -17,9 +17,9 @@ import { Input } from "@/components/ui/input";
 import { useMyReferral } from "@/hooks/use-referral";
 import { buildReferralLink } from "@/lib/referralLink";
 
-export function ReferralLinkCard() {
+export function ReferralLinkCard({ enabled = true }: { enabled?: boolean }) {
   const t = useTranslations("referral.link");
-  const { data: me, isLoading } = useMyReferral();
+  const { data: me, isLoading } = useMyReferral(enabled);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {

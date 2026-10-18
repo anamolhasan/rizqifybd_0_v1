@@ -15,7 +15,52 @@
     "actions": "Actions"
   },
   "rowActions": {
+    "view": "View offer",
     "edit": "Edit offer",
-    "delete": "Delete offer"
+    "delete": "Delete offer",
+    "pause": "Pause offer",
+    "resume": "Resume offer"
+  },
+  "details": {
+    "overview": "Overview",
+    "offerName": "Offer name",
+    "operator": "Operator",
+    "offerType": "Offer type",
+    "status": "Status",
+    "description": "Description",
+    "badges": "Badges",
+    "benefit": "Benefit",
+    "amount": "Amount",
+    "validity": "Validity",
+    "pricing": "Pricing",
+    "regularPrice": "Regular price",
+    "sellingPrice": "Selling price",
+    "discountType": "Discount type",
+    "discountValue": "Discount value",
+    "schedule": "Schedule",
+    "startsAt": "Starts at",
+    "endsAt": "Ends at",
+    "inventory": "Inventory",
+    "inventoryMode": "Inventory mode",
+    "stockQuantity": "Stock quantity",
+    "unlimited": "Unlimited",
+    "active": "Active",
+    "inactive": "Inactive",
+    "notProvided": "Not provided",
+    "commercial": {
+      "title": "Commercials",
+      "subtitle": "Visible to administrators only.",
+      "companyCost": "Company purchase cost",
+      "resellerCommission": "Reseller commission",
+      "agentCommission": "Agent commission",
+      "commissionRate": "Commission rate",
+      "referralCommissionRate": "Referral commission rate",
+      "profitTitle": "Profit summary"
+    },
+    "metadata": "Metadata",
+    "offerId": "Offer ID",
+    "createdAt": "Created at",
+    "updatedAt": "Updated at",
+    "deletedAt": "Deleted at"
   }
 }

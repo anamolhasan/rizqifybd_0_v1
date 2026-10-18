@@ -35,5 +35,7 @@
   "no": "No",
   "notProvided": "Not provided",
   "optional": "Optional",
+  "loginToApply": "Log in to apply",
+  "loginToApplyDescription": "Sign in or create an account to submit your application.",
   "soon": "Soon"
 }

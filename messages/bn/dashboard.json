@@ -54,6 +54,72 @@
       "description": "আগামীতে আসা ওয়ার্কস্পেস ফিচারের শর্টকাট।"
     }
   },
+  "orders": {
+    "result": {
+      "title": "অর্ডার বিস্তারিত",
+      "description": "আপনার অর্ডারের বর্তমান অবস্থা দেখুন।",
+      "backToOrders": "আমার অর্ডারে ফিরে যান",
+      "offer": "অফার",
+      "summary": "অর্ডার সারাংশ",
+      "operator": "অপারেটর",
+      "quantity": "পরিমাণ",
+      "unitPrice": "একক মূল্য",
+      "total": "মোট পরিমাণ",
+      "targetNumber": "টার্গেট নম্বর",
+      "note": "নোট",
+      "notProvided": "প্রদান করা হয়নি",
+      "orderId": "অর্ডার আইডি",
+      "paymentStatus": "পেমেন্ট অবস্থা",
+      "fulfilmentStatus": "অর্ডারের অবস্থা",
+      "placedOn": "তৈরি করা হয়েছে",
+      "lastUpdated": "সর্বশেষ আপডেট",
+      "completedOn": "সম্পন্ন হয়েছে",
+      "loadFailedTitle": "এই অর্ডার লোড করা যায়নি",
+      "notFoundTitle": "অর্ডার খুঁজে পাওয়া যায়নি",
+      "notFoundDescription": "এই অর্ডারটি খুঁজে পাওয়া যায়নি, অথবা এটি আপনার অ্যাকাউন্টের নয়।"
+    },
+    "status": {
+      "pending": {
+        "title": "পেমেন্টের অপেক্ষায়",
+        "description": "এই অর্ডারটি তৈরি হয়েছে কিন্তু এখনো পরিশোধ হয়নি।"
+      },
+      "paid": {
+        "title": "পরিশোধিত",
+        "description": "পেমেন্ট গৃহীত হয়েছে। আপনার অর্ডার প্রক্রিয়া করা হচ্ছে।"
+      },
+      "fulfilled": {
+        "title": "সম্পন্ন",
+        "description": "এই অর্ডারটি সম্পন্ন হয়েছে।"
+      },
+      "cancelled": {
+        "title": "বাতিল",
+        "description": "এই অর্ডারটি বাতিল করা হয়েছে।"
+      },
+      "failed": {
+        "title": "ব্যর্থ",
+        "description": "এই অর্ডারটি সম্পন্ন করা সম্ভব হয়নি।"
+      },
+      "refunded": {
+        "title": "ফেরত",
+        "description": "এই অর্ডারটি ফেরত দেওয়া হয়েছে।"
+      }
+    },
+    "paymentStatuses": {
+      "PENDING": "অপেক্ষমাণ",
+      "PAID": "পরিশোধিত",
+      "FAILED": "ব্যর্থ",
+      "REFUNDED": "ফেরত",
+      "CANCELLED": "বাতিল"
+    },
+    "orderStatuses": {
+      "PENDING": "অপেক্ষমাণ",
+      "PROCESSING": "প্রক্রিয়াধীন",
+      "WORKING": "চলমান",
+      "COMPLETED": "সম্পন্ন",
+      "CANCELLED": "বাতিল",
+      "FAILED": "ব্যর্থ"
+    }
+  },
   "placeholders": {
     "myOrders": "আপনার অর্ডার শীঘ্রই এখানে দেখা যাবে।",
     "newOrders": "নতুন অর্ডার তৈরি শীঘ্রই এখানে উপলব্ধ হবে।",

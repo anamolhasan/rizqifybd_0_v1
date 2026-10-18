@@ -10,6 +10,12 @@ export interface NavItem {
    * authenticated user in the relevant dashboard (common navigation).
    */
   includedRoles?: Role[];
+  /**
+   * Optional nested items rendered as an indented submenu below this item.
+   * Each child keeps its own `includedRoles`; the parent stays visible while
+   * at least one child is visible.
+   */
+  children?: NavItem[];
 }
 
 export interface NavSection {

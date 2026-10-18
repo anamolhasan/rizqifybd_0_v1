@@ -43,6 +43,8 @@ export const ROLE_MANAGEMENT_ACTORS: Role[] = ["SUPER_ADMIN", "ADMIN"];
 
 export const AGENT_APPLICATION_ACTORS: Role[] = ["SUPER_ADMIN", "ADMIN"];
 
+export const AFFILIATE_APPLICATION_ACTORS: Role[] = ["SUPER_ADMIN", "ADMIN"];
+
 export const CONTENT_ADMIN_ROLES: Role[] = ["SUPER_ADMIN", "ADMIN"];
 
 export const FINANCE_ROLES: Role[] = ["SUPER_ADMIN", "ADMIN"];
@@ -209,6 +211,14 @@ export const REFERRAL_APPLICATION_STATUSES: ReferralApplicationStatus[] = [
 export type AgentApplicationStatus = "PENDING" | "APPROVED" | "REJECTED";
 
 export const AGENT_APPLICATION_STATUSES: AgentApplicationStatus[] = [
+  "PENDING",
+  "APPROVED",
+  "REJECTED",
+];
+
+export type AffiliateApplicationStatus = "PENDING" | "APPROVED" | "REJECTED";
+
+export const AFFILIATE_APPLICATION_STATUSES: AffiliateApplicationStatus[] = [
   "PENDING",
   "APPROVED",
   "REJECTED",

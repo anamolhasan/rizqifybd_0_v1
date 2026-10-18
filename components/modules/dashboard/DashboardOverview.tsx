@@ -7,6 +7,7 @@ import { StatsCard } from "@/components/shared/StatsCard";
 import { Button } from "@/components/ui/button";
 import { ReferralPartnerBadge } from "@/components/modules/referral/ReferralPartnerBadge";
 import { AgentBadge } from "@/components/modules/agent/AgentBadge";
+import { AffiliateBadge } from "@/components/modules/affiliate/AffiliateBadge";
 import { ReferralLinkCard } from "@/components/modules/referral/ReferralLinkCard";
 import { OverviewActivityPanel } from "./OverviewActivityPanel";
 import {
@@ -192,6 +193,7 @@ export async function DashboardOverview({ variant }: DashboardOverviewProps) {
           <>
             <ReferralPartnerBadge />
             <AgentBadge />
+            <AffiliateBadge />
           </>
         ) : null}
         <Button asChild className="bg-primary text-primary-foreground hover:bg-primary">

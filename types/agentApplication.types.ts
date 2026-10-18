@@ -34,3 +34,17 @@ export interface IAgentStatus {
   application: IAgentApplication | null;
   canEarn: boolean;
 }
+
+export interface IAgentApplicationListParams {
+  page?: number;
+  limit?: number;
+  searchTerm?: string;
+  status?: AgentApplicationStatus | "";
+}
+
+export interface IAgentApplicationStats {
+  total: number;
+  pending: number;
+  approved: number;
+  rejected: number;
+}

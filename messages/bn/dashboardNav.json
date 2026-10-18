@@ -3,8 +3,11 @@
     "account": "অ্যাকাউন্ট"
   },
   "joinAgent": "এজেন্ট হোন",
+  "myAgentDashboard": "আমার এজেন্ট ড্যাশবোর্ড",
+  "joinAffiliate": "অ্যাফিলিয়েট হোন",
+  "myAffiliateDashboard": "আমার অ্যাফিলিয়েট ড্যাশবোর্ড",
   "joinReferral": "রেফারেল হোন",
-  "myReferrals": "আমার রেফারেল",
+  "myReferralDashboard": "আমার রেফারেল ড্যাশবোর্ড",
   "myOrders": "আমার অর্ডার",
   "newOrder": "নতুন অর্ডার",
   "myWallet": "আমার ওয়ালেট",

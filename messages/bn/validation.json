@@ -20,6 +20,8 @@
   "profilePhotoUrl": "প্রোফাইল ছবির URL বৈধ হতে হবে",
   "agentReasonMin": "কমপক্ষে ১০ অক্ষরের কারণ লিখুন",
   "agentReasonMax": "সর্বোচ্চ ২০০০ অক্ষর পর্যন্ত লেখা যাবে",
+  "affiliateReasonMin": "কমপক্ষে ১০ অক্ষরের কারণ লিখুন",
+  "affiliateReasonMax": "সর্বোচ্চ ২০০০ অক্ষর পর্যন্ত লেখা যাবে",
   "promotionMethodRequired": "প্রচারের মাধ্যম নির্বাচন করুন",
   "promotionUrlInvalid": "সঠিক URL দিন (যেমন https://example.com)",
   "referralReasonMin": "কমপক্ষে ১০ অক্ষরের কারণ লিখুন",

@@ -53,13 +53,18 @@ export function getDashboardNavItems(
 
 // Returns the next-intl message key for the current page, resolved by the
 // consuming component (e.g. "nav.dashboard" or "adminNav.overview").
+// A grouped item matches before its children, so /admin/dashboard/operators-management
+// resolves to the group title ("Operator Management") instead of its first child.
 export function getDashboardPageTitle(
   pathname: string,
   sections: NavSection[],
 ): string {
   for (const section of sections) {
-    const item = section.items.find((entry) => entry.href === pathname);
-    if (item) return item.titleKey;
+    for (const item of section.items) {
+      if (item.href === pathname) return item.titleKey;
+      const child = item.children?.find((entry) => entry.href === pathname);
+      if (child) return child.titleKey;
+    }
   }
   return "nav.dashboard";
 }

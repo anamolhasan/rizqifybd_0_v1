@@ -1,12 +1,15 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 
 import { ApiError } from "@/lib/api";
 import {
+  changeOperatorOfferStatus,
   createOperatorOffer,
   deleteOperatorOffer,
+  getOperatorOfferById,
   getOperatorOffers,
   updateOperatorOffer,
 } from "@/lib/operator-offer-api";
@@ -16,6 +19,7 @@ import type {
   ICreateOperatorOfferPayload,
   IUpdateOperatorOfferPayload,
 } from "@/types/operator-offer.types";
+import type { OperatorOfferStatusAction } from "@/lib/operator-offer-api";
 
 export const OPERATOR_OFFERS_QUERY_KEY = "operator-offers" as const;
 
@@ -77,6 +81,15 @@ export function useUpdateOperatorOffer() {
   });
 }
 
+export function useOperatorOfferById(id: string | null | undefined) {
+  return useQuery<IOperatorOffer, ApiError>({
+    queryKey: [OPERATOR_OFFERS_QUERY_KEY, "detail", id],
+    queryFn: () => getOperatorOfferById(id as string),
+    enabled: Boolean(id),
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
 export function useDeleteOperatorOffer() {
   const queryClient = useQueryClient();
 
@@ -90,6 +103,41 @@ export function useDeleteOperatorOffer() {
     },
     onError: (error) => {
       toast.error("Failed to delete offer", {
+        description: describeError(error),
+      });
+    },
+  });
+}
+
+export interface IChangeOperatorOfferStatusVariables {
+  id: string;
+  action: OperatorOfferStatusAction;
+}
+
+// Administrative availability action (pause/resume/archive). Refreshes the
+// catalogue so the new status badge renders without a manual reload.
+export function useChangeOperatorOfferStatus() {
+  const queryClient = useQueryClient();
+  const t = useTranslations("toast");
+  const te = useTranslations("enums");
+
+  return useMutation<
+    IOperatorOffer,
+    ApiError,
+    IChangeOperatorOfferStatusVariables
+  >({
+    mutationFn: ({ id, action }) => changeOperatorOfferStatus(id, action),
+    onSuccess: (offer) => {
+      queryClient.invalidateQueries({ queryKey: [OPERATOR_OFFERS_QUERY_KEY] });
+      toast.success(t("offerStatusUpdated"), {
+        description: t("offerStatusUpdatedDescription", {
+          name: offer.name,
+          status: te(`offerStatus.${offer.status}`),
+        }),
+      });
+    },
+    onError: (error) => {
+      toast.error(t("offerStatusUpdateFailed"), {
         description: describeError(error),
       });
     },

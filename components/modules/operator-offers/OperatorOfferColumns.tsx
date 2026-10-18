@@ -1,6 +1,6 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Eye, Pause, Pencil, Play, Trash2 } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 
@@ -10,11 +10,17 @@ import { DataTableColumnsHeader } from "@/components/shared/table/DataTableColum
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatNumber } from "@/lib/format";
-import type { IOperatorOffer, OperatorOfferStatus } from "@/types/operator-offer.types";
+import type {
+  IOperatorOffer,
+  OperatorOfferStatus,
+} from "@/types/operator-offer.types";
 
 interface OperatorOfferColumnActions {
+  onView: (offer: IOperatorOffer) => void;
   onEdit: (offer: IOperatorOffer) => void;
   onDelete: (offer: IOperatorOffer) => void;
+  onPause: (offer: IOperatorOffer) => void;
+  onResume: (offer: IOperatorOffer) => void;
 }
 
 export interface OperatorOfferColumnLabels {
@@ -25,8 +31,11 @@ export interface OperatorOfferColumnLabels {
   commission: string;
   status: string;
   actions: string;
+  view: string;
   edit: string;
   delete: string;
+  pause: string;
+  resume: string;
 }
 
 const OFFER_STATUS_VARIANTS: Record<
@@ -42,8 +51,11 @@ const OFFER_STATUS_VARIANTS: Record<
 };
 
 export function getOperatorOfferColumns({
+  onView,
   onEdit,
   onDelete,
+  onPause,
+  onResume,
   labels,
 }: OperatorOfferColumnActions & { labels: OperatorOfferColumnLabels }): ColumnDef<
   IOperatorOffer,
@@ -106,6 +118,37 @@ export function getOperatorOfferColumns({
       header: () => <span className="flex justify-end">{labels.actions}</span>,
       cell: ({ row }) => (
         <div className="flex items-center justify-end gap-1">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-sm"
+            aria-label={`${labels.view} ${row.original.name}`}
+            onClick={() => onView(row.original)}
+          >
+            <Eye />
+          </Button>
+          {row.original.status === "ACTIVE" ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={`${labels.pause} ${row.original.name}`}
+              onClick={() => onPause(row.original)}
+            >
+              <Pause />
+            </Button>
+          ) : null}
+          {row.original.status === "PAUSED" ? (
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon-sm"
+              aria-label={`${labels.resume} ${row.original.name}`}
+              onClick={() => onResume(row.original)}
+            >
+              <Play />
+            </Button>
+          ) : null}
           <Button
             type="button"
             variant="ghost"

@@ -91,5 +91,47 @@
       "approved": "Congratulations! Your agent application has been approved. Your agent (reseller) benefits are now active.",
       "rejected": "Sorry, your application was not approved. See the reason below."
     }
+  },
+  "dashboard": {
+    "loadErrorTitle": "Couldn't load your agent dashboard",
+    "loadErrorBody": "There was a problem talking to the server. Please try again in a moment.",
+    "pageTitle": "My Agent Dashboard",
+    "pageDescription": "Track your agent sales, commission and earnings in one place.",
+    "statusTitle": "Your agent application",
+    "appliedOn": "Applied on",
+    "rejectionReason": "Reason for rejection",
+    "notApprovedNotice": "Your sales, commission and earnings appear here once your agent application is approved.",
+    "applyCta": "Go to agent application",
+    "salesTitle": "Your sales",
+    "completedSales": "Completed sales",
+    "totalSales": "Total sales amount",
+    "totalCommission": "Total commission",
+    "earningsTitle": "Earnings summary",
+    "pending": "Pending",
+    "available": "Available",
+    "reversed": "Reversed",
+    "walletBalance": "Wallet balance",
+    "totalEarned": "Total earned",
+    "recentSalesTitle": "Recent sales",
+    "noSalesTitle": "No sales yet",
+    "noSalesBody": "Sales attributed to you will appear here once they are completed.",
+    "earningsHistoryTitle": "Earnings history",
+    "noEarningsTitle": "No earnings yet",
+    "noEarningsBody": "Commission and rewards credited to you will appear here.",
+    "salesColumns": {
+      "order": "Order",
+      "targetNumber": "Target number",
+      "quantity": "Quantity",
+      "total": "Amount",
+      "commission": "Commission",
+      "completedOn": "Completed on"
+    },
+    "earningsColumns": {
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "description": "Description",
+      "reference": "Reference"
+    }
   }
 }

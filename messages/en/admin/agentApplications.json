@@ -1,0 +1,56 @@
+{
+  "title": "Agent Applications Management",
+  "description": "Review and manage agent programme applications.",
+  "searchPlaceholder": "Search by applicant name or email",
+  "errorTitle": "Failed to load agent applications",
+  "empty": "No agent applications found.",
+  "stats": {
+    "total": "Total",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected"
+  },
+  "filters": {
+    "status": "Status",
+    "statusPlaceholder": "Status",
+    "allStatuses": "All statuses",
+    "clear": "Clear filters"
+  },
+  "columns": {
+    "applicant": "Applicant",
+    "email": "Email",
+    "status": "Status",
+    "createdAt": "Created",
+    "reviewedBy": "Reviewed by",
+    "actions": "Actions"
+  },
+  "rowActions": {
+    "view": "View details",
+    "approve": "Approve",
+    "reject": "Reject"
+  },
+  "details": {
+    "title": "Agent application",
+    "description": "Submitted details and review history.",
+    "applicant": "Applicant",
+    "email": "Email",
+    "status": "Status",
+    "reason": "Reason",
+    "appliedAt": "Applied at",
+    "reviewedBy": "Reviewed by",
+    "reviewedAt": "Reviewed at",
+    "rejectionReason": "Rejection reason"
+  },
+  "review": {
+    "approveTitle": "Approve application",
+    "approveDescription": "Approving grants the applicant the agent badge and reseller benefits.",
+    "rejectTitle": "Reject application",
+    "rejectDescription": "Provide a reason for rejecting this agent application.",
+    "reason": "Rejection reason",
+    "reasonPlaceholder": "Explain why this application is being rejected...",
+    "reasonRequired": "Rejection reason is required",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  }
+}

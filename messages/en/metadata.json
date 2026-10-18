@@ -34,6 +34,18 @@
     "title": "New Order",
     "description": "Place a new RizqifyBD order."
   },
+  "orderResult": {
+    "title": "Order details",
+    "description": "View the details and current status of your RizqifyBD order."
+  },
+  "paymentSuccess": {
+    "title": "Payment successful",
+    "description": "Your RizqifyBD payment has been received."
+  },
+  "paymentCancel": {
+    "title": "Payment cancelled",
+    "description": "Your RizqifyBD payment was cancelled."
+  },
   "myWallet": {
     "title": "My Wallet",
     "description": "View your RizqifyBD wallet balance and transactions."
@@ -45,6 +57,18 @@
   "agentApplication": {
     "title": "Agent Application",
     "description": "Join the RizqifyBD agent programme and earn commission."
+  },
+  "affiliateApplication": {
+    "title": "Affiliate Application",
+    "description": "Join the RizqifyBD affiliate programme and partner with us."
+  },
+  "agentDashboard": {
+    "title": "My Agent Dashboard",
+    "description": "Track your agent sales, commission and earnings."
+  },
+  "affiliateDashboard": {
+    "title": "My Affiliate Dashboard",
+    "description": "Track your affiliate links, clicks, conversions and commission."
   },
   "myReferrals": {
     "title": "My Referral",
@@ -74,10 +98,6 @@
     "title": "Add Operator Offer",
     "description": "Create a new telecom operator offer for your catalogue."
   },
-  "adminCategories": {
-    "title": "Categories Management",
-    "description": "Manage RizqifyBD product categories."
-  },
   "adminOperators": {
     "title": "Operators Management",
     "description": "Manage RizqifyBD mobile operators."
@@ -106,8 +126,16 @@
     "title": "Agent Applications",
     "description": "Review and manage agent programme applications."
   },
+  "adminAffiliateApplications": {
+    "title": "Affiliate Applications",
+    "description": "Review and manage affiliate programme applications."
+  },
   "features": {
     "title": "Features",
     "description": "Discover RizqifyBD's premium telecom features — offer discovery, operator filtering, transparent pricing, and account management."
+  },
+  "offers": {
+    "title": "All Offers",
+    "description": "Browse every active operator offer on RizqifyBD — data, talktime, SMS and combo packs from all leading Bangladeshi operators."
   }
 }

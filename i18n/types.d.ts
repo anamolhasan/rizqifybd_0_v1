@@ -24,6 +24,8 @@ declare module "next-intl" {
   filters: string;
   language: string;
   loading: string;
+  loginToApply: string;
+  loginToApplyDescription: string;
   no: string;
   noResults: string;
   notProvided: string;
@@ -47,9 +49,10 @@ declare module "next-intl" {
     nav: {
   about: string;
   adminDashboard: string;
+  affiliate: string;
+  agent: string;
   allServices: string;
-  categories: string;
-  categoriesUnavailable: string;
+  breadcrumb: string;
   customerSupport: string;
   dashboard: string;
   faq: string;
@@ -60,6 +63,7 @@ declare module "next-intl" {
   mobileNavigation: string;
   openMenu: string;
   primaryNavigation: string;
+  referral: string;
   searchAriaLabel: string;
   searchButton: string;
   searchPlaceholder: string;
@@ -98,21 +102,15 @@ declare module "next-intl" {
   agentApplied: string;
   agentApplyFailed: string;
   applicationReceived: string;
-  categoryCreateFailed: string;
-  categoryCreated: string;
-  categoryCreatedDescription: string;
-  categoryDeleteFailed: string;
-  categoryDeleted: string;
-  categoryDeletedDescription: string;
-  categoryUpdateFailed: string;
-  categoryUpdated: string;
-  categoryUpdatedDescription: string;
   offerCreateFailed: string;
   offerCreated: string;
   offerCreatedDescription: string;
   offerDeleteFailed: string;
   offerDeleted: string;
   offerDeletedDescription: string;
+  offerStatusUpdateFailed: string;
+  offerStatusUpdated: string;
+  offerStatusUpdatedDescription: string;
   offerUpdateFailed: string;
   offerUpdated: string;
   offerUpdatedDescription: string;
@@ -125,9 +123,20 @@ declare module "next-intl" {
   operatorUpdateFailed: string;
   operatorUpdated: string;
   operatorUpdatedDescription: string;
+  orderCreateFailed: string;
+  orderCreated: string;
+  orderCreatedDescription: string;
+  orderPaid: string;
+  orderPaidDescription: string;
+  orderStatusUpdateFailed: string;
+  orderStatusUpdated: string;
+  orderStatusUpdatedDescription: string;
   passwordChangeFailed: string;
   passwordChanged: string;
   passwordChangedDescription: string;
+  paymentInitiateFailed: string;
+  paymentInitiated: string;
+  paymentInitiatedDescription: string;
   profileUpdateFailed: string;
   profileUpdated: string;
   profileUpdatedDescription: string;
@@ -159,6 +168,9 @@ declare module "next-intl" {
   userUpdateFailed: string;
   userUpdated: string;
   userUpdatedDescription: string;
+  walletPaymentFailed: string;
+  walletPaymentSucceeded: string;
+  walletPaymentSucceededDescription: string;
   welcomeBack: string;
   welcomeUser: string;
 };
@@ -172,9 +184,9 @@ declare module "next-intl" {
     SMS: string;
   };
   applicationStatus: {
-    approved: string;
-    pending: string;
-    rejected: string;
+    APPROVED: string;
+    PENDING: string;
+    REJECTED: string;
   };
   commissionType: {
     FIXED: string;
@@ -184,6 +196,11 @@ declare module "next-intl" {
     FIXED: string;
     NONE: string;
     PERCENTAGE: string;
+  };
+  earningStatus: {
+    AVAILABLE: string;
+    PENDING: string;
+    REVERSED: string;
   };
   inventoryMode: {
     LIMITED: string;
@@ -218,6 +235,21 @@ declare module "next-intl" {
     ACTIVE: string;
     ALL: string;
     INACTIVE: string;
+  };
+  orderStatus: {
+    CANCELLED: string;
+    COMPLETED: string;
+    FAILED: string;
+    PENDING: string;
+    PROCESSING: string;
+    WORKING: string;
+  };
+  paymentStatus: {
+    CANCELLED: string;
+    FAILED: string;
+    PAID: string;
+    PENDING: string;
+    REFUNDED: string;
   };
   promotionMethod: {
     communityGroup: string;
@@ -421,10 +453,6 @@ declare module "next-intl" {
     description: string;
     title: string;
   };
-  adminCategories: {
-    description: string;
-    title: string;
-  };
   adminDashboard: {
     description: string;
     title: string;
@@ -465,7 +493,15 @@ declare module "next-intl" {
     description: string;
     title: string;
   };
+  affiliateDashboard: {
+    description: string;
+    title: string;
+  };
   agentApplication: {
+    description: string;
+    title: string;
+  };
+  agentDashboard: {
     description: string;
     title: string;
   };
@@ -514,6 +550,22 @@ declare module "next-intl" {
     description: string;
     title: string;
   };
+  offers: {
+    description: string;
+    title: string;
+  };
+  orderResult: {
+    description: string;
+    title: string;
+  };
+  paymentCancel: {
+    description: string;
+    title: string;
+  };
+  paymentSuccess: {
+    description: string;
+    title: string;
+  };
   referral: {
     description: string;
     title: string;
@@ -526,6 +578,72 @@ declare module "next-intl" {
   titleTemplate: string;
 };
     dashboard: {
+  orders: {
+    orderStatuses: {
+      CANCELLED: string;
+      COMPLETED: string;
+      FAILED: string;
+      PENDING: string;
+      PROCESSING: string;
+      WORKING: string;
+    };
+    paymentStatuses: {
+      CANCELLED: string;
+      FAILED: string;
+      PAID: string;
+      PENDING: string;
+      REFUNDED: string;
+    };
+    result: {
+      backToOrders: string;
+      completedOn: string;
+      description: string;
+      fulfilmentStatus: string;
+      lastUpdated: string;
+      loadFailedTitle: string;
+      notFoundDescription: string;
+      notFoundTitle: string;
+      notProvided: string;
+      note: string;
+      offer: string;
+      operator: string;
+      orderId: string;
+      paymentStatus: string;
+      placedOn: string;
+      quantity: string;
+      summary: string;
+      targetNumber: string;
+      title: string;
+      total: string;
+      unitPrice: string;
+    };
+    status: {
+      cancelled: {
+        description: string;
+        title: string;
+      };
+      failed: {
+        description: string;
+        title: string;
+      };
+      fulfilled: {
+        description: string;
+        title: string;
+      };
+      paid: {
+        description: string;
+        title: string;
+      };
+      pending: {
+        description: string;
+        title: string;
+      };
+      refunded: {
+        description: string;
+        title: string;
+      };
+    };
+  };
   overview: {
     activity: {
       description: string;
@@ -590,9 +708,12 @@ declare module "next-intl" {
 };
     dashboardNav: {
   joinAgent: string;
+  joinAffiliate: string;
   joinReferral: string;
+  myAffiliateDashboard: string;
+  myAgentDashboard: string;
   myOrders: string;
-  myReferrals: string;
+  myReferralDashboard: string;
   myWallet: string;
   myWithdrawals: string;
   newOrder: string;
@@ -728,6 +849,48 @@ declare module "next-intl" {
     singleApplication: string;
     title: string;
   };
+  dashboard: {
+    loadErrorTitle: string;
+    loadErrorBody: string;
+    pageTitle: string;
+    pageDescription: string;
+    statusTitle: string;
+    appliedOn: string;
+    rejectionReason: string;
+    notApprovedNotice: string;
+    applyCta: string;
+    salesTitle: string;
+    completedSales: string;
+    totalSales: string;
+    totalCommission: string;
+    earningsTitle: string;
+    pending: string;
+    available: string;
+    reversed: string;
+    walletBalance: string;
+    totalEarned: string;
+    recentSalesTitle: string;
+    noSalesTitle: string;
+    noSalesBody: string;
+    earningsHistoryTitle: string;
+    noEarningsTitle: string;
+    noEarningsBody: string;
+    salesColumns: {
+      order: string;
+      targetNumber: string;
+      quantity: string;
+      total: string;
+      commission: string;
+      completedOn: string;
+    };
+    earningsColumns: {
+      date: string;
+      amount: string;
+      status: string;
+      description: string;
+      reference: string;
+    };
+  };
 };
     referral: {
   badge: {
@@ -740,6 +903,8 @@ declare module "next-intl" {
     viewAria: string;
   };
   dashboard: {
+    loadErrorTitle: string;
+    loadErrorBody: string;
     accountActive: string;
     accountPending: string;
     activeReferred: string;
@@ -755,6 +920,16 @@ declare module "next-intl" {
     referredAccountsDescription: string;
     totalReferred: string;
     totalReferredDescription: string;
+    earningsHistoryTitle: string;
+    noEarningsTitle: string;
+    noEarningsBody: string;
+    earningsColumns: {
+      date: string;
+      amount: string;
+      status: string;
+      description: string;
+      reference: string;
+    };
   };
   form: {
     applicantInfo: string;
@@ -848,10 +1023,27 @@ declare module "next-intl" {
     title: string;
     totalReferrals: string;
   };
+  milestone: {
+    title: string;
+    description: string;
+    progress: string;
+    progressCount: string;
+    qualified: string;
+    notQualified: string;
+    awarded: string;
+    awardedOn: string;
+    amount: string;
+    currency: string;
+    notConfiguredTitle: string;
+    notConfiguredBody: string;
+  };
 };
     adminNav: {
+  addOperator: string;
   agentApplications: string;
-  categoriesManagement: string;
+  allOperators: string;
+  operatorManagement: string;
+  operatorOrders: string;
   operators: string;
   ordersManagement: string;
   overview: string;
@@ -1038,6 +1230,148 @@ declare module "next-intl" {
     subtitle: string;
     title: string;
     validityLabel: string;
+  };
+};
+    offers: {
+  allCategories: string;
+  allOperators: string;
+  alwaysAvailable: string;
+  availability: string;
+  backToOffers: string;
+  badge: string;
+  badges: string;
+  benefit: string;
+  buyNow: string;
+  category: string;
+  categoryLabel: string;
+  detailsTitle: string;
+  discount: string;
+  emptyDescription: string;
+  emptyTitle: string;
+  endsAt: string;
+  errorDescription: string;
+  errorLoadingOfferDescription: string;
+  errorLoadingOfferTitle: string;
+  errorTitle: string;
+  filtersTitle: string;
+  loading: string;
+  loadingOffer: string;
+  noResultsDescription: string;
+  noResultsTitle: string;
+  offerNotFoundDescription: string;
+  offerNotFoundTitle: string;
+  offerUnavailableDescription: string;
+  offerUnavailableTitle: string;
+  operator: string;
+  operatorLabel: string;
+  pageBadge: string;
+  pageSubtitle: string;
+  pageTitle: string;
+  pageTitleAccent: string;
+  purchase: {
+    alreadyPaid: string;
+    balanceUnavailable: string;
+    cancel: string;
+    description: string;
+    done: string;
+    errorTitle: string;
+    insufficientBalance: string;
+    loginRequiredDescription: string;
+    loginRequiredTitle: string;
+    notProvided: string;
+    note: string;
+    offerUnavailable: string;
+    offerUnavailableTitle: string;
+    orderId: string;
+    payFromWallet: string;
+    placeOrder: string;
+    priceChanged: string;
+    quantity: string;
+    submitting: string;
+    successDescription: string;
+    successTitle: string;
+    summaryLine: string;
+    targetNumber: string;
+    title: string;
+    total: string;
+    viewOrder: string;
+    walletBalance: string;
+  };
+  purchaseNotImplementedDescription: string;
+  purchaseNotImplementedTitle: string;
+  regionalEligibility: string;
+  regionalEligibilityUnknown: string;
+  regularPrice: string;
+  resetFilters: string;
+  retry: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  sellingPrice: string;
+  sortLabel: string;
+  sortNameAsc: string;
+  sortNewest: string;
+  sortPriceAsc: string;
+  sortPriceDesc: string;
+  startsAt: string;
+  status: string;
+  subtitle: string;
+  terms: string;
+  title: string;
+  titleAccent: string;
+  unknownOperator: string;
+  validity: string;
+  viewAll: string;
+  viewAllOffers: string;
+  viewOffer: string;
+};
+    orders: {
+  list: {
+    browseOffers: string;
+    columns: {
+      actions: string;
+      order: string;
+      payment: string;
+      placedOn: string;
+      quantity: string;
+      status: string;
+      total: string;
+    };
+    description: string;
+    empty: string;
+    errorTitle: string;
+    filters: {
+      allPaymentStatuses: string;
+      allStatuses: string;
+    };
+    rowActions: {
+      payWithWallet: string;
+      view: string;
+    };
+    searchPlaceholder: string;
+    title: string;
+    unknownOffer: string;
+  };
+  pay: {
+    cancel: string;
+    confirm: string;
+    confirmDescription: string;
+    confirmTitle: string;
+    paying: string;
+  };
+  payment: {
+    cancel: {
+      description: string;
+      title: string;
+      viewOrder: string;
+      viewOrders: string;
+    };
+    success: {
+      backHome: string;
+      description: string;
+      reference: string;
+      title: string;
+      viewOrders: string;
+    };
   };
 };
     error: {
@@ -1468,31 +1802,91 @@ declare module "next-intl" {
     type: string;
   };
   description: string;
+  details: {
+    active: string;
+    amount: string;
+    badges: string;
+    benefit: string;
+    commercial: {
+      agentCommission: string;
+      commissionRate: string;
+      companyCost: string;
+      profitTitle: string;
+      referralCommissionRate: string;
+      resellerCommission: string;
+      subtitle: string;
+      title: string;
+    };
+    createdAt: string;
+    deletedAt: string;
+    description: string;
+    discountType: string;
+    discountValue: string;
+    endsAt: string;
+    inactive: string;
+    inventory: string;
+    inventoryMode: string;
+    metadata: string;
+    notProvided: string;
+    offerId: string;
+    offerName: string;
+    offerType: string;
+    operator: string;
+    overview: string;
+    pricing: string;
+    regularPrice: string;
+    schedule: string;
+    sellingPrice: string;
+    startsAt: string;
+    status: string;
+    stockQuantity: string;
+    unlimited: string;
+    updatedAt: string;
+    validity: string;
+  };
   empty: string;
   errorTitle: string;
   rowActions: {
     delete: string;
     edit: string;
+    pause: string;
+    resume: string;
+    view: string;
   };
   searchPlaceholder: string;
   title: string;
 };
-      categories: {
-  addCategory: string;
+      orders: {
   columns: {
     actions: string;
-    created: string;
-    description: string;
-    title: string;
+    order: string;
+    payment: string;
+    placedOn: string;
+    quantity: string;
+    status: string;
+    targetNumber: string;
+    total: string;
   };
   description: string;
   empty: string;
   errorTitle: string;
+  filters: {
+    allPaymentStatuses: string;
+    allStatuses: string;
+  };
   rowActions: {
-    delete: string;
-    edit: string;
+    manage: string;
+  };
+  searchPlaceholder: string;
+  status: {
+    cancel: string;
+    current: string;
+    description: string;
+    noTransitions: string;
+    title: string;
   };
   title: string;
+  unknownOffer: string;
 };
       operators: {
   addOperator: string;
@@ -1698,25 +2092,6 @@ declare module "next-intl" {
   validity: string;
   validityUnitPlaceholder: string;
 };
-      categoryForm: {
-  addDescription: string;
-  addTitle: string;
-  cancel: string;
-  createCategory: string;
-  creating: string;
-  deleteConfirm: string;
-  deleteConfirmDescription: string;
-  deleteTitle: string;
-  deleting: string;
-  description: string;
-  descriptionPlaceholder: string;
-  editDescription: string;
-  editTitle: string;
-  saveChanges: string;
-  saving: string;
-  title: string;
-  titlePlaceholder: string;
-};
       operatorForm: {
   active: string;
   addDescription: string;
@@ -1732,6 +2107,14 @@ declare module "next-intl" {
   deleting: string;
   editDescription: string;
   editTitle: string;
+  logoHint: string;
+  logoInvalidType: string;
+  logoLabel: string;
+  logoReplace: string;
+  logoSelect: string;
+  logoTooLarge: string;
+  logoUploadFailed: string;
+  logoUploading: string;
   namePlaceholder: string;
   operatorName: string;
   saveChanges: string;

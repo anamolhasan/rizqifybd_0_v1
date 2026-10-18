@@ -3,6 +3,7 @@ export interface IOperator {
   name: string;
   code: string;
   logo: string | null;
+  logoPublicId: string | null;
   isActive: boolean;
   isDeleted: boolean;
   deletedAt: string | null;
@@ -14,6 +15,7 @@ export interface ICreateOperatorPayload {
   name: string;
   code: string;
   logo?: string;
+  logoPublicId?: string;
   isActive?: boolean;
 }
 

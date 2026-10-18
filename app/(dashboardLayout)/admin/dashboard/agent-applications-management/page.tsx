@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+import { AgentApplicationsManagement } from "@/components/modules/agent-applications/AgentApplicationsManagement";
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("metadata");
   return {
@@ -9,7 +11,6 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function AgentApplicationsManagementPage() {
-  const t = await getTranslations("admin");
-  return <div>{t("placeholders.agentApplications")}</div>;
+export default function AgentApplicationsManagementPage() {
+  return <AgentApplicationsManagement />;
 }

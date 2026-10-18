@@ -6,7 +6,6 @@ import { useTranslations } from "next-intl";
 
 import { cn } from "@/lib/utils";
 
-import { CategoryMegaMenu } from "./CategoryMegaMenu";
 import { PUBLIC_NAV_LINKS } from "./nav-config";
 
 const LINK_CLASS =
@@ -40,8 +39,6 @@ export function PrimaryNavigation() {
           {t(home.labelKey)}
         </Link>
       ) : null}
-
-      <CategoryMegaMenu />
 
       {restLinks.map((link) => {
         const active = isActive(link.href, link.match);

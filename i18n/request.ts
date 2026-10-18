@@ -18,6 +18,7 @@ const ROOT_NAMESPACES = [
   "dashboardNav",
   "profile",
   "agent",
+  "affiliate",
   "referral",
   "adminNav",
   "faq",
@@ -25,6 +26,8 @@ const ROOT_NAMESPACES = [
   "notFound",
   "loading",
   "features",
+  "offers",
+  "orders",
 ] as const;
 
 const ADMIN_NAMESPACES = [
@@ -33,14 +36,15 @@ const ADMIN_NAMESPACES = [
   "users",
   "roleAccess",
   "operatorOffers",
-  "categories",
   "operators",
   "referralApplications",
+  "agentApplications",
+  "affiliateApplications",
   "settings",
   "operatorOfferForm",
-  "categoryForm",
   "operatorForm",
   "operatorOfferProfit",
+  "orders",
 ] as const;
 
 export default getRequestConfig(async ({ locale }) => {

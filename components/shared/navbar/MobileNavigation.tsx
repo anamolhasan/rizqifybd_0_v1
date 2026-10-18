@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
-  ChevronDown,
   Headphones,
   Key,
   LayoutDashboard,
@@ -14,7 +13,6 @@ import {
   Mail,
   Menu,
   Phone,
-  Tag,
   User,
 } from "lucide-react";
 
@@ -31,7 +29,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { useCategories } from "@/hooks/use-categories";
 import { useCurrentUser, useLogout } from "@/hooks/use-auth";
 import { getDefaultDashboardRoute } from "@/lib/authUtils";
 import { isStaffRole, type Role } from "@/types/enums";
@@ -39,22 +36,18 @@ import { cn } from "@/lib/utils";
 
 import {
   PUBLIC_NAV_LINKS,
-  SERVICES_ROUTE,
   SUPPORT_EMAIL,
   SUPPORT_PHONE,
 } from "./nav-config";
 
 export function MobileNavigation() {
   const [open, setOpen] = useState(false);
-  const [categoriesOpen, setCategoriesOpen] = useState(false);
   const pathname = usePathname();
   const t = useTranslations();
 
-  const { data: categoriesData } = useCategories();
   const { data: user } = useCurrentUser();
   const logout = useLogout();
 
-  const categories = categoriesData?.data ?? [];
   const role = user?.role as Role | undefined;
   const dashboardHref = getDefaultDashboardRoute(role);
   const dashboardLabel = isStaffRole(role)
@@ -110,54 +103,6 @@ export function MobileNavigation() {
                   </SheetClose>
                 );
               })}
-
-              <button
-                type="button"
-                onClick={() => setCategoriesOpen((value) => !value)}
-                aria-expanded={categoriesOpen}
-                aria-controls="mobile-categories"
-                className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-              >
-                <span className="inline-flex items-center gap-2">
-                  <Tag className="size-4" />
-                  {t("nav.categories")}
-                </span>
-                <ChevronDown
-                  className={cn(
-                    "size-4 transition-transform",
-                    categoriesOpen && "rotate-180",
-                  )}
-                />
-              </button>
-
-              {categoriesOpen ? (
-                <div id="mobile-categories" className="space-y-0.5 py-1 pl-6">
-                  {categories.length > 0 ? (
-                    categories.map((category) => (
-                      <SheetClose asChild key={category.id}>
-                        <Link
-                          href={SERVICES_ROUTE}
-                          className="block truncate rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                        >
-                          {category.title}
-                        </Link>
-                      </SheetClose>
-                    ))
-                  ) : (
-                    <p className="px-3 py-2 text-sm text-muted-foreground">
-                      {t("nav.categoriesUnavailable")}
-                    </p>
-                  )}
-                  <SheetClose asChild>
-                    <Link
-                      href={SERVICES_ROUTE}
-                      className="block rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-muted"
-                    >
-                      {t("nav.allServices")}
-                    </Link>
-                  </SheetClose>
-                </div>
-              ) : null}
             </nav>
 
             <Separator className="my-3" />

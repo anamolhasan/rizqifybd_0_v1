@@ -1,4 +1,5 @@
 import {
+  AFFILIATE_APPLICATION_ACTORS,
   AGENT_APPLICATION_ACTORS,
   CONTENT_ADMIN_ROLES,
   FINANCE_ROLES,
@@ -7,7 +8,7 @@ import {
   WITHDRAWAL_STAFF_ROLES,
 } from "@/types/enums";
 import type { Role } from "@/types/enums";
-import type { NavSection } from "@/types/dashboard.types";
+import type { NavItem, NavSection } from "@/types/dashboard.types";
 
 // Navigation shared by every authenticated user, regardless of role. Items here
 // must point at routes every signed-in user is allowed to reach. Titles are
@@ -18,8 +19,23 @@ const COMMON_NAV_SECTIONS: NavSection[] = [
     items: [
       {
         titleKey: "dashboardNav.joinAgent",
-        href: "/dashboard/agent-application",
+        href: "/agent",
         icon: "agents",
+      },
+      {
+        titleKey: "dashboardNav.myAgentDashboard",
+        href: "/dashboard/my-agent",
+        icon: "agents",
+      },
+      {
+        titleKey: "dashboardNav.joinAffiliate",
+        href: "/affiliate",
+        icon: "affiliate",
+      },
+      {
+        titleKey: "dashboardNav.myAffiliateDashboard",
+        href: "/dashboard/my-affiliate",
+        icon: "affiliate",
       },
       {
         titleKey: "dashboardNav.joinReferral",
@@ -27,7 +43,7 @@ const COMMON_NAV_SECTIONS: NavSection[] = [
         icon: "referrals",
       },
       {
-        titleKey: "dashboardNav.myReferrals",
+        titleKey: "dashboardNav.myReferralDashboard",
         href: "/dashboard/my-referrals",
         icon: "referrals",
       },
@@ -88,18 +104,6 @@ const STAFF_NAV_SECTIONS: NavSection[] = [
     titleKey: "adminNav.sections.management",
     items: [
       {
-        titleKey: "adminNav.categoriesManagement",
-        href: "/admin/dashboard/categories-management",
-        icon: "offers",
-        includedRoles: CONTENT_ADMIN_ROLES,
-      },
-      {
-        titleKey: "adminNav.ordersManagement",
-        href: "/admin/dashboard/orders-management",
-        icon: "orders",
-        includedRoles: ORDER_STAFF_ROLES,
-      },
-      {
         titleKey: "adminNav.withdrawalsManagement",
         href: "/admin/dashboard/withdrawals-management",
         icon: "withdrawals",
@@ -110,17 +114,38 @@ const STAFF_NAV_SECTIONS: NavSection[] = [
   {
     titleKey: "adminNav.sections.telecom",
     items: [
+      // Grouped operator navigation. The parent only toggles the submenu (it is
+      // not a link); each child carries its original route and role visibility.
       {
-        titleKey: "adminNav.operators",
+        titleKey: "adminNav.operatorManagement",
         href: "/admin/dashboard/operators-management",
         icon: "operators",
-        includedRoles: CONTENT_ADMIN_ROLES,
-      },
-      {
-        titleKey: "adminNav.telecomOffers",
-        href: "/admin/dashboard/operator-offers",
-        icon: "offers",
-        includedRoles: CONTENT_ADMIN_ROLES,
+        children: [
+          {
+            titleKey: "adminNav.allOperators",
+            href: "/admin/dashboard/operators-management",
+            icon: "operators",
+            includedRoles: CONTENT_ADMIN_ROLES,
+          },
+          {
+            titleKey: "adminNav.addOperator",
+            href: "/admin/dashboard/operators-management?action=new",
+            icon: "add",
+            includedRoles: CONTENT_ADMIN_ROLES,
+          },
+          {
+            titleKey: "adminNav.telecomOffers",
+            href: "/admin/dashboard/operator-offers",
+            icon: "offers",
+            includedRoles: CONTENT_ADMIN_ROLES,
+          },
+          {
+            titleKey: "adminNav.operatorOrders",
+            href: "/admin/dashboard/orders-management",
+            icon: "orders",
+            includedRoles: ORDER_STAFF_ROLES,
+          },
+        ],
       },
     ],
   },
@@ -158,6 +183,12 @@ const STAFF_NAV_SECTIONS: NavSection[] = [
         includedRoles: AGENT_APPLICATION_ACTORS,
       },
       {
+        titleKey: "adminNav.affiliateApplications",
+        href: "/admin/dashboard/affiliate-applications-management",
+        icon: "affiliate",
+        includedRoles: AFFILIATE_APPLICATION_ACTORS,
+      },
+      {
         titleKey: "adminNav.settings",
         href: "/admin/dashboard/settings",
         icon: "settings",
@@ -176,13 +207,35 @@ const CUSTOMER_NAV_SECTIONS: NavSection[] = [
       {
         titleKey: "nav.home",
         href: "/",
-        icon: "House",
+        icon: "house",
       },
     ],
   },
 ];
 
 // Keeps items the role is allowed to see, then drops sections that become empty.
+// Nested children are filtered individually; a grouped item only stays when at
+// least one of its children survives the filter.
+function canSeeItem(item: NavItem, role: Role | undefined | null): boolean {
+  if (!item.includedRoles) return true;
+  return role ? item.includedRoles.includes(role) : false;
+}
+
+function filterItem(
+  item: NavItem,
+  role: Role | undefined | null,
+): NavItem | null {
+  if (!canSeeItem(item, role)) return null;
+  if (!item.children?.length) return item;
+
+  const children = item.children
+    .map((child) => filterItem(child, role))
+    .filter((child): child is NavItem => child !== null);
+  if (children.length === 0) return null;
+
+  return { ...item, children };
+}
+
 function filterSectionsByRole(
   sections: NavSection[],
   role: Role | undefined | null,
@@ -190,11 +243,9 @@ function filterSectionsByRole(
   return sections
     .map((section) => ({
       ...section,
-      items: section.items.filter(
-        (item) =>
-          !item.includedRoles ||
-          (role ? item.includedRoles.includes(role) : false),
-      ),
+      items: section.items
+        .map((item) => filterItem(item, role))
+        .filter((item): item is NavItem => item !== null),
     }))
     .filter((section) => section.items.length > 0);
 }

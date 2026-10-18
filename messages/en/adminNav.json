@@ -6,15 +6,19 @@
     "administration": "Administration"
   },
   "overview": "Overview",
-  "categoriesManagement": "Categories Management",
   "ordersManagement": "Orders Management",
   "withdrawalsManagement": "Withdrawals Management",
   "operators": "Operators",
+  "operatorManagement": "Operator Management",
+  "allOperators": "All Operators",
+  "addOperator": "Add Operator",
+  "operatorOrders": "Operator Orders",
   "telecomOffers": "Operator Offers",
   "userManagement": "User Management",
   "roleAccess": "Role Access",
   "walletsManagement": "Wallets Management",
   "referralApplications": "Referral Applications",
   "agentApplications": "Agent Applications",
+  "affiliateApplications": "Affiliate Applications",
   "settings": "Settings"
 }

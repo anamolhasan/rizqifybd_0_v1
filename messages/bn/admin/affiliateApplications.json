@@ -1,0 +1,56 @@
+{
+  "title": "অ্যাফিলিয়েট আবেদন ম্যানেজমেন্ট",
+  "description": "অ্যাফিলিয়েট প্রোগ্রামের আবেদন পর্যালোচনা ও পরিচালনা করুন।",
+  "searchPlaceholder": "আবেদনকারীর নাম বা ইমেইল দিয়ে সার্চ করুন",
+  "errorTitle": "অ্যাফিলিয়েট আবেদন লোড করতে ব্যর্থ",
+  "empty": "কোনো অ্যাফিলিয়েট আবেদন পাওয়া যায়নি।",
+  "stats": {
+    "total": "সব",
+    "pending": "মুলতুবি",
+    "approved": "অনুমোদিত",
+    "rejected": "বাতিল"
+  },
+  "filters": {
+    "status": "অবস্থা",
+    "statusPlaceholder": "অবস্থা",
+    "allStatuses": "সকল অবস্থা",
+    "clear": "ফিল্টার পরিষ্কার"
+  },
+  "columns": {
+    "applicant": "আবেদনকারী",
+    "email": "ইমেইল",
+    "status": "অবস্থা",
+    "createdAt": "আবেদন করা",
+    "reviewedBy": "পর্যালোচনা করেছেন",
+    "actions": "কার্যক্রম"
+  },
+  "rowActions": {
+    "view": "বিস্তারিত দেখুন",
+    "approve": "অনুমোদন করুন",
+    "reject": "বাতিল করুন"
+  },
+  "details": {
+    "title": "অ্যাফিলিয়েট আবেদন",
+    "description": "জমা করা বিবরণ এবং পর্যালোচনার ইতিহাস।",
+    "applicant": "আবেদনকারী",
+    "email": "ইমেইল",
+    "status": "অবস্থা",
+    "reason": "কারণ",
+    "appliedAt": "আবেদন করা",
+    "reviewedBy": "পর্যালোচনা করেছেন",
+    "reviewedAt": "পর্যালোচনা করা",
+    "rejectionReason": "বাতিলের কারণ"
+  },
+  "review": {
+    "approveTitle": "আবেদন অনুমোদন করুন",
+    "approveDescription": "অনুমোদন করলে আবেদনকারী অ্যাফিলিয়েট সদস্যপদ পাবেন।",
+    "rejectTitle": "আবেদন বাতিল করুন",
+    "rejectDescription": "এই অ্যাফিলিয়েট আবেদন বাতিলের কারণ লিখুন।",
+    "reason": "বাতিলের কারণ",
+    "reasonPlaceholder": "বাতিলের কারণ ব্যাখ্যা করুন...",
+    "reasonRequired": "বাতিলের কারণ আবশ্যক",
+    "cancel": "বাতিল",
+    "submit": "জমা দিন",
+    "submitting": "জমা হচ্ছে..."
+  }
+}

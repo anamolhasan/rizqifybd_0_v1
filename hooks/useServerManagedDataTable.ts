@@ -63,7 +63,7 @@ export function useServerManagedDataTable<TData>({
     initialState: {
       sorting: [{ id: "createdAt", desc: true }],
     },
-    estimatedTotalRowCount: autoPagination?.total ?? estimatedTotalRows,
+    rowCount: autoPagination?.total ?? estimatedTotalRows,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     meta: {

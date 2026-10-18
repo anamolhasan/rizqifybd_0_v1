@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Noto_Sans_Bengali } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import "./globals.css";
+import { AffiliateVisitTracker } from "@/components/modules/affiliate/AffiliateVisitTracker";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import QueryProviders from "@/providers/QueryProviders";
@@ -59,6 +60,8 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               {children}
+              {/* Records a first-touch affiliate attribution (`?aff=CODE`). */}
+              <AffiliateVisitTracker />
               <Toaster position="top-center" richColors />
             </ThemeProvider>
           </NextIntlClientProvider>

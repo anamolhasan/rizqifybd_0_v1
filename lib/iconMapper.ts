@@ -8,6 +8,8 @@ import {
   ClipboardList,
   CreditCard,
   Gift,
+  Handshake,
+  House,
   Landmark,
   LayoutDashboard,
   Lock,
@@ -18,6 +20,7 @@ import {
   ShieldCheck,
   ShoppingBag,
   Smartphone,
+  Tags,
   TrendingDown,
   TrendingUp,
   User,
@@ -38,6 +41,7 @@ const iconMap: Record<string, LucideIcon> = {
   wallet: Wallet,
   referrals: Gift,
   agents: BadgeCheck,
+  affiliate: Handshake,
   add: Plus,
   activity: Activity,
   "trending-up": TrendingUp,
@@ -50,6 +54,8 @@ const iconMap: Record<string, LucideIcon> = {
   shield: ShieldCheck,
   refresh: RefreshCcw,
   settings: Settings,
+  offers: Tags,
+  house: House,
 };
 
 export type IconName =
@@ -64,6 +70,7 @@ export type IconName =
   | "wallet"
   | "referrals"
   | "agents"
+  | "affiliate"
   | "add"
   | "activity"
   | "trending-up"
@@ -75,7 +82,9 @@ export type IconName =
   | "bank"
   | "shield"
   | "refresh"
-  | "settings";
+  | "settings"
+  | "offers"
+  | "house";
 
 export function getIconComponent(
   name: string,

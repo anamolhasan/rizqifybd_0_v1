@@ -2,9 +2,9 @@ import type { ReferralApplicationStatus } from "@/types/enums";
 import type { ReferralPromotionMethod } from "@/types/referral.types";
 
 const STATUS_KEY_MAP: Record<ReferralApplicationStatus, string> = {
-  PENDING: "pending",
-  APPROVED: "approved",
-  REJECTED: "rejected",
+  PENDING: "PENDING",
+  APPROVED: "APPROVED",
+  REJECTED: "REJECTED",
 };
 
 const METHOD_KEY_MAP: Record<ReferralPromotionMethod, string> = {

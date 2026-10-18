@@ -6,15 +6,19 @@
     "administration": "প্রশাসন"
   },
   "overview": "ওভারভিউ",
-  "categoriesManagement": "ক্যাটাগরি ব্যবস্থাপনা",
   "ordersManagement": "অর্ডার ব্যবস্থাপনা",
   "withdrawalsManagement": "উইথড্রয়াল ব্যবস্থাপনা",
   "operators": "অপারেটর",
+  "operatorManagement": "অপারেটর ব্যবস্থাপনা",
+  "allOperators": "সকল অপারেটর",
+  "addOperator": "অপারেটর যোগ করুন",
+  "operatorOrders": "অপারেটর অর্ডার",
   "telecomOffers": "অপারেটর অফার",
   "userManagement": "ব্যবহারকারী ব্যবস্থাপনা",
   "roleAccess": "রোল অ্যাক্সেস",
   "walletsManagement": "ওয়ালেট ব্যবস্থাপনা",
   "referralApplications": "রেফারেল আবেদন",
   "agentApplications": "এজেন্ট আবেদন",
+  "affiliateApplications": "অ্যাফিলিয়েট আবেদন",
   "settings": "সেটিংস"
 }

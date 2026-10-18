@@ -299,7 +299,7 @@ export function SupportCTA() {
 
           <div
             aria-hidden="true"
-            className="absolute inset-x-10 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent sm:inset-x-20"
+            className="absolute inset-x-10 bottom-0 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent sm:inset-x-20"
           />
         </div>
       </div>

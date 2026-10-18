@@ -117,6 +117,8 @@
     "toastShareFailed": "Could not share the referral link"
   },
   "dashboard": {
+    "loadErrorTitle": "Couldn't load your referrals",
+    "loadErrorBody": "There was a problem talking to the server. Please try again in a moment.",
     "linkDescription": "Share this link with your network. Anyone who signs up with your code is attributed to you as a referral.",
     "totalReferred": "Total referred accounts",
     "totalReferredDescription": "Accounts that signed up with your code.",
@@ -131,7 +133,31 @@
     "emptyTitle": "No referrals yet",
     "emptyBody": "Share your referral link to get started. New sign-ups will appear here as soon as they join.",
     "accountActive": "Active",
-    "accountPending": "Pending"
+    "accountPending": "Pending",
+    "earningsHistoryTitle": "Earnings history",
+    "noEarningsTitle": "No earnings yet",
+    "noEarningsBody": "Referral income credited to you will appear here.",
+    "earningsColumns": {
+      "date": "Date",
+      "amount": "Amount",
+      "status": "Status",
+      "description": "Description",
+      "reference": "Reference"
+    }
+  },
+  "milestone": {
+    "title": "Referral milestone",
+    "description": "Reach the active referral target to qualify for the one-time milestone reward.",
+    "progress": "Milestone progress",
+    "progressCount": "{current} / {target} active referrals",
+    "qualified": "Qualified",
+    "notQualified": "Not qualified yet",
+    "awarded": "Reward awarded",
+    "awardedOn": "Awarded on",
+    "amount": "Reward amount",
+    "currency": "Currency",
+    "notConfiguredTitle": "Reward amount not configured yet",
+    "notConfiguredBody": "The milestone reward amount has not been set by the business yet, so no amount is shown. You can still qualify for it."
   },
   "pageTitle": "My Referral",
   "pageDescription": "Your referral partner dashboard — share your link and track your referrals."

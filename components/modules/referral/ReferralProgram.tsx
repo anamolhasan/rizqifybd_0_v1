@@ -7,6 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ProgramAuthPrompt } from "@/components/shared/ProgramAuthPrompt";
 import { useMyReferral } from "@/hooks/use-referral";
 import { useCurrentUser } from "@/hooks/use-auth";
 import { ReferralApplicationForm } from "./ReferralApplicationForm";
@@ -17,9 +18,10 @@ import { ReferralStatusCard } from "./ReferralStatusCard";
 export function ReferralProgram() {
   const t = useTranslations("referral.program");
   const tc = useTranslations("common");
-  const { data: user } = useCurrentUser();
+  const { data: user, isLoading: isUserLoading } = useCurrentUser();
+  const isAuthed = Boolean(user);
   const { data: me, isLoading, isError, error, refetch, isFetching } =
-    useMyReferral();
+    useMyReferral(isAuthed);
 
   return (
     <section className="relative isolate overflow-hidden bg-background">
@@ -53,9 +55,13 @@ export function ReferralProgram() {
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2 lg:items-start">
           <div className="space-y-6">
-            <ReferralLinkCard />
+            <ReferralLinkCard enabled={isAuthed} />
 
-            {isLoading ? (
+            {isUserLoading ? (
+              <ReferralActionSkeleton />
+            ) : !user ? (
+              <ProgramAuthPrompt />
+            ) : isLoading ? (
               <ReferralActionSkeleton />
             ) : isError ? (
               <Alert variant="destructive" role="alert">

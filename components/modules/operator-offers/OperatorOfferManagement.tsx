@@ -20,18 +20,30 @@ import {
   AlertTitle,
 } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { useOperatorOffers } from "@/hooks/use-operator-offers";
+import { useCurrentUser } from "@/hooks/use-auth";
+import {
+  useChangeOperatorOfferStatus,
+  useOperatorOffers,
+} from "@/hooks/use-operator-offers";
 import { useServerManagedDataTableSearch } from "@/hooks/useServerManagedDataTableSearch";
 import { OperatorOfferDeleteDialog } from "@/components/modules/operator-offers/OperatorOfferDeleteDialog";
+import { OperatorOfferDetailsDrawer } from "@/components/modules/operator-offers/OperatorOfferDetailsDrawer";
 import { OperatorOfferFormDialog } from "@/components/modules/operator-offers/OperatorOfferFormDialog";
 import { getOperatorOfferColumns } from "@/components/modules/operator-offers/OperatorOfferColumns";
+import { isContentAdmin } from "@/types/enums";
+import type { Role } from "@/types/enums";
 import type { IOperatorOffer } from "@/types/operator-offer.types";
 
 export function OperatorOfferManagement() {
   const t = useTranslations("admin.operatorOffers");
   const tc = useTranslations("common");
+  const { data: currentUser } = useCurrentUser();
+  const actorRole = currentUser?.role as Role | undefined;
+  // Commercial figures are surfaced to content administrators only.
+  const canViewCommercial = isContentAdmin(actorRole);
   const [formOpen, setFormOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [selectedOffer, setSelectedOffer] = useState<IOperatorOffer | null>(null);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -54,9 +66,15 @@ export function OperatorOfferManagement() {
     searchTerm,
   });
 
+  const { mutate: changeStatus } = useChangeOperatorOfferStatus();
+
   const columns = useMemo(
     () =>
       getOperatorOfferColumns({
+        onView: (offer) => {
+          setSelectedOffer(offer);
+          setDetailsOpen(true);
+        },
         onEdit: (offer) => {
           setSelectedOffer(offer);
           setFormOpen(true);
@@ -65,6 +83,8 @@ export function OperatorOfferManagement() {
           setSelectedOffer(offer);
           setDeleteOpen(true);
         },
+        onPause: (offer) => changeStatus({ id: offer.id, action: "pause" }),
+        onResume: (offer) => changeStatus({ id: offer.id, action: "resume" }),
         labels: {
           offer: t("columns.offer"),
           operator: t("columns.operator"),
@@ -73,11 +93,14 @@ export function OperatorOfferManagement() {
           commission: t("columns.commission"),
           status: t("columns.status"),
           actions: t("columns.actions"),
+          view: t("rowActions.view"),
           edit: t("rowActions.edit"),
           delete: t("rowActions.delete"),
+          pause: t("rowActions.pause"),
+          resume: t("rowActions.resume"),
         },
       }),
-    [t],
+    [t, changeStatus],
   );
 
   const rows = useMemo(() => data?.data ?? [], [data]);
@@ -159,6 +182,13 @@ export function OperatorOfferManagement() {
           ) : null}
         </DataTable>
       )}
+
+      <OperatorOfferDetailsDrawer
+        open={detailsOpen}
+        onOpenChange={setDetailsOpen}
+        offer={selectedOffer}
+        canViewCommercial={canViewCommercial}
+      />
 
       <OperatorOfferFormDialog
         open={formOpen}

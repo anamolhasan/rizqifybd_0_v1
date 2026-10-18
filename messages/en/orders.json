@@ -1,0 +1,50 @@
+{
+  "list": {
+    "title": "My Orders",
+    "description": "Track the orders you've placed and pay pending ones from your wallet.",
+    "searchPlaceholder": "Search by target number...",
+    "errorTitle": "Failed to load orders",
+    "empty": "You haven't placed any orders yet.",
+    "browseOffers": "Browse offers",
+    "unknownOffer": "Offer unavailable",
+    "columns": {
+      "order": "Order",
+      "quantity": "Quantity",
+      "total": "Total",
+      "payment": "Payment",
+      "status": "Status",
+      "placedOn": "Placed on",
+      "actions": "Actions"
+    },
+    "rowActions": {
+      "view": "View order",
+      "payWithWallet": "Pay with wallet"
+    },
+    "filters": {
+      "allStatuses": "All order statuses",
+      "allPaymentStatuses": "All payment statuses"
+    }
+  },
+  "pay": {
+    "confirmTitle": "Pay from wallet?",
+    "confirmDescription": "{total} will be deducted from your wallet balance.",
+    "confirm": "Pay now",
+    "paying": "Paying...",
+    "cancel": "Cancel"
+  },
+  "payment": {
+    "success": {
+      "title": "Payment successful",
+      "description": "Your payment was received. Your order is now being processed.",
+      "reference": "Payment reference",
+      "viewOrders": "View my orders",
+      "backHome": "Back to home"
+    },
+    "cancel": {
+      "title": "Payment cancelled",
+      "description": "No payment was taken. You can pay for this order any time from your orders.",
+      "viewOrder": "View order",
+      "viewOrders": "View my orders"
+    }
+  }
+}
